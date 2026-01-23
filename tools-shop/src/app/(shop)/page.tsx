@@ -11,7 +11,6 @@ import {
   Ruler,
   Leaf,
   ChevronRight,
-  Star,
   Flame,
   Package
 } from 'lucide-react';
@@ -148,14 +147,6 @@ export default async function HomePage() {
 
               {/* Trust badges */}
               <div className="mt-10 flex flex-wrap items-center gap-6 text-slate-400 text-sm">
-                <div className="flex items-center gap-2">
-                  <div className="flex -space-x-1">
-                    {[1,2,3,4,5].map(i => (
-                      <Star key={i} size={16} className="text-yellow-400 fill-yellow-400" />
-                    ))}
-                  </div>
-                  <span>4.9/5 от 500+ отзива</span>
-                </div>
                 <div className="flex items-center gap-2">
                   <Shield size={18} className="text-green-400" />
                   <span>2 години гаранция</span>
