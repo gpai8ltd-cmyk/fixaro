@@ -10,10 +10,7 @@ import {
   Truck,
   Shield,
   CreditCard,
-  Award,
-  Lock,
-  BadgeCheck,
-  RotateCcw
+  Award
 } from 'lucide-react';
 
 export default function Footer() {
@@ -209,60 +206,12 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Security badges */}
-      <div className="border-t border-slate-700">
-        <div className="container-custom py-6">
-          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
-            <div className="flex items-center gap-2 text-slate-400">
-              <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
-                <Lock className="text-green-400" size={20} />
-              </div>
-              <div className="text-sm">
-                <p className="text-white font-medium">SSL Защита</p>
-                <p className="text-xs text-slate-500">256-bit криптиране</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 text-slate-400">
-              <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                <BadgeCheck className="text-blue-400" size={20} />
-              </div>
-              <div className="text-sm">
-                <p className="text-white font-medium">Верифициран магазин</p>
-                <p className="text-xs text-slate-500">Сигурно пазаруване</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 text-slate-400">
-              <div className="w-10 h-10 bg-amber-500/20 rounded-lg flex items-center justify-center">
-                <RotateCcw className="text-amber-400" size={20} />
-              </div>
-              <div className="text-sm">
-                <p className="text-white font-medium">14 дни връщане</p>
-                <p className="text-xs text-slate-500">Без обяснения</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 text-slate-400">
-              <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                <Shield className="text-purple-400" size={20} />
-              </div>
-              <div className="text-sm">
-                <p className="text-white font-medium">Защита на данни</p>
-                <p className="text-xs text-slate-500">GDPR съвместим</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Bottom bar */}
       <div className="border-t border-slate-700">
-        <div className="container-custom py-4 flex flex-col sm:flex-row justify-between items-center gap-2">
-          <p className="text-slate-500 text-sm">
+        <div className="container-custom py-4">
+          <p className="text-slate-500 text-sm text-center sm:text-left">
             &copy; {new Date().getFullYear()} ToolsShop. Всички права запазени.
           </p>
-          <div className="flex items-center gap-4">
-            <img src="/images/econt.png" alt="Еконт" className="h-6 opacity-70" />
-            <img src="/images/speedy.png" alt="Спиди" className="h-6 opacity-70" />
-          </div>
         </div>
       </div>
 
