@@ -71,30 +71,30 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FIX-01 | TBD | Pending |
-| FIX-02 | TBD | Pending |
-| FIX-03 | TBD | Pending |
-| FIX-04 | TBD | Pending |
-| NAV-01 | TBD | Pending |
-| NAV-02 | TBD | Pending |
-| INFO-01 | TBD | Pending |
-| INFO-02 | TBD | Pending |
-| INFO-03 | TBD | Pending |
-| INFO-04 | TBD | Pending |
-| INFO-05 | TBD | Pending |
-| INFO-06 | TBD | Pending |
-| ANIM-01 | TBD | Pending |
-| ANIM-02 | TBD | Pending |
-| ANIM-03 | TBD | Pending |
-| ANIM-04 | TBD | Pending |
-| ANIM-05 | TBD | Pending |
-| ANIM-06 | TBD | Pending |
+| FIX-01 | Phase 1 | Pending |
+| FIX-02 | Phase 1 | Pending |
+| FIX-03 | Phase 1 | Pending |
+| FIX-04 | Phase 1 | Pending |
+| NAV-01 | Phase 1 | Pending |
+| NAV-02 | Phase 1 | Pending |
+| INFO-01 | Phase 2 | Pending |
+| INFO-02 | Phase 2 | Pending |
+| INFO-03 | Phase 2 | Pending |
+| INFO-04 | Phase 2 | Pending |
+| INFO-05 | Phase 2 | Pending |
+| INFO-06 | Phase 2 | Pending |
+| ANIM-01 | Phase 3 | Pending |
+| ANIM-02 | Phase 3 | Pending |
+| ANIM-03 | Phase 3 | Pending |
+| ANIM-04 | Phase 3 | Pending |
+| ANIM-05 | Phase 3 | Pending |
+| ANIM-06 | Phase 3 | Pending |
 
 **Coverage:**
 - v1 requirements: 18 total
-- Mapped to phases: 0
-- Unmapped: 18
+- Mapped to phases: 18
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-23*
-*Last updated: 2026-01-23 after initial definition*
+*Last updated: 2026-01-23 after roadmap creation*
