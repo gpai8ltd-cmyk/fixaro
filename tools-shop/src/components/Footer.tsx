@@ -1,0 +1,279 @@
+import Link from 'next/link';
+import {
+  Wrench,
+  Phone,
+  Mail,
+  MapPin,
+  Facebook,
+  Instagram,
+  Clock,
+  Truck,
+  Shield,
+  CreditCard,
+  Award,
+  Lock,
+  BadgeCheck,
+  RotateCcw
+} from 'lucide-react';
+
+export default function Footer() {
+  return (
+    <footer className="bg-[var(--secondary)] text-white">
+      {/* Trust badges section */}
+      <div className="border-b border-slate-700">
+        <div className="container-custom py-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-[var(--primary)]/20 rounded-xl flex items-center justify-center">
+                <Truck className="text-[var(--primary)]" size={24} />
+              </div>
+              <div>
+                <p className="font-semibold text-white">Безплатна доставка</p>
+                <p className="text-sm text-slate-400">За поръчки над 100 лв.</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-[var(--primary)]/20 rounded-xl flex items-center justify-center">
+                <Shield className="text-[var(--primary)]" size={24} />
+              </div>
+              <div>
+                <p className="font-semibold text-white">2 години гаранция</p>
+                <p className="text-sm text-slate-400">На всички продукти</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-[var(--primary)]/20 rounded-xl flex items-center justify-center">
+                <CreditCard className="text-[var(--primary)]" size={24} />
+              </div>
+              <div>
+                <p className="font-semibold text-white">Наложен платеж</p>
+                <p className="text-sm text-slate-400">Плащане при доставка</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-[var(--primary)]/20 rounded-xl flex items-center justify-center">
+                <Award className="text-[var(--primary)]" size={24} />
+              </div>
+              <div>
+                <p className="font-semibold text-white">Оригинални продукти</p>
+                <p className="text-sm text-slate-400">100% качество</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main footer */}
+      <div className="container-custom py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Brand */}
+          <div>
+            <Link href="/" className="flex items-center gap-2 mb-4">
+              <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
+                <Wrench className="text-white" size={24} />
+              </div>
+              <span className="text-xl font-bold">
+                <span className="text-[var(--primary)]">Tools</span>
+                <span>Shop</span>
+              </span>
+            </Link>
+            <p className="text-slate-400 text-sm leading-relaxed mb-4">
+              Вашият надежден партньор за качествени инструменти.
+              Предлагаме широка гама от електроинструменти и ръчни инструменти
+              на достъпни цени.
+            </p>
+            {/* Newsletter */}
+            <div className="mt-4">
+              <p className="text-sm font-medium mb-2">Абонирайте се за оферти</p>
+              <div className="flex gap-2">
+                <input
+                  type="email"
+                  placeholder="Вашият имейл"
+                  className="flex-1 px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-sm text-white placeholder-slate-400 focus:outline-none focus:border-[var(--primary)]"
+                />
+                <button className="px-4 py-2 bg-[var(--primary)] hover:bg-[var(--primary-dark)] rounded-lg text-sm font-medium transition-colors">
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick links */}
+          <div>
+            <h3 className="font-bold text-lg mb-4">Бързи връзки</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/products" className="text-slate-400 hover:text-[var(--primary)] transition-colors">
+                  Всички продукти
+                </Link>
+              </li>
+              <li>
+                <Link href="/products?sale=true" className="text-slate-400 hover:text-[var(--primary)] transition-colors">
+                  Намаления
+                </Link>
+              </li>
+              <li>
+                <Link href="/products?category=elektro-instrumenti" className="text-slate-400 hover:text-[var(--primary)] transition-colors">
+                  Електроинструменти
+                </Link>
+              </li>
+              <li>
+                <Link href="/products?category=rachni-instrumenti" className="text-slate-400 hover:text-[var(--primary)] transition-colors">
+                  Ръчни инструменти
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Customer service */}
+          <div>
+            <h3 className="font-bold text-lg mb-4">Информация</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/terms" className="text-slate-400 hover:text-[var(--primary)] transition-colors">
+                  Общи условия
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy" className="text-slate-400 hover:text-[var(--primary)] transition-colors">
+                  Политика за поверителност
+                </Link>
+              </li>
+              <li>
+                <Link href="/cookies" className="text-slate-400 hover:text-[var(--primary)] transition-colors">
+                  Политика за бисквитки
+                </Link>
+              </li>
+              <li>
+                <Link href="/delivery" className="text-slate-400 hover:text-[var(--primary)] transition-colors">
+                  Условия за доставка
+                </Link>
+              </li>
+              <li>
+                <Link href="/returns" className="text-slate-400 hover:text-[var(--primary)] transition-colors">
+                  Право на връщане
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="text-slate-400 hover:text-[var(--primary)] transition-colors">
+                  Контакти
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h3 className="font-bold text-lg mb-4">Контакти</h3>
+            <ul className="space-y-3">
+              <li>
+                <a href="tel:+359888123456" className="flex items-center gap-2 text-slate-400 hover:text-[var(--primary)] transition-colors">
+                  <Phone size={18} />
+                  <span>+359 888 123 456</span>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:info@toolsshop.bg" className="flex items-center gap-2 text-slate-400 hover:text-[var(--primary)] transition-colors">
+                  <Mail size={18} />
+                  <span>info@toolsshop.bg</span>
+                </a>
+              </li>
+              <li className="flex items-start gap-2 text-slate-400">
+                <MapPin size={18} className="flex-shrink-0 mt-0.5" />
+                <span>гр. София, бул. "Цариградско шосе" 100</span>
+              </li>
+              <li className="flex items-center gap-2 text-slate-400">
+                <Clock size={18} />
+                <span>Пон-Пет: 9:00 - 18:00</span>
+              </li>
+            </ul>
+
+            {/* Social */}
+            <div className="flex items-center gap-3 mt-4">
+              <a
+                href="#"
+                className="w-10 h-10 bg-slate-700 rounded-lg flex items-center justify-center hover:bg-[var(--primary)] transition-colors"
+                aria-label="Facebook"
+              >
+                <Facebook size={20} />
+              </a>
+              <a
+                href="#"
+                className="w-10 h-10 bg-slate-700 rounded-lg flex items-center justify-center hover:bg-[var(--primary)] transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram size={20} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Security badges */}
+      <div className="border-t border-slate-700">
+        <div className="container-custom py-6">
+          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
+            <div className="flex items-center gap-2 text-slate-400">
+              <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
+                <Lock className="text-green-400" size={20} />
+              </div>
+              <div className="text-sm">
+                <p className="text-white font-medium">SSL Защита</p>
+                <p className="text-xs text-slate-500">256-bit криптиране</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 text-slate-400">
+              <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                <BadgeCheck className="text-blue-400" size={20} />
+              </div>
+              <div className="text-sm">
+                <p className="text-white font-medium">Верифициран магазин</p>
+                <p className="text-xs text-slate-500">Сигурно пазаруване</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 text-slate-400">
+              <div className="w-10 h-10 bg-amber-500/20 rounded-lg flex items-center justify-center">
+                <RotateCcw className="text-amber-400" size={20} />
+              </div>
+              <div className="text-sm">
+                <p className="text-white font-medium">14 дни връщане</p>
+                <p className="text-xs text-slate-500">Без обяснения</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 text-slate-400">
+              <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                <Shield className="text-purple-400" size={20} />
+              </div>
+              <div className="text-sm">
+                <p className="text-white font-medium">Защита на данни</p>
+                <p className="text-xs text-slate-500">GDPR съвместим</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom bar */}
+      <div className="border-t border-slate-700">
+        <div className="container-custom py-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+          <p className="text-slate-500 text-sm">
+            &copy; {new Date().getFullYear()} ToolsShop. Всички права запазени.
+          </p>
+          <div className="flex items-center gap-4">
+            <img src="/images/econt.png" alt="Еконт" className="h-6 opacity-70" />
+            <img src="/images/speedy.png" alt="Спиди" className="h-6 opacity-70" />
+          </div>
+        </div>
+      </div>
+
+      {/* Powered by */}
+      <div className="bg-slate-900 py-3">
+        <div className="container-custom text-center">
+          <p className="text-slate-500 text-xs">
+            Powered by <span className="text-[var(--primary)] font-semibold">GPAI</span>
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+}

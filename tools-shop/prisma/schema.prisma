@@ -1,0 +1,147 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ADMIN
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String // hashed with bcrypt
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// CATEGORIES
+model Category {
+  id          String     @id @default(cuid())
+  nameBg      String
+  nameEn      String
+  slug        String     @unique
+  description String?
+  parentId    String?
+  parent      Category?  @relation("CategoryToCategory", fields: [parentId], references: [id], onDelete: SetNull)
+  children    Category[] @relation("CategoryToCategory")
+  products    Product[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([slug])
+  @@index([parentId])
+}
+
+// PRODUCTS
+model Product {
+  id            String      @id @default(cuid())
+  nameBg        String
+  nameEn        String
+  slug          String      @unique
+  descriptionBg String
+  descriptionEn String
+  price         Float
+  oldPrice      Float? // за промоции
+  images        String // JSON array of image URLs
+  stock         Int        @default(0)
+  isActive      Boolean    @default(true)
+  isFeatured    Boolean    @default(false) // за начална страница
+  categoryId    String
+  category      Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  orderItems    OrderItem[]
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  @@index([slug])
+  @@index([categoryId])
+  @@index([isActive])
+  @@index([isFeatured])
+}
+
+// CUSTOMERS
+model Customer {
+  id        String   @id @default(cuid())
+  name      String
+  email     String?
+  phone     String
+  address   String?
+  city      String?
+  orders    Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([phone])
+  @@index([email])
+}
+
+// ORDERS
+model Order {
+  id              String      @id @default(cuid())
+  orderNumber     String      @unique // ORD-20260119-001
+  status          String      @default("PENDING") // PENDING, CONFIRMED, PROCESSING, SHIPPED, DELIVERED, CANCELLED, RETURNED
+
+  // Customer info
+  customerId      String?
+  customer        Customer?   @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  customerName    String
+  customerEmail   String?
+  customerPhone   String
+
+  // Delivery info
+  deliveryAddress String
+  deliveryCity    String
+  deliveryZip     String?
+  courier         String      @default("ECONT") // ECONT, SPEEDY, OTHER
+  courierOffice   String? // ако е до офис
+
+  // Order details
+  items           OrderItem[]
+  subtotal        Float
+  deliveryFee     Float       @default(0)
+  total           Float
+  notes           String?
+
+  // Admin notes
+  adminNotes      String?
+  trackingNumber  String?
+
+  // Timestamps
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  completedAt     DateTime?
+
+  @@index([orderNumber])
+  @@index([status])
+  @@index([customerId])
+  @@index([createdAt])
+}
+
+// ORDER ITEMS
+model OrderItem {
+  id          String  @id @default(cuid())
+  orderId     String
+  order       Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String?
+  product     Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  //Snapshot на продукта в момента на поръчката
+  productName String
+  productPrice Float
+  quantity    Int
+  subtotal    Float
+
+  createdAt   DateTime @default(now())
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+// ENUMS are represented as strings in SQLite
+// OrderStatus: PENDING, CONFIRMED, PROCESSING, SHIPPED, DELIVERED, CANCELLED, RETURNED
+// Courier: ECONT, SPEEDY, OTHER
