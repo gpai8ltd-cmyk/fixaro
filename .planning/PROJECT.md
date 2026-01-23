@@ -26,12 +26,12 @@ The shop must look professional and function correctly — broken search and pla
 - [ ] Add Instagram & Facebook links to header
 - [ ] Remove "4.9/5" rating from hero section
 - [ ] Remove Speedy & Econt courier logos from footer
-- [ ] Re-do /terms page with proper layout and sections
-- [ ] Re-do /privacy page with proper layout and sections
-- [ ] Re-do /cookies page with proper layout and sections
-- [ ] Re-do /delivery page with proper layout and sections
-- [ ] Re-do /returns page with proper layout and sections
-- [ ] Re-do /contact page with proper layout and sections
+- [ ] Re-do /terms page — keep text, improve layout with sections and visuals
+- [ ] Re-do /privacy page — keep text, improve layout with sections and visuals
+- [ ] Re-do /cookies page — keep text, improve layout with sections and visuals
+- [ ] Re-do /delivery page — keep text, improve layout with sections and visuals
+- [ ] Re-do /returns page — keep text, improve layout with sections and visuals
+- [ ] Re-do /contact page — keep text, improve layout with sections and visuals
 - [ ] Add hover animations (buttons, cards)
 - [ ] Add scroll animations (elements fade/slide in)
 - [ ] Add page transitions
