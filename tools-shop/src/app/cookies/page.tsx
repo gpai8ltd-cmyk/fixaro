@@ -1,11 +1,140 @@
-import { Metadata } from 'next';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Политика за бисквитки | ToolsShop',
-  description: 'Информация за използването на бисквитки (cookies) в ToolsShop',
-};
+import { useState } from 'react';
+import { Shield, Settings, BarChart3, Megaphone } from 'lucide-react';
+
+// Custom toggle component
+function Toggle({
+  enabled,
+  onChange,
+  disabled = false
+}: {
+  enabled: boolean;
+  onChange: (value: boolean) => void;
+  disabled?: boolean;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={() => !disabled && onChange(!enabled)}
+      disabled={disabled}
+      className={`
+        relative w-12 h-6 rounded-full transition-colors duration-200 ease-in-out
+        ${enabled ? 'bg-green-500' : 'bg-gray-300'}
+        ${disabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}
+      `}
+      aria-checked={enabled}
+      role="switch"
+    >
+      <span
+        className={`
+          absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow-sm
+          transition-transform duration-200 ease-in-out
+          ${enabled ? 'translate-x-6' : 'translate-x-0'}
+        `}
+      />
+    </button>
+  );
+}
+
+type CookieCategory = 'mandatory' | 'functional' | 'analytics' | 'marketing';
+
+interface CategoryData {
+  id: CookieCategory;
+  name: string;
+  description: string;
+  icon: React.ComponentType<{ className?: string; size?: number }>;
+  cookies: { name: string; description: string }[];
+  alwaysOn?: boolean;
+}
+
+const cookieCategories: CategoryData[] = [
+  {
+    id: 'mandatory',
+    name: 'Задължителни бисквитки',
+    description: 'Тези бисквитки са необходими за функционирането на сайта и не могат да бъдат изключени.',
+    icon: Shield,
+    alwaysOn: true,
+    cookies: [
+      { name: 'session_id', description: 'поддържа сесията Ви докато разглеждате сайта' },
+      { name: 'cart', description: 'запазва продуктите в количката Ви' },
+      { name: 'csrf_token', description: 'защитава от злонамерени атаки' },
+    ],
+  },
+  {
+    id: 'functional',
+    name: 'Функционални бисквитки',
+    description: 'Тези бисквитки подобряват потребителското изживяване, като запомнят Вашите предпочитания.',
+    icon: Settings,
+    cookies: [
+      { name: 'language', description: 'запомня предпочитания от Вас език' },
+      { name: 'recently_viewed', description: 'показва последно разглеждани продукти' },
+      { name: 'cookie_consent', description: 'запомня Вашия избор за бисквитки' },
+    ],
+  },
+  {
+    id: 'analytics',
+    name: 'Аналитични бисквитки',
+    description: 'Тези бисквитки ни помагат да разберем как посетителите използват сайта.',
+    icon: BarChart3,
+    cookies: [
+      { name: '_ga, _gid', description: 'Google Analytics за анализ на трафика' },
+      { name: '_gat', description: 'ограничава честотата на заявките' },
+    ],
+  },
+  {
+    id: 'marketing',
+    name: 'Маркетингови бисквитки',
+    description: 'Тези бисквитки се използват за показване на релевантни реклами.',
+    icon: Megaphone,
+    cookies: [
+      { name: '_fbp', description: 'Facebook Pixel за ремаркетинг' },
+      { name: 'ads_session', description: 'проследява рекламни кампании' },
+    ],
+  },
+];
+
+interface CookieTableRow {
+  name: string;
+  type: string;
+  category: CookieCategory;
+  duration: string;
+}
+
+const cookieTable: CookieTableRow[] = [
+  { name: 'session_id', type: 'Задължителна', category: 'mandatory', duration: 'До края на сесията' },
+  { name: 'cart', type: 'Задължителна', category: 'mandatory', duration: '7 дни' },
+  { name: 'csrf_token', type: 'Задължителна', category: 'mandatory', duration: 'До края на сесията' },
+  { name: 'cookie_consent', type: 'Функционална', category: 'functional', duration: '1 година' },
+  { name: 'language', type: 'Функционална', category: 'functional', duration: '1 година' },
+  { name: 'recently_viewed', type: 'Функционална', category: 'functional', duration: '30 дни' },
+  { name: '_ga', type: 'Аналитична', category: 'analytics', duration: '2 години' },
+  { name: '_gid', type: 'Аналитична', category: 'analytics', duration: '24 часа' },
+  { name: '_gat', type: 'Аналитична', category: 'analytics', duration: '1 минута' },
+  { name: '_fbp', type: 'Маркетингова', category: 'marketing', duration: '3 месеца' },
+  { name: 'ads_session', type: 'Маркетингова', category: 'marketing', duration: '30 дни' },
+];
 
 export default function CookiesPage() {
+  const [enabledCategories, setEnabledCategories] = useState<Record<CookieCategory, boolean>>({
+    mandatory: true,
+    functional: false,
+    analytics: false,
+    marketing: false,
+  });
+
+  const toggleCategory = (category: CookieCategory) => {
+    if (category === 'mandatory') return; // Cannot toggle mandatory
+    setEnabledCategories(prev => ({
+      ...prev,
+      [category]: !prev[category],
+    }));
+  };
+
+  const getCategoryStatus = (category: CookieCategory): string => {
+    return enabledCategories[category] ? 'Активна' : 'Неактивна';
+  };
+
   return (
     <div className="container-custom py-12">
       <h1 className="text-3xl font-bold text-[var(--foreground)] mb-8">Политика за бисквитки</h1>
@@ -13,7 +142,7 @@ export default function CookiesPage() {
       <div className="prose prose-slate max-w-none">
         <p className="text-[var(--muted)] mb-6">Последна актуализация: {new Date().toLocaleDateString('bg-BG')}</p>
 
-        <section className="mb-8">
+        <section className="mb-10">
           <h2 className="text-xl font-semibold text-[var(--foreground)] mb-4">Какво са бисквитките?</h2>
           <p className="text-[var(--foreground)] mb-4">
             Бисквитките (cookies) са малки текстови файлове, които се съхраняват на Вашето устройство
@@ -22,133 +151,176 @@ export default function CookiesPage() {
           </p>
         </section>
 
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold text-[var(--foreground)] mb-4">Видове бисквитки, които използваме</h2>
+        <section className="mb-10">
+          <h2 className="text-xl font-semibold text-[var(--foreground)] mb-6">Управление на бисквитките</h2>
+          <p className="text-[var(--foreground)] mb-6">
+            Изберете кои категории бисквитки да разрешите. Задължителните бисквитки не могат да бъдат изключени.
+          </p>
 
-          <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
-            <h3 className="font-semibold text-[var(--foreground)] mb-2">Задължителни бисквитки</h3>
-            <p className="text-[var(--foreground)] text-sm mb-2">
-              Тези бисквитки са необходими за функционирането на сайта и не могат да бъдат изключени.
-            </p>
-            <ul className="list-disc pl-6 text-[var(--foreground)] text-sm">
-              <li><strong>session_id</strong> - поддържа сесията Ви докато разглеждате сайта</li>
-              <li><strong>cart</strong> - запазва продуктите в количката Ви</li>
-              <li><strong>csrf_token</strong> - защитава от злонамерени атаки</li>
-            </ul>
-          </div>
+          <div className="grid gap-4">
+            {cookieCategories.map((category) => {
+              const Icon = category.icon;
+              const isEnabled = enabledCategories[category.id];
+              const isDisabled = category.alwaysOn;
 
-          <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
-            <h3 className="font-semibold text-[var(--foreground)] mb-2">Функционални бисквитки</h3>
-            <p className="text-[var(--foreground)] text-sm mb-2">
-              Тези бисквитки подобряват потребителското изживяване, като запомнят Вашите предпочитания.
-            </p>
-            <ul className="list-disc pl-6 text-[var(--foreground)] text-sm">
-              <li><strong>language</strong> - запомня предпочитания от Вас език</li>
-              <li><strong>recently_viewed</strong> - показва последно разглеждани продукти</li>
-              <li><strong>cookie_consent</strong> - запомня Вашия избор за бисквитки</li>
-            </ul>
-          </div>
-
-          <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
-            <h3 className="font-semibold text-[var(--foreground)] mb-2">Аналитични бисквитки</h3>
-            <p className="text-[var(--foreground)] text-sm mb-2">
-              Тези бисквитки ни помагат да разберем как посетителите използват сайта.
-            </p>
-            <ul className="list-disc pl-6 text-[var(--foreground)] text-sm">
-              <li><strong>_ga, _gid</strong> - Google Analytics за анализ на трафика</li>
-              <li><strong>_gat</strong> - ограничава честотата на заявките</li>
-            </ul>
-          </div>
-
-          <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
-            <h3 className="font-semibold text-[var(--foreground)] mb-2">Маркетингови бисквитки</h3>
-            <p className="text-[var(--foreground)] text-sm mb-2">
-              Тези бисквитки се използват за показване на релевантни реклами.
-            </p>
-            <ul className="list-disc pl-6 text-[var(--foreground)] text-sm">
-              <li><strong>_fbp</strong> - Facebook Pixel за ремаркетинг</li>
-              <li><strong>ads_session</strong> - проследява рекламни кампании</li>
-            </ul>
+              return (
+                <div
+                  key={category.id}
+                  className={`
+                    rounded-xl p-5 shadow-sm transition-all duration-200
+                    ${isEnabled
+                      ? 'bg-green-50 border-2 border-green-200'
+                      : 'bg-gray-50 border-2 border-gray-200'
+                    }
+                  `}
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-start gap-4 flex-1">
+                      <div className={`
+                        w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0
+                        ${isEnabled ? 'bg-green-100' : 'bg-gray-200'}
+                      `}>
+                        <Icon
+                          className={isEnabled ? 'text-green-600' : 'text-gray-500'}
+                          size={24}
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-[var(--foreground)] mb-1 flex items-center gap-2">
+                          {category.name}
+                          {isDisabled && (
+                            <span className="text-xs bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full">
+                              Винаги активни
+                            </span>
+                          )}
+                        </h3>
+                        <p className="text-[var(--muted)] text-sm mb-3">{category.description}</p>
+                        <ul className="space-y-1">
+                          {category.cookies.map((cookie) => (
+                            <li key={cookie.name} className="text-sm text-[var(--foreground)]">
+                              <strong>{cookie.name}</strong> - {cookie.description}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                    <div className="flex-shrink-0">
+                      <Toggle
+                        enabled={isEnabled}
+                        onChange={() => toggleCategory(category.id)}
+                        disabled={isDisabled}
+                      />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </section>
 
-        <section className="mb-8">
+        <section className="mb-10">
           <h2 className="text-xl font-semibold text-[var(--foreground)] mb-4">Срок на съхранение</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse border border-slate-200">
+
+          {/* Desktop table */}
+          <div className="hidden md:block rounded-xl overflow-hidden shadow-sm border border-gray-200">
+            <table className="w-full">
               <thead>
-                <tr className="bg-slate-50">
-                  <th className="border border-slate-200 p-3 text-left">Бисквитка</th>
-                  <th className="border border-slate-200 p-3 text-left">Тип</th>
-                  <th className="border border-slate-200 p-3 text-left">Срок</th>
+                <tr className="bg-gray-50">
+                  <th className="p-4 text-left font-semibold text-[var(--foreground)]">Бисквитка</th>
+                  <th className="p-4 text-left font-semibold text-[var(--foreground)]">Тип</th>
+                  <th className="p-4 text-left font-semibold text-[var(--foreground)]">Срок</th>
+                  <th className="p-4 text-left font-semibold text-[var(--foreground)]">Статус</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td className="border border-slate-200 p-3">session_id</td>
-                  <td className="border border-slate-200 p-3">Задължителна</td>
-                  <td className="border border-slate-200 p-3">До края на сесията</td>
-                </tr>
-                <tr>
-                  <td className="border border-slate-200 p-3">cart</td>
-                  <td className="border border-slate-200 p-3">Задължителна</td>
-                  <td className="border border-slate-200 p-3">7 дни</td>
-                </tr>
-                <tr>
-                  <td className="border border-slate-200 p-3">cookie_consent</td>
-                  <td className="border border-slate-200 p-3">Функционална</td>
-                  <td className="border border-slate-200 p-3">1 година</td>
-                </tr>
-                <tr>
-                  <td className="border border-slate-200 p-3">_ga</td>
-                  <td className="border border-slate-200 p-3">Аналитична</td>
-                  <td className="border border-slate-200 p-3">2 години</td>
-                </tr>
-                <tr>
-                  <td className="border border-slate-200 p-3">_fbp</td>
-                  <td className="border border-slate-200 p-3">Маркетингова</td>
-                  <td className="border border-slate-200 p-3">3 месеца</td>
-                </tr>
+                {cookieTable.map((cookie, index) => (
+                  <tr
+                    key={cookie.name}
+                    className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}
+                  >
+                    <td className="p-4 font-mono text-sm">{cookie.name}</td>
+                    <td className="p-4 text-[var(--foreground)]">{cookie.type}</td>
+                    <td className="p-4 text-[var(--muted)]">{cookie.duration}</td>
+                    <td className="p-4">
+                      <span className={`
+                        inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                        ${enabledCategories[cookie.category]
+                          ? 'bg-green-100 text-green-800'
+                          : 'bg-gray-100 text-gray-600'
+                        }
+                      `}>
+                        {getCategoryStatus(cookie.category)}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
+
+          {/* Mobile cards */}
+          <div className="md:hidden space-y-3">
+            {cookieTable.map((cookie) => (
+              <div
+                key={cookie.name}
+                className="rounded-xl bg-white border border-gray-200 p-4 shadow-sm"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-mono text-sm font-semibold">{cookie.name}</span>
+                  <span className={`
+                    inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                    ${enabledCategories[cookie.category]
+                      ? 'bg-green-100 text-green-800'
+                      : 'bg-gray-100 text-gray-600'
+                    }
+                  `}>
+                    {getCategoryStatus(cookie.category)}
+                  </span>
+                </div>
+                <div className="text-sm text-[var(--muted)] space-y-1">
+                  <p><span className="text-[var(--foreground)]">Тип:</span> {cookie.type}</p>
+                  <p><span className="text-[var(--foreground)]">Срок:</span> {cookie.duration}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </section>
 
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold text-[var(--foreground)] mb-4">Как да управлявате бисквитките</h2>
+        <section className="mb-10">
+          <h2 className="text-xl font-semibold text-[var(--foreground)] mb-4">Как да управлявате бисквитките в браузъра</h2>
           <p className="text-[var(--foreground)] mb-4">
             Можете да контролирате и/или изтривате бисквитки по Ваше желание. Повечето браузъри
             позволяват управление на бисквитките чрез настройките им.
           </p>
 
-          <div className="space-y-3">
-            <div>
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div className="rounded-xl bg-gray-50 p-4 shadow-sm">
               <strong className="text-[var(--foreground)]">Google Chrome:</strong>
-              <p className="text-[var(--muted)] text-sm">Настройки → Поверителност и сигурност → Бисквитки</p>
+              <p className="text-[var(--muted)] text-sm mt-1">Настройки - Поверителност и сигурност - Бисквитки</p>
             </div>
-            <div>
+            <div className="rounded-xl bg-gray-50 p-4 shadow-sm">
               <strong className="text-[var(--foreground)]">Mozilla Firefox:</strong>
-              <p className="text-[var(--muted)] text-sm">Настройки → Поверителност и защита → Бисквитки</p>
+              <p className="text-[var(--muted)] text-sm mt-1">Настройки - Поверителност и защита - Бисквитки</p>
             </div>
-            <div>
+            <div className="rounded-xl bg-gray-50 p-4 shadow-sm">
               <strong className="text-[var(--foreground)]">Safari:</strong>
-              <p className="text-[var(--muted)] text-sm">Предпочитания → Поверителност → Управление на данни</p>
+              <p className="text-[var(--muted)] text-sm mt-1">Предпочитания - Поверителност - Управление на данни</p>
             </div>
-            <div>
+            <div className="rounded-xl bg-gray-50 p-4 shadow-sm">
               <strong className="text-[var(--foreground)]">Microsoft Edge:</strong>
-              <p className="text-[var(--muted)] text-sm">Настройки → Бисквитки и разрешения за сайтове</p>
+              <p className="text-[var(--muted)] text-sm mt-1">Настройки - Бисквитки и разрешения за сайтове</p>
             </div>
           </div>
 
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-4">
-            <p className="text-yellow-800 text-sm">
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mt-6 shadow-sm">
+            <p className="text-amber-800 text-sm">
               <strong>Внимание:</strong> Блокирането на задължителните бисквитки може да наруши
               функционалността на сайта и да Ви попречи да направите поръчка.
             </p>
           </div>
         </section>
 
-        <section className="mb-8">
+        <section className="mb-10">
           <h2 className="text-xl font-semibold text-[var(--foreground)] mb-4">Бисквитки на трети страни</h2>
           <p className="text-[var(--foreground)] mb-4">
             Някои бисквитки се поставят от трети страни, които предоставят услуги на нашия сайт:
