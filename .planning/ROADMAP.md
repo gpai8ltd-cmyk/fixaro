@@ -47,9 +47,9 @@ Plans:
 **Plans:** 3 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Redesign /terms + /privacy pages (accordion, TOC, cards, summary)
-- [ ] 02-02-PLAN.md — Redesign /cookies + /delivery pages (toggles, tables, FAQ accordion)
-- [ ] 02-03-PLAN.md — Redesign /returns + /contact pages (timeline, CTA, channel cards) + verification
+- [x] 02-01-PLAN.md — Redesign /terms + /privacy pages (accordion, TOC, cards, summary)
+- [x] 02-02-PLAN.md — Redesign /cookies + /delivery pages (toggles, tables, FAQ accordion)
+- [x] 02-03-PLAN.md — Redesign /returns + /contact pages (timeline, CTA, channel cards) + verification
 
 **Requirements:**
 - INFO-01: Redesign /terms page — keep existing text, add accordion + sticky TOC layout
@@ -94,10 +94,10 @@ Plans:
 | Phase | Status | Requirements | Complete |
 |-------|--------|--------------|----------|
 | 1 - Critical Fixes | Complete | 6 | 6/6 |
-| 2 - Info Pages | Planned | 6 | 0/6 |
+| 2 - Info Pages | Complete | 6 | 6/6 |
 | 3 - Animation & Polish | Pending | 6 | 0/6 |
 
-**Overall:** 6/18 requirements complete (33%)
+**Overall:** 12/18 requirements complete (67%)
 
 ---
 
@@ -115,4 +115,4 @@ Plans:
 
 ---
 
-*Last updated: 2026-01-25 after Phase 2 planning*
+*Last updated: 2026-01-25 after Phase 2 complete*
