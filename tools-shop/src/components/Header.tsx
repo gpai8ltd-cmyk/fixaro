@@ -1,7 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   Menu,
   X,
@@ -11,10 +13,20 @@ import {
   Wrench,
   ChevronDown,
   Instagram,
-  Facebook
+  Facebook,
+  Loader2
 } from 'lucide-react';
 import { useCart } from '@/store/cart';
 import CartSidebar from './CartSidebar';
+
+interface SearchSuggestion {
+  id: string;
+  name: string;
+  slug: string;
+  price: number;
+  oldPrice: number | null;
+  image: string;
+}
 
 const categories = [
   { name: 'Електроинструменти', slug: 'elektro-instrumenti' },
@@ -24,13 +36,21 @@ const categories = [
 ];
 
 export default function Header() {
+  const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [suggestions, setSuggestions] = useState<SearchSuggestion[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   const { totalItems, openCart } = useCart();
   const categoriesRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+  const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
   // Prevent hydration mismatch
   useEffect(() => {
@@ -54,6 +74,84 @@ export default function Header() {
       searchInputRef.current.focus();
     }
   }, [searchOpen]);
+
+  // Close suggestions when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
+        setShowSuggestions(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Fetch search suggestions
+  const fetchSuggestions = useCallback(async (query: string) => {
+    if (query.length < 2) {
+      setSuggestions([]);
+      setShowSuggestions(false);
+      return;
+    }
+
+    setIsSearching(true);
+    try {
+      const response = await fetch(`/api/products/suggestions?q=${encodeURIComponent(query)}`);
+      const data = await response.json();
+      setSuggestions(data);
+      setShowSuggestions(data.length > 0);
+      setSelectedIndex(-1);
+    } catch (error) {
+      console.error('Error fetching suggestions:', error);
+      setSuggestions([]);
+    } finally {
+      setIsSearching(false);
+    }
+  }, []);
+
+  // Handle search input change with debounce
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+
+    debounceRef.current = setTimeout(() => {
+      fetchSuggestions(value);
+    }, 300);
+  };
+
+  // Handle keyboard navigation in suggestions
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!showSuggestions || suggestions.length === 0) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setSelectedIndex((prev) => (prev < suggestions.length - 1 ? prev + 1 : prev));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setSelectedIndex((prev) => (prev > 0 ? prev - 1 : -1));
+    } else if (e.key === 'Enter' && selectedIndex >= 0) {
+      e.preventDefault();
+      const selected = suggestions[selectedIndex];
+      router.push(`/products/${selected.slug}`);
+      setShowSuggestions(false);
+      setSearchQuery('');
+      setSearchOpen(false);
+    } else if (e.key === 'Escape') {
+      setShowSuggestions(false);
+    }
+  };
+
+  // Handle suggestion click
+  const handleSuggestionClick = (slug: string) => {
+    router.push(`/products/${slug}`);
+    setShowSuggestions(false);
+    setSearchQuery('');
+    setSearchOpen(false);
+  };
 
   const itemCount = mounted ? totalItems() : 0;
 
@@ -202,9 +300,9 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Search bar - expandable */}
+          {/* Search bar - expandable with autocomplete */}
           {searchOpen && (
-            <div className="pb-4 animate-in fade-in slide-in-from-top-2 duration-200">
+            <div className="pb-4 animate-in fade-in slide-in-from-top-2 duration-200" ref={searchContainerRef}>
               <form action="/products" className="relative" role="search" id="search-form">
                 <label htmlFor="search-input" className="sr-only">Търсене на продукти</label>
                 <input
@@ -212,17 +310,88 @@ export default function Header() {
                   type="search"
                   id="search-input"
                   name="q"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  onKeyDown={handleSearchKeyDown}
+                  onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
                   placeholder="Търси продукти..."
                   className="input pr-12"
                   aria-label="Търсене на продукти"
+                  aria-expanded={showSuggestions}
+                  aria-controls="search-suggestions"
+                  aria-autocomplete="list"
+                  autoComplete="off"
                 />
                 <button
                   type="submit"
                   className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-[var(--muted)] hover:text-[var(--primary)] transition-colors"
                   aria-label="Търси"
                 >
-                  <Search size={20} aria-hidden="true" />
+                  {isSearching ? (
+                    <Loader2 size={20} className="animate-spin" aria-hidden="true" />
+                  ) : (
+                    <Search size={20} aria-hidden="true" />
+                  )}
                 </button>
+
+                {/* Autocomplete suggestions dropdown */}
+                {showSuggestions && suggestions.length > 0 && (
+                  <div
+                    id="search-suggestions"
+                    role="listbox"
+                    className="absolute top-full left-0 right-0 mt-1 bg-[var(--card)] border border-[var(--border)] rounded-lg shadow-lg overflow-hidden z-50"
+                  >
+                    {suggestions.map((suggestion, index) => (
+                      <button
+                        key={suggestion.id}
+                        type="button"
+                        role="option"
+                        aria-selected={index === selectedIndex}
+                        onClick={() => handleSuggestionClick(suggestion.slug)}
+                        className={`w-full flex items-center gap-3 p-3 text-left transition-colors ${
+                          index === selectedIndex
+                            ? 'bg-[var(--card-hover)]'
+                            : 'hover:bg-[var(--card-hover)]'
+                        }`}
+                      >
+                        <div className="w-12 h-12 bg-[var(--card-hover)] rounded-lg overflow-hidden flex-shrink-0">
+                          <Image
+                            src={suggestion.image}
+                            alt=""
+                            width={48}
+                            height={48}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-[var(--foreground)] truncate">
+                            {suggestion.name}
+                          </p>
+                          <p className="text-sm">
+                            <span className="text-[var(--primary)] font-semibold">
+                              {suggestion.price.toFixed(2)} лв.
+                            </span>
+                            {suggestion.oldPrice && (
+                              <span className="ml-2 text-[var(--muted)] line-through text-xs">
+                                {suggestion.oldPrice.toFixed(2)} лв.
+                              </span>
+                            )}
+                          </p>
+                        </div>
+                      </button>
+                    ))}
+                    <Link
+                      href={`/products?q=${encodeURIComponent(searchQuery)}`}
+                      onClick={() => {
+                        setShowSuggestions(false);
+                        setSearchOpen(false);
+                      }}
+                      className="block w-full p-3 text-center text-sm text-[var(--primary)] hover:bg-[var(--card-hover)] border-t border-[var(--border)] transition-colors"
+                    >
+                      Виж всички резултати за &quot;{searchQuery}&quot;
+                    </Link>
+                  </div>
+                )}
               </form>
             </div>
           )}
