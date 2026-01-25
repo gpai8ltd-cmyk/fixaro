@@ -67,25 +67,33 @@ Plans:
 
 ---
 
-### Phase 3: Animation & Polish
+### Phase 3: Landing Page & Animation Polish
 
-**Goal:** Site feels modern and responsive with smooth animations that enhance UX without causing accessibility issues.
+**Goal:** Landing page feels engaging and premium with new sections that build trust, plus smooth animations across the site.
 
 **Dependencies:** Phase 2 (all pages ready for animation layer)
 
+**Plans:** TBD
+
 **Requirements:**
-- ANIM-01: Add hover animations to buttons (scale/color transition)
-- ANIM-02: Add hover animations to product cards (lift effect)
-- ANIM-03: Add scroll animations to hero section (fade-in on load)
-- ANIM-04: Add scroll animations to key sections (reveal on scroll)
-- ANIM-05: Add page transitions (subtle fade, under 300ms)
-- ANIM-06: Respect prefers-reduced-motion for all animations
+- LAND-01: Hero section with animated gradient blobs and floating tool icons
+- LAND-02: Stats bar with animated numbers (5000+ клиенти, 350+ продукта, 98% доволни)
+- LAND-03: "Why Us" section with 3 brand story cards (Оригинални, Бърза доставка, Експертна подкрепа)
+- LAND-04: Testimonials section with 3 customer reviews and star ratings
+- LAND-05: Brand partners strip (Bosch, Makita, DeWalt, etc.)
+- LAND-06: Enhanced sale banner with countdown timer
+- ANIM-01: Scroll animations with Intersection Observer (sections fade in)
+- ANIM-02: Hover animations on cards (lift, scale, border glow)
+- ANIM-03: Product card enhancements (quick view overlay, sale % badge)
+- ANIM-04: Respect prefers-reduced-motion for all animations
 
 **Success Criteria:**
-1. User sees smooth hover feedback on buttons and product cards that indicates interactivity
-2. User experiences subtle page load and scroll animations that draw attention to key content
-3. User navigates between pages with quick transitions (under 300ms) that feel intentional
-4. Users with prefers-reduced-motion enabled see static interface with no distracting motion
+1. User sees dynamic hero with animated background and floating elements
+2. User sees impressive stats that build confidence (numbers animate on scroll)
+3. User understands brand value through "Why Us" storytelling section
+4. User sees social proof from customer testimonials and brand partnerships
+5. User experiences smooth hover feedback and scroll animations across all sections
+6. Users with prefers-reduced-motion enabled see static interface
 
 ---
 
@@ -95,9 +103,9 @@ Plans:
 |-------|--------|--------------|----------|
 | 1 - Critical Fixes | Complete | 6 | 6/6 |
 | 2 - Info Pages | Complete | 6 | 6/6 |
-| 3 - Animation & Polish | Pending | 6 | 0/6 |
+| 3 - Landing Page & Animation | Pending | 10 | 0/10 |
 
-**Overall:** 12/18 requirements complete (67%)
+**Overall:** 12/22 requirements complete (55%)
 
 ---
 
@@ -106,13 +114,13 @@ Plans:
 **Phase Rationale:**
 - Phase 1 fixes user-facing issues that undermine trust (broken search, placeholder elements)
 - Phase 2 tackles bulk content work (6 info pages) as a focused batch
-- Phase 3 adds polish layer after all content/functionality is solid
+- Phase 3 combines landing page redesign + animations for maximum visual impact
 
-**Compression Applied:**
-- Quick depth setting -> 3 phases instead of 4-5
-- Info pages grouped together (could have been split into 2 phases at higher depth)
-- Animations bundled as final polish phase
+**Scope Expansion:**
+- Phase 3 expanded from 6 to 10 requirements after user feedback
+- Landing page felt "empty and without emotions" — added engagement sections
+- New sections: stats bar, "why us", testimonials, brand partners
 
 ---
 
-*Last updated: 2026-01-25 after Phase 2 complete*
+*Last updated: 2026-01-25 after Phase 3 scope expansion*
