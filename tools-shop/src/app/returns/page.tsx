@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { RotateCcw, Clock, CheckCircle, AlertTriangle, Package } from 'lucide-react';
+import { RotateCcw, Clock, CheckCircle, AlertTriangle, Package, Phone, Mail, Truck } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Право на връщане | ToolsShop',
@@ -7,12 +7,51 @@ export const metadata: Metadata = {
 };
 
 export default function ReturnsPage() {
+  const timelineSteps = [
+    {
+      number: 1,
+      icon: Phone,
+      title: 'Свържете се с нас',
+      description: 'Изпратете имейл на returns@toolsshop.bg или се обадете на +359 888 123 456. Посочете номера на поръчката и причината за връщане.',
+    },
+    {
+      number: 2,
+      icon: Mail,
+      title: 'Получете потвърждение',
+      description: 'Ще получите имейл с инструкции за връщане и формуляр за отказ от договора.',
+    },
+    {
+      number: 3,
+      icon: Package,
+      title: 'Опаковайте продукта',
+      description: 'Опаковайте продукта в оригиналната опаковка заедно с всички аксесоари, документи и гаранционна карта.',
+    },
+    {
+      number: 4,
+      icon: Truck,
+      title: 'Изпратете пратката',
+      description: 'Изпратете продукта чрез Еконт или Спиди на адрес: гр. София, бул. "Цариградско шосе" 100',
+    },
+    {
+      number: 5,
+      icon: CheckCircle,
+      title: 'Получете възстановяване',
+      description: 'След проверка на продукта ще възстановим сумата в срок от 14 дни по същия начин, по който е било извършено плащането.',
+    },
+  ];
+
+  const returnScenarios = [
+    { scenario: 'Отказ от договора (14 дни)', cost: 'За сметка на клиента', deadline: '14 дни', isFree: false },
+    { scenario: 'Дефектен продукт', cost: 'За наша сметка', deadline: 'Гаранционен срок', isFree: true },
+    { scenario: 'Грешка от наша страна', cost: 'За наша сметка', deadline: '14 дни', isFree: true },
+  ];
+
   return (
     <div className="container-custom py-12">
       <h1 className="text-3xl font-bold text-[var(--foreground)] mb-8">Право на връщане</h1>
 
       {/* Highlight box */}
-      <div className="bg-green-50 border border-green-200 rounded-xl p-6 mb-12">
+      <div className="bg-green-50 border border-green-200 rounded-xl p-6 mb-12 shadow-sm">
         <div className="flex items-start gap-4">
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
             <RotateCcw className="text-green-600" size={32} />
@@ -28,35 +67,35 @@ export default function ReturnsPage() {
       </div>
 
       <div className="prose prose-slate max-w-none">
-        <section className="mb-8">
+        <section className="mb-12">
           <h2 className="text-xl font-semibold text-[var(--foreground)] mb-4">Условия за връщане</h2>
           <p className="text-[var(--foreground)] mb-4">
             За да упражните правото си на връщане, продуктът трябва да отговаря на следните условия:
           </p>
 
           <div className="grid md:grid-cols-2 gap-4 mb-6">
-            <div className="card p-4 flex items-start gap-3">
+            <div className="bg-white rounded-xl p-4 flex items-start gap-3 shadow-sm border border-slate-100">
               <CheckCircle className="text-green-600 flex-shrink-0 mt-1" size={20} />
               <div>
                 <p className="font-medium text-[var(--foreground)]">Неизползван продукт</p>
                 <p className="text-[var(--muted)] text-sm">Продуктът не е бил използван</p>
               </div>
             </div>
-            <div className="card p-4 flex items-start gap-3">
+            <div className="bg-white rounded-xl p-4 flex items-start gap-3 shadow-sm border border-slate-100">
               <CheckCircle className="text-green-600 flex-shrink-0 mt-1" size={20} />
               <div>
                 <p className="font-medium text-[var(--foreground)]">Оригинална опаковка</p>
                 <p className="text-[var(--muted)] text-sm">Запазена е оригиналната опаковка</p>
               </div>
             </div>
-            <div className="card p-4 flex items-start gap-3">
+            <div className="bg-white rounded-xl p-4 flex items-start gap-3 shadow-sm border border-slate-100">
               <CheckCircle className="text-green-600 flex-shrink-0 mt-1" size={20} />
               <div>
                 <p className="font-medium text-[var(--foreground)]">Всички аксесоари</p>
                 <p className="text-[var(--muted)] text-sm">Включени са всички аксесоари и документи</p>
               </div>
             </div>
-            <div className="card p-4 flex items-start gap-3">
+            <div className="bg-white rounded-xl p-4 flex items-start gap-3 shadow-sm border border-slate-100">
               <CheckCircle className="text-green-600 flex-shrink-0 mt-1" size={20} />
               <div>
                 <p className="font-medium text-[var(--foreground)]">В срок от 14 дни</p>
@@ -66,88 +105,106 @@ export default function ReturnsPage() {
           </div>
         </section>
 
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold text-[var(--foreground)] mb-4">Как да върнете продукт</h2>
+        {/* Visual Timeline */}
+        <section className="mb-12">
+          <h2 className="text-xl font-semibold text-[var(--foreground)] mb-6">Как да върнете продукт</h2>
 
-          <div className="space-y-4">
-            <div className="flex items-start gap-4">
-              <div className="w-8 h-8 bg-[var(--primary)] text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold">
-                1
-              </div>
-              <div>
-                <h3 className="font-semibold text-[var(--foreground)] mb-1">Свържете се с нас</h3>
-                <p className="text-[var(--muted)]">
-                  Изпратете имейл на returns@toolsshop.bg или се обадете на +359 888 123 456.
-                  Посочете номера на поръчката и причината за връщане.
-                </p>
-              </div>
+          <div className="relative">
+            {/* Vertical line */}
+            <div className="absolute left-4 top-8 bottom-8 w-0.5 bg-gradient-to-b from-[var(--primary)] to-[var(--primary)]/30 hidden md:block" />
+
+            <div className="space-y-4">
+              {timelineSteps.map((step, index) => {
+                const IconComponent = step.icon;
+                return (
+                  <div key={step.number} className="relative flex items-start gap-4 md:gap-6">
+                    {/* Step circle */}
+                    <div className="relative z-10 flex-shrink-0">
+                      <div className="w-8 h-8 bg-[var(--primary)] text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">
+                        {step.number}
+                      </div>
+                    </div>
+
+                    {/* Step content card */}
+                    <div className="flex-1 bg-white rounded-xl p-4 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 bg-[var(--primary)]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <IconComponent className="text-[var(--primary)]" size={20} />
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-[var(--foreground)] mb-1">{step.title}</h3>
+                          <p className="text-[var(--muted)] text-sm">{step.description}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
+          </div>
+        </section>
 
-            <div className="flex items-start gap-4">
-              <div className="w-8 h-8 bg-[var(--primary)] text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold">
-                2
-              </div>
-              <div>
-                <h3 className="font-semibold text-[var(--foreground)] mb-1">Получете потвърждение</h3>
-                <p className="text-[var(--muted)]">
-                  Ще получите имейл с инструкции за връщане и формуляр за отказ от договора.
-                </p>
-              </div>
-            </div>
+        {/* Comparison Table */}
+        <section className="mb-12">
+          <h2 className="text-xl font-semibold text-[var(--foreground)] mb-4">Разходи за връщане</h2>
 
-            <div className="flex items-start gap-4">
-              <div className="w-8 h-8 bg-[var(--primary)] text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold">
-                3
-              </div>
-              <div>
-                <h3 className="font-semibold text-[var(--foreground)] mb-1">Опаковайте продукта</h3>
-                <p className="text-[var(--muted)]">
-                  Опаковайте продукта в оригиналната опаковка заедно с всички аксесоари,
-                  документи и гаранционна карта.
-                </p>
-              </div>
-            </div>
+          <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+            <table className="w-full">
+              <thead>
+                <tr className="bg-slate-50 border-b border-slate-100">
+                  <th className="text-left p-4 font-semibold text-[var(--foreground)]">Сценарий</th>
+                  <th className="text-left p-4 font-semibold text-[var(--foreground)]">Разходи</th>
+                  <th className="text-left p-4 font-semibold text-[var(--foreground)]">Срок</th>
+                </tr>
+              </thead>
+              <tbody>
+                {returnScenarios.map((row, index) => (
+                  <tr
+                    key={index}
+                    className={`border-b border-slate-50 last:border-b-0 ${row.isFree ? 'bg-green-50/50' : ''}`}
+                  >
+                    <td className="p-4 text-[var(--foreground)]">{row.scenario}</td>
+                    <td className={`p-4 font-medium ${row.isFree ? 'text-green-700' : 'text-[var(--foreground)]'}`}>
+                      {row.isFree && <CheckCircle className="inline-block mr-1 -mt-0.5" size={16} />}
+                      {row.cost}
+                    </td>
+                    <td className="p-4 text-[var(--muted)]">{row.deadline}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-            <div className="flex items-start gap-4">
-              <div className="w-8 h-8 bg-[var(--primary)] text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold">
-                4
-              </div>
-              <div>
-                <h3 className="font-semibold text-[var(--foreground)] mb-1">Изпратете пратката</h3>
-                <p className="text-[var(--muted)]">
-                  Изпратете продукта чрез Еконт или Спиди на адрес:
-                  гр. София, бул. "Цариградско шосе" 100
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="w-8 h-8 bg-[var(--primary)] text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold">
-                5
-              </div>
-              <div>
-                <h3 className="font-semibold text-[var(--foreground)] mb-1">Получете възстановяване</h3>
-                <p className="text-[var(--muted)]">
-                  След проверка на продукта ще възстановим сумата в срок от 14 дни
-                  по същия начин, по който е било извършено плащането.
-                </p>
-              </div>
+        {/* CTA Section */}
+        <section className="mb-12">
+          <div className="bg-amber-50 rounded-xl p-6 shadow-sm border border-amber-100">
+            <h2 className="text-xl font-bold text-amber-900 mb-2">Готови да върнете продукт?</h2>
+            <p className="text-amber-700 mb-6">
+              Свържете се с нас и ще Ви изпратим инструкции за връщане и формуляр за отказ.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a
+                href="mailto:returns@toolsshop.bg"
+                className="btn btn-primary inline-flex items-center justify-center gap-2"
+              >
+                <Mail size={18} />
+                Свържете се с нас
+              </a>
+              <a
+                href="tel:+359888123456"
+                className="btn bg-white border border-amber-200 text-amber-800 hover:bg-amber-100 inline-flex items-center justify-center gap-2"
+              >
+                <Phone size={18} />
+                Обадете се
+              </a>
             </div>
           </div>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl font-semibold text-[var(--foreground)] mb-4">Разходи за връщане</h2>
-          <ul className="list-disc pl-6 text-[var(--foreground)] mb-4">
-            <li><strong>При отказ от договора (14 дни):</strong> Разходите за връщане са за сметка на клиента</li>
-            <li><strong>При дефектен продукт:</strong> Разходите са за наша сметка</li>
-            <li><strong>При грешка от наша страна:</strong> Разходите са за наша сметка</li>
-          </ul>
-        </section>
-
-        <section className="mb-8">
           <h2 className="text-xl font-semibold text-[var(--foreground)] mb-4">Продукти, които не подлежат на връщане</h2>
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+          <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-4 shadow-sm">
             <div className="flex items-start gap-3">
               <AlertTriangle className="text-red-600 flex-shrink-0 mt-1" size={20} />
               <div>
@@ -174,7 +231,7 @@ export default function ReturnsPage() {
             <li>Пълно възстановяване на сумата</li>
           </ul>
 
-          <div className="card p-6">
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-100">
             <h3 className="font-semibold text-[var(--foreground)] mb-3 flex items-center gap-2">
               <Clock className="text-[var(--primary)]" size={20} />
               Гаранционни срокове
@@ -198,7 +255,7 @@ export default function ReturnsPage() {
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-[var(--foreground)] mb-4">Формуляр за отказ</h2>
-          <div className="card p-6 bg-slate-50">
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-100">
             <p className="text-[var(--foreground)] mb-4">
               Можете да изтеглите и попълните стандартния формуляр за упражняване право на отказ:
             </p>
@@ -211,12 +268,14 @@ export default function ReturnsPage() {
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-[var(--foreground)] mb-4">Контакт за връщания</h2>
-          <ul className="list-none text-[var(--foreground)]">
-            <li><strong>Имейл:</strong> returns@toolsshop.bg</li>
-            <li><strong>Телефон:</strong> +359 888 123 456</li>
-            <li><strong>Адрес за връщане:</strong> гр. София, бул. "Цариградско шосе" 100</li>
-            <li><strong>Работно време:</strong> Пон-Пет 9:00 - 18:00</li>
-          </ul>
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-100">
+            <ul className="list-none text-[var(--foreground)] space-y-2">
+              <li><strong>Имейл:</strong> returns@toolsshop.bg</li>
+              <li><strong>Телефон:</strong> +359 888 123 456</li>
+              <li><strong>Адрес за връщане:</strong> гр. София, бул. "Цариградско шосе" 100</li>
+              <li><strong>Работно време:</strong> Пон-Пет 9:00 - 18:00</li>
+            </ul>
+          </div>
         </section>
       </div>
     </div>
