@@ -61,6 +61,10 @@ html {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  .gradient-blob {
+    display: none; /* Hide blobs entirely for reduced motion */
+  }
 }
 
 body {
@@ -171,6 +175,69 @@ body {
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
+}
+
+/* Gradient blob animation for hero */
+.gradient-blob {
+  position: absolute;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: blob-morph 8s ease-in-out infinite;
+  filter: blur(40px);
+  opacity: 0.6;
+}
+
+.gradient-blob-1 {
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  top: -100px;
+  right: -100px;
+}
+
+.gradient-blob-2 {
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  bottom: -50px;
+  left: -50px;
+  animation-delay: -4s;
+}
+
+@keyframes blob-morph {
+  0%, 100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    border-radius: 70% 30% 50% 50% / 30% 60% 40% 70%;
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    border-radius: 40% 60% 70% 30% / 50% 40% 60% 50%;
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+}
+
+/* Enhanced card hover for landing sections */
+.card-hover-enhanced {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card-hover-enhanced:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+              0 0 0 2px var(--primary);
+  border-color: var(--primary);
+}
+
+/* Floating animation variation for icons */
+.animate-float-delayed {
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+.animate-float-slow {
+  animation: float 4s ease-in-out infinite;
 }
 
 /* Button styles */
