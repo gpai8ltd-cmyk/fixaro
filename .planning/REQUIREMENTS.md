@@ -9,15 +9,15 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Fixes
 
-- [ ] **FIX-01**: Product search returns correct results when user types query
-- [ ] **FIX-02**: Remove security badges from footer (SSL, Verified store, 14-day return, Data protection)
-- [ ] **FIX-03**: Remove Speedy & Econt courier logos from footer
-- [ ] **FIX-04**: Remove "4.9/5" rating from hero section
+- [x] **FIX-01**: Product search returns correct results when user types query
+- [x] **FIX-02**: Remove security badges from footer (SSL, Verified store, 14-day return, Data protection)
+- [x] **FIX-03**: Remove Speedy & Econt courier logos from footer
+- [x] **FIX-04**: Remove "4.9/5" rating from hero section
 
 ### Navigation
 
-- [ ] **NAV-01**: Add Instagram link to header (visible, clickable)
-- [ ] **NAV-02**: Add Facebook link to header (visible, clickable)
+- [x] **NAV-01**: Add Instagram link to header (visible, clickable)
+- [x] **NAV-02**: Add Facebook link to header (visible, clickable)
 
 ### Info Pages
 
@@ -71,12 +71,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FIX-01 | Phase 1 | Pending |
-| FIX-02 | Phase 1 | Pending |
-| FIX-03 | Phase 1 | Pending |
-| FIX-04 | Phase 1 | Pending |
-| NAV-01 | Phase 1 | Pending |
-| NAV-02 | Phase 1 | Pending |
+| FIX-01 | Phase 1 | Complete |
+| FIX-02 | Phase 1 | Complete |
+| FIX-03 | Phase 1 | Complete |
+| FIX-04 | Phase 1 | Complete |
+| NAV-01 | Phase 1 | Complete |
+| NAV-02 | Phase 1 | Complete |
 | INFO-01 | Phase 2 | Pending |
 | INFO-02 | Phase 2 | Pending |
 | INFO-03 | Phase 2 | Pending |
@@ -97,4 +97,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-23*
-*Last updated: 2026-01-23 after roadmap creation*
+*Last updated: 2026-01-25 after Phase 1 complete*

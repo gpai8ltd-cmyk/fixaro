@@ -19,8 +19,8 @@ This roadmap delivers professional UI/UX fixes for an existing Bulgarian e-comme
 **Plans:** 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Fix search API + remove footer badges and hero rating
-- [ ] 01-02-PLAN.md — Add social links to header + verification checkpoint
+- [x] 01-01-PLAN.md — Fix search API + remove footer badges and hero rating
+- [x] 01-02-PLAN.md — Add social links to header + verification checkpoint
 
 **Requirements:**
 - FIX-01: Product search returns correct results when user types query
@@ -86,11 +86,11 @@ Plans:
 
 | Phase | Status | Requirements | Complete |
 |-------|--------|--------------|----------|
-| 1 - Critical Fixes | Planned | 6 | 0/6 |
+| 1 - Critical Fixes | Complete | 6 | 6/6 |
 | 2 - Info Pages | Pending | 6 | 0/6 |
 | 3 - Animation & Polish | Pending | 6 | 0/6 |
 
-**Overall:** 0/18 requirements complete (0%)
+**Overall:** 6/18 requirements complete (33%)
 
 ---
 
@@ -108,4 +108,4 @@ Plans:
 
 ---
 
-*Last updated: 2026-01-23 after Phase 1 planning*
+*Last updated: 2026-01-25 after Phase 1 complete*
