@@ -69,9 +69,9 @@ export default function Footer() {
               <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
                 <Wrench className="text-white" size={24} />
               </div>
-              <span className="text-xl font-bold">
-                <span className="text-[var(--primary)]">Tools</span>
-                <span>Shop</span>
+              <span className="text-xl font-bold uppercase tracking-wider">
+                <span className="text-[var(--primary)]">FIX</span>
+                <span className="text-white">ARO</span>
               </span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed mb-4">

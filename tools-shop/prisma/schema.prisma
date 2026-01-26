@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 // ADMIN
@@ -161,6 +162,5 @@ model Promotion {
   @@index([active])
 }
 
-// ENUMS are represented as strings in SQLite
 // OrderStatus: PENDING, CONFIRMED, PROCESSING, SHIPPED, DELIVERED, CANCELLED, RETURNED
 // Courier: ECONT, SPEEDY, OTHER

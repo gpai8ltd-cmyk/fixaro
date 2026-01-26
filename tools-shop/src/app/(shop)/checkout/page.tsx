@@ -13,7 +13,8 @@ import {
   Mail,
   User,
   CheckCircle,
-  Building2
+  Building2,
+  Check
 } from 'lucide-react';
 import { useCart } from '@/store/cart';
 
@@ -289,113 +290,101 @@ export default function CheckoutPage() {
               </h2>
 
               {/* Courier selection */}
-              <fieldset className="mb-6">
-                <legend className="label">Куриер</legend>
-                <div className="grid grid-cols-2 gap-4" role="radiogroup" aria-label="Избор на куриерска фирма">
-                  <label
-                    className={`card p-4 cursor-pointer transition-colors ${
+              <div className="mb-6">
+                <p className="label">Куриер</p>
+                <div className="grid grid-cols-2 gap-4">
+                  <button
+                    type="button"
+                    onClick={() => setFormData(prev => ({ ...prev, courier: 'econt' }))}
+                    className={`relative card p-4 cursor-pointer transition-all duration-200 text-center ${
                       formData.courier === 'econt'
-                        ? 'border-[var(--primary)] bg-[var(--primary)]/5'
-                        : 'hover:border-[var(--muted)]'
+                        ? 'border-[var(--primary)] border-2 bg-[var(--primary)]/10 scale-[1.02] shadow-md'
+                        : 'hover:border-[var(--muted)] hover:bg-slate-50'
                     }`}
                   >
-                    <input
-                      type="radio"
-                      name="courier"
-                      value="econt"
-                      checked={formData.courier === 'econt'}
-                      onChange={handleChange}
-                      className="sr-only"
-                      aria-describedby="econt-desc"
-                    />
-                    <div className="text-center">
-                      <div className="font-bold text-[var(--foreground)]">Еконт</div>
-                      <div id="econt-desc" className="text-sm text-[var(--muted)]">1-3 работни дни</div>
-                    </div>
-                  </label>
+                    {formData.courier === 'econt' && (
+                      <div className="absolute top-2 right-2 w-5 h-5 bg-[var(--primary)] rounded-full flex items-center justify-center">
+                        <Check size={12} className="text-white" />
+                      </div>
+                    )}
+                    <div className={`font-bold ${formData.courier === 'econt' ? 'text-[var(--primary)]' : 'text-[var(--foreground)]'}`}>Еконт</div>
+                    <div className="text-sm text-[var(--muted)]">1-3 работни дни</div>
+                  </button>
 
-                  <label
-                    className={`card p-4 cursor-pointer transition-colors ${
+                  <button
+                    type="button"
+                    onClick={() => setFormData(prev => ({ ...prev, courier: 'speedy' }))}
+                    className={`relative card p-4 cursor-pointer transition-all duration-200 text-center ${
                       formData.courier === 'speedy'
-                        ? 'border-[var(--primary)] bg-[var(--primary)]/5'
-                        : 'hover:border-[var(--muted)]'
+                        ? 'border-[var(--primary)] border-2 bg-[var(--primary)]/10 scale-[1.02] shadow-md'
+                        : 'hover:border-[var(--muted)] hover:bg-slate-50'
                     }`}
                   >
-                    <input
-                      type="radio"
-                      name="courier"
-                      value="speedy"
-                      checked={formData.courier === 'speedy'}
-                      onChange={handleChange}
-                      className="sr-only"
-                      aria-describedby="speedy-desc"
-                    />
-                    <div className="text-center">
-                      <div className="font-bold text-[var(--foreground)]">Спиди</div>
-                      <div id="speedy-desc" className="text-sm text-[var(--muted)]">1-3 работни дни</div>
-                    </div>
-                  </label>
+                    {formData.courier === 'speedy' && (
+                      <div className="absolute top-2 right-2 w-5 h-5 bg-[var(--primary)] rounded-full flex items-center justify-center">
+                        <Check size={12} className="text-white" />
+                      </div>
+                    )}
+                    <div className={`font-bold ${formData.courier === 'speedy' ? 'text-[var(--primary)]' : 'text-[var(--foreground)]'}`}>Спиди</div>
+                    <div className="text-sm text-[var(--muted)]">1-3 работни дни</div>
+                  </button>
                 </div>
-              </fieldset>
+              </div>
 
               {/* Delivery type */}
-              <fieldset className="mb-6">
-                <legend className="label">Начин на доставка</legend>
-                <div className="grid grid-cols-2 gap-4" role="radiogroup" aria-label="Избор на начин на доставка">
-                  <label
-                    className={`card p-4 cursor-pointer transition-colors ${
+              <div className="mb-6">
+                <p className="label">Начин на доставка</p>
+                <div className="grid grid-cols-2 gap-4">
+                  <button
+                    type="button"
+                    onClick={() => setFormData(prev => ({ ...prev, deliveryType: 'address' }))}
+                    className={`relative card p-4 cursor-pointer transition-all duration-200 ${
                       formData.deliveryType === 'address'
-                        ? 'border-[var(--primary)] bg-[var(--primary)]/5'
-                        : 'hover:border-[var(--muted)]'
+                        ? 'border-[var(--primary)] border-2 bg-[var(--primary)]/10 scale-[1.02] shadow-md'
+                        : 'hover:border-[var(--muted)] hover:bg-slate-50'
                     }`}
                   >
-                    <input
-                      type="radio"
-                      name="deliveryType"
-                      value="address"
-                      checked={formData.deliveryType === 'address'}
-                      onChange={handleChange}
-                      className="sr-only"
-                      aria-describedby="address-type-desc"
-                    />
+                    {formData.deliveryType === 'address' && (
+                      <div className="absolute top-2 right-2 w-5 h-5 bg-[var(--primary)] rounded-full flex items-center justify-center">
+                        <Check size={12} className="text-white" />
+                      </div>
+                    )}
                     <div className="flex items-center gap-3">
-                      <MapPin size={24} className="text-[var(--primary)]" aria-hidden="true" />
-                      <div>
-                        <div className="font-medium">До адрес</div>
-                        <div id="address-type-desc" className="text-sm text-[var(--muted)]">Доставка до врата</div>
+                      <MapPin size={24} className={formData.deliveryType === 'address' ? 'text-[var(--primary)]' : 'text-[var(--muted)]'} aria-hidden="true" />
+                      <div className="text-left">
+                        <div className={`font-medium ${formData.deliveryType === 'address' ? 'text-[var(--primary)]' : ''}`}>До адрес</div>
+                        <div className="text-sm text-[var(--muted)]">Доставка до врата</div>
                       </div>
                     </div>
-                  </label>
+                  </button>
 
-                  <label
-                    className={`card p-4 cursor-pointer transition-colors ${
+                  <button
+                    type="button"
+                    onClick={() => setFormData(prev => ({ ...prev, deliveryType: 'office' }))}
+                    className={`relative card p-4 cursor-pointer transition-all duration-200 ${
                       formData.deliveryType === 'office'
-                        ? 'border-[var(--primary)] bg-[var(--primary)]/5'
-                        : 'hover:border-[var(--muted)]'
+                        ? 'border-[var(--primary)] border-2 bg-[var(--primary)]/10 scale-[1.02] shadow-md'
+                        : 'hover:border-[var(--muted)] hover:bg-slate-50'
                     }`}
                   >
-                    <input
-                      type="radio"
-                      name="deliveryType"
-                      value="office"
-                      checked={formData.deliveryType === 'office'}
-                      onChange={handleChange}
-                      className="sr-only"
-                      aria-describedby="office-type-desc"
-                    />
+                    {formData.deliveryType === 'office' && (
+                      <div className="absolute top-2 right-2 w-5 h-5 bg-[var(--primary)] rounded-full flex items-center justify-center">
+                        <Check size={12} className="text-white" />
+                      </div>
+                    )}
                     <div className="flex items-center gap-3">
-                      <Building2 size={24} className="text-[var(--primary)]" aria-hidden="true" />
-                      <div>
-                        <div className="font-medium">До офис</div>
-                        <div id="office-type-desc" className="text-sm text-[var(--muted)]">Вземете от офис</div>
+                      <Building2 size={24} className={formData.deliveryType === 'office' ? 'text-[var(--primary)]' : 'text-[var(--muted)]'} aria-hidden="true" />
+                      <div className="text-left">
+                        <div className={`font-medium ${formData.deliveryType === 'office' ? 'text-[var(--primary)]' : ''}`}>До офис</div>
+                        <div className="text-sm text-[var(--muted)]">Вземете от офис</div>
                       </div>
                     </div>
-                  </label>
+                  </button>
                 </div>
-              </fieldset>
+              </div>
 
               {/* Address fields */}
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="space-y-4">
                 <div>
                   <label htmlFor="city" className="label">
                     Град <span className="text-red-500" aria-label="задължително">*</span>
@@ -419,7 +408,7 @@ export default function CheckoutPage() {
                 </div>
 
                 {formData.deliveryType === 'address' ? (
-                  <div className="sm:col-span-2">
+                  <div>
                     <label htmlFor="address" className="label">
                       Адрес <span className="text-red-500" aria-label="задължително">*</span>
                     </label>
@@ -441,7 +430,7 @@ export default function CheckoutPage() {
                     )}
                   </div>
                 ) : (
-                  <div className="sm:col-span-2">
+                  <div>
                     <label htmlFor="office" className="label">
                       Офис на {formData.courier === 'econt' ? 'Еконт' : 'Спиди'} <span className="text-red-500" aria-label="задължително">*</span>
                     </label>

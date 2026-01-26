@@ -184,9 +184,9 @@ export default function Header() {
               <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
                 <Wrench className="text-white" size={24} aria-hidden="true" />
               </div>
-              <span className="text-xl font-bold hidden sm:block">
-                <span className="text-gradient">Tools</span>
-                <span className="text-[var(--secondary)]">Shop</span>
+              <span className="text-xl font-bold hidden sm:block uppercase tracking-wider">
+                <span className="text-[var(--primary)]">FIX</span>
+                <span className="text-[var(--secondary)]">ARO</span>
               </span>
             </Link>
 
@@ -421,9 +421,9 @@ export default function Header() {
                 <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
                   <Wrench className="text-white" size={18} aria-hidden="true" />
                 </div>
-                <span className="text-lg font-bold">
-                  <span className="text-gradient">Tools</span>
-                  <span className="text-[var(--secondary)]">Shop</span>
+                <span className="text-lg font-bold uppercase tracking-wider">
+                  <span className="text-[var(--primary)]">FIX</span>
+                  <span className="text-[var(--secondary)]">ARO</span>
                 </span>
               </Link>
               <button
