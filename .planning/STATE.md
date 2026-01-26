@@ -186,6 +186,14 @@ Overall: 22/22 (100%)
 
 ---
 
+## Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 001 | Admin checkout fixes: URL image input, orders API, auth protection | 2026-01-26 | a3fd7fe | [001-admin-checkout-fixes](./quick/001-admin-checkout-fixes/) |
+
+---
+
 ## Session Continuity
 
 **Last session:** 2026-01-26 (quick task 001)
