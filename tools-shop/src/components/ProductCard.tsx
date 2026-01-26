@@ -77,7 +77,7 @@ export default function ProductCard({
         {/* Badges */}
         <div className="absolute top-2 left-2 flex flex-col gap-1">
           {discount > 0 && (
-            <span className="sale-badge">-{discount}%</span>
+            <span className="sale-badge sale-badge-pulse">-{discount}%</span>
           )}
           {badge && badgeConfig[badge] && (
             <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold ${badgeConfig[badge].bg} ${badgeConfig[badge].color}`}>
@@ -113,18 +113,18 @@ export default function ProductCard({
           </div>
         )}
 
-        {/* Hover actions */}
+        {/* Hover actions - Quick view overlay */}
         {isAvailable && (
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
+          <div className="quick-view-overlay absolute inset-0 bg-black/30 flex items-center justify-center gap-3">
             <button
               onClick={handleAddToCart}
-              className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--primary)] hover:text-white transition-colors shadow-lg"
+              className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--primary)] hover:text-white transition-colors shadow-lg transform hover:scale-110"
               aria-label={`Добави ${name} в количката`}
             >
               <ShoppingCart size={20} aria-hidden="true" />
             </button>
             <span
-              className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--primary)] hover:text-white transition-colors shadow-lg"
+              className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--primary)] hover:text-white transition-colors shadow-lg transform hover:scale-110"
               aria-label="Преглед"
             >
               <Eye size={20} aria-hidden="true" />

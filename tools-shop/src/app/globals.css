@@ -441,14 +441,17 @@ body {
   border-radius: 0.75rem;
   border: 1px solid var(--border);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
   overflow: hidden;
+  will-change: transform, box-shadow;
 }
 
+/* Enhanced product card hover with scale and glow */
 .product-card:hover {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+              0 0 0 2px var(--primary);
   border-color: var(--primary);
-  transform: translateY(-4px);
+  transform: translateY(-8px) scale(1.02);
 }
 
 .product-card .product-image {
@@ -479,6 +482,32 @@ body {
   font-weight: 700;
   padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
+}
+
+/* Sale badge pulse animation */
+.sale-badge-pulse {
+  animation: pulse-badge 2s ease-in-out infinite;
+}
+
+@keyframes pulse-badge {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Quick view overlay enhancement */
+.product-card .quick-view-overlay {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.product-card:hover .quick-view-overlay {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Mobile menu animation */
