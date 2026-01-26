@@ -89,23 +89,48 @@ export default function CheckoutPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!validate()) return;
 
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email || undefined,
+          city: formData.city,
+          deliveryType: formData.deliveryType,
+          courier: formData.courier,
+          address: formData.address || undefined,
+          office: formData.office || undefined,
+          notes: formData.notes || undefined,
+          items: items.map((item) => ({
+            id: item.id,
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+          })),
+        }),
+      });
 
-    // Generate order number
-    const date = new Date();
-    const orderNum = `ORD-${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, '0')}${String(date.getDate()).padStart(2, '0')}-${String(Math.floor(Math.random() * 1000)).padStart(3, '0')}`;
+      const data = await res.json();
 
-    setOrderNumber(orderNum);
-    setOrderComplete(true);
-    clearCart();
+      if (!res.ok) {
+        setErrors({ submit: data.error || 'Грешка при поръчката' });
+        return;
+      }
 
-    setIsSubmitting(false);
+      setOrderNumber(data.orderNumber);
+      setOrderComplete(true);
+      clearCart();
+    } catch (err) {
+      setErrors({ submit: 'Грешка при свързване със сървъра' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (items.length === 0 && !orderComplete) {
@@ -172,6 +197,12 @@ export default function CheckoutPage() {
       </h1>
 
       <form onSubmit={handleSubmit} noValidate>
+        {errors.submit && (
+          <div className="mb-6 p-4 bg-red-50 text-red-600 rounded-lg" role="alert">
+            {errors.submit}
+          </div>
+        )}
+
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Form */}
           <div className="lg:col-span-2 space-y-6">

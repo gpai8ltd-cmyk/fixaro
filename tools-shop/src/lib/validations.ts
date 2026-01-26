@@ -15,44 +15,56 @@ export const loginSchema = z.object({
 
 // Order/checkout validation schema
 export const checkoutSchema = z.object({
-  firstName: z
+  name: z
     .string()
     .min(2, 'Името трябва да е поне 2 символа')
-    .max(50, 'Името е твърде дълго'),
-  lastName: z
-    .string()
-    .min(2, 'Фамилията трябва да е поне 2 символа')
-    .max(50, 'Фамилията е твърде дълга'),
-  email: z
-    .string()
-    .email('Невалиден имейл адрес')
-    .max(255, 'Имейлът е твърде дълъг'),
+    .max(100, 'Името е твърде дълго'),
   phone: z
     .string()
-    .min(10, 'Телефонът трябва да е поне 10 цифри')
+    .min(10, 'Телефонът трябва да е поне 10 символа')
     .max(20, 'Телефонът е твърде дълъг')
     .regex(/^[+]?[\d\s-]+$/, 'Невалиден телефонен номер'),
+  email: z
+    .string()
+    .email('Невалиден имейл')
+    .max(255, 'Имейлът е твърде дълъг')
+    .optional()
+    .or(z.literal('')),
   city: z
     .string()
-    .min(2, 'Градът трябва да е поне 2 символа')
+    .min(2, 'Градът е задължителен')
     .max(100, 'Името на града е твърде дълго'),
+  deliveryType: z.enum(['address', 'office'], {
+    message: 'Изберете начин на доставка',
+  }),
+  courier: z.enum(['econt', 'speedy'], {
+    message: 'Изберете куриер',
+  }),
   address: z
     .string()
-    .min(5, 'Адресът трябва да е поне 5 символа')
-    .max(200, 'Адресът е твърде дълъг'),
-  postalCode: z
+    .max(200, 'Адресът е твърде дълъг')
+    .optional(),
+  office: z
     .string()
-    .min(4, 'Пощенският код трябва да е поне 4 символа')
-    .max(10, 'Пощенският код е твърде дълъг')
+    .max(200, 'Офисът е твърде дълъг')
     .optional(),
   notes: z
     .string()
     .max(500, 'Бележките са твърде дълги')
     .optional(),
-  deliveryMethod: z.enum(['econt', 'speedy'], {
-    message: 'Изберете валиден метод на доставка',
-  }),
-});
+  items: z.array(z.object({
+    id: z.string(),
+    name: z.string(),
+    price: z.number(),
+    quantity: z.number().int().positive(),
+  })).min(1, 'Количката е празна'),
+}).refine(
+  (data) => data.deliveryType === 'office' || (data.address && data.address.length >= 5),
+  { message: 'Адресът е задължителен при доставка до адрес', path: ['address'] }
+).refine(
+  (data) => data.deliveryType === 'address' || (data.office && data.office.length >= 2),
+  { message: 'Офисът е задължителен при доставка до офис', path: ['office'] }
+);
 
 // Product creation/update validation (admin)
 export const productSchema = z.object({
