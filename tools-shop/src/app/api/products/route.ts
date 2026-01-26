@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { getSession } from '@/lib/auth';
 import { z } from 'zod';
 
 // GET - List all products
@@ -71,6 +72,15 @@ const createProductSchema = z.object({
 // POST - Create new product
 export async function POST(request: NextRequest) {
   try {
+    // Auth check
+    const session = await getSession();
+    if (!session) {
+      return NextResponse.json(
+        { error: 'Неоторизиран достъп' },
+        { status: 401 }
+      );
+    }
+
     const body = await request.json();
 
     // Validate input

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { getSession } from '@/lib/auth';
 import { z } from 'zod';
 
 // GET - List all categories
@@ -34,6 +35,15 @@ const createCategorySchema = z.object({
 // POST - Create new category
 export async function POST(request: NextRequest) {
   try {
+    // Auth check
+    const session = await getSession();
+    if (!session) {
+      return NextResponse.json(
+        { error: 'Неоторизиран достъп' },
+        { status: 401 }
+      );
+    }
+
     const body = await request.json();
 
     const validationResult = createCategorySchema.safeParse(body);
