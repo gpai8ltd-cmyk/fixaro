@@ -6,9 +6,9 @@ import { useRouter } from 'next/navigation';
 import {
   ArrowLeft,
   Save,
-  Upload,
   X,
-  Loader2
+  Loader2,
+  Plus
 } from 'lucide-react';
 
 interface Category {
@@ -38,6 +38,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [images, setImages] = useState<string[]>([]);
+  const [newImageUrl, setNewImageUrl] = useState('');
   const [categories, setCategories] = useState<Category[]>([]);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -158,6 +159,18 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
     setImages(images.filter((_, i) => i !== index));
   };
 
+  const addImageUrl = () => {
+    const url = newImageUrl.trim();
+    if (!url) return;
+    if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('/')) {
+      setError('URL трябва да започва с http://, https:// или /');
+      return;
+    }
+    setImages([...images, url]);
+    setNewImageUrl('');
+    setError('');
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -275,6 +288,35 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                 Снимки
               </h2>
 
+              <div className="mb-4">
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={newImageUrl}
+                    onChange={(e) => setNewImageUrl(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        addImageUrl();
+                      }
+                    }}
+                    className="input flex-1"
+                    placeholder="https://example.com/image.jpg или /images/product.jpg"
+                  />
+                  <button
+                    type="button"
+                    onClick={addImageUrl}
+                    className="btn btn-secondary"
+                  >
+                    <Plus size={18} />
+                    Добави
+                  </button>
+                </div>
+                <p className="text-sm text-[var(--muted)] mt-2">
+                  Въведете URL на снимка. Първата снимка ще се използва като основна.
+                </p>
+              </div>
+
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {images.map((image, index) => (
                   <div
@@ -300,23 +342,6 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                     )}
                   </div>
                 ))}
-
-                <label className="aspect-square border-2 border-dashed border-[var(--border)] rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-[var(--primary)] hover:bg-[var(--primary)]/5 transition-colors">
-                  <Upload size={24} className="text-[var(--muted)] mb-2" />
-                  <span className="text-sm text-[var(--muted)]">Качи снимка</span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    className="sr-only"
-                    onChange={(e) => {
-                      const files = e.target.files;
-                      if (files) {
-                        setImages([...images, '/images/products/placeholder.jpg']);
-                      }
-                    }}
-                  />
-                </label>
               </div>
             </div>
 

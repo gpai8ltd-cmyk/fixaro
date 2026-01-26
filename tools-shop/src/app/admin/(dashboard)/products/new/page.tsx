@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import {
   ArrowLeft,
   Save,
-  Upload,
   X,
   Plus,
   ImageIcon
@@ -22,6 +21,7 @@ export default function NewProductPage() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [images, setImages] = useState<string[]>([]);
+  const [newImageUrl, setNewImageUrl] = useState('');
   const [categories, setCategories] = useState<Category[]>([]);
   const [error, setError] = useState('');
 
@@ -97,6 +97,18 @@ export default function NewProductPage() {
 
   const removeImage = (index: number) => {
     setImages(images.filter((_, i) => i !== index));
+  };
+
+  const addImageUrl = () => {
+    const url = newImageUrl.trim();
+    if (!url) return;
+    if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('/')) {
+      setError('URL трябва да започва с http://, https:// или /');
+      return;
+    }
+    setImages([...images, url]);
+    setNewImageUrl('');
+    setError('');
   };
 
   return (
@@ -195,6 +207,35 @@ export default function NewProductPage() {
                 Снимки
               </h2>
 
+              <div className="mb-4">
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={newImageUrl}
+                    onChange={(e) => setNewImageUrl(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        addImageUrl();
+                      }
+                    }}
+                    className="input flex-1"
+                    placeholder="https://example.com/image.jpg или /images/product.jpg"
+                  />
+                  <button
+                    type="button"
+                    onClick={addImageUrl}
+                    className="btn btn-secondary"
+                  >
+                    <Plus size={18} />
+                    Добави
+                  </button>
+                </div>
+                <p className="text-sm text-[var(--muted)] mt-2">
+                  Въведете URL на снимка. Първата снимка ще се използва като основна.
+                </p>
+              </div>
+
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {images.map((image, index) => (
                   <div
@@ -220,30 +261,7 @@ export default function NewProductPage() {
                     )}
                   </div>
                 ))}
-
-                <label className="aspect-square border-2 border-dashed border-[var(--border)] rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-[var(--primary)] hover:bg-[var(--primary)]/5 transition-colors">
-                  <Upload size={24} className="text-[var(--muted)] mb-2" />
-                  <span className="text-sm text-[var(--muted)]">Качи снимка</span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    className="sr-only"
-                    onChange={(e) => {
-                      // TODO: Handle file upload
-                      const files = e.target.files;
-                      if (files) {
-                        // Placeholder: would upload to server
-                        setImages([...images, '/images/products/placeholder.jpg']);
-                      }
-                    }}
-                  />
-                </label>
               </div>
-
-              <p className="text-sm text-[var(--muted)] mt-4">
-                Първата снимка ще се използва като основна. Препоръчителен размер: 800x800px
-              </p>
             </div>
 
             {/* Pricing */}
