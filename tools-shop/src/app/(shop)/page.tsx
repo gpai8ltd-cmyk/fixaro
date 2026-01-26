@@ -19,6 +19,9 @@ import CountdownTimer from '@/components/CountdownTimer';
 import HeroBlobs from '@/components/HeroBlobs';
 import FloatingIcons from '@/components/FloatingIcons';
 import StatsBar from '@/components/StatsBar';
+import WhyUsSection from '@/components/WhyUsSection';
+import TestimonialsSection from '@/components/TestimonialsSection';
+import BrandPartners from '@/components/BrandPartners';
 import { prisma } from '@/lib/prisma';
 
 // Icons map for categories
@@ -260,6 +263,9 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Why Us */}
+      <WhyUsSection />
+
       {/* Featured Products */}
       <section className="py-12 md:py-16 bg-[var(--card)]" aria-labelledby="featured-heading">
         <div className="container-custom">
@@ -325,6 +331,12 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Testimonials */}
+      <TestimonialsSection />
+
+      {/* Brand Partners */}
+      <BrandPartners />
 
       {/* Sale Banner */}
       <section className="py-12 md:py-16" aria-label="Промоция">
