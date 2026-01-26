@@ -15,6 +15,10 @@ import {
   Package
 } from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
+import CountdownTimer from '@/components/CountdownTimer';
+import HeroBlobs from '@/components/HeroBlobs';
+import FloatingIcons from '@/components/FloatingIcons';
+import StatsBar from '@/components/StatsBar';
 import { prisma } from '@/lib/prisma';
 
 // Icons map for categories
@@ -115,8 +119,12 @@ export default async function HomePage() {
             className="object-cover"
             priority
           />
+          {/* Animated gradient blobs */}
+          <HeroBlobs />
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-[var(--secondary)] via-[var(--secondary)]/90 to-[var(--secondary)]/40" />
+          {/* Floating tool icons */}
+          <FloatingIcons />
         </div>
 
         <div className="container-custom relative z-10">
@@ -156,6 +164,9 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Stats Bar */}
+      <StatsBar />
 
       {/* Features */}
       <section className="py-8 border-b border-[var(--border)]" aria-label="Предимства">
@@ -319,31 +330,39 @@ export default async function HomePage() {
       <section className="py-12 md:py-16" aria-label="Промоция">
         <div className="container-custom">
           <div className="relative bg-gradient-primary rounded-2xl overflow-hidden">
+            {/* Background pattern */}
             <div className="absolute inset-0 opacity-10">
               <div className="absolute inset-0" style={{
                 backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20.5V18H0v-2h20v-2.5L25 18l-5 2.5zm20-2.5V16H32v2h8v-2.5zm0 2.5V22H32v-2h8v2.5zM0 22v-2h8v2H0z' fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E")`,
               }} />
             </div>
 
-            <div className="relative p-8 md:p-12 lg:p-16 flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="text-center md:text-left">
-                <span className="inline-block px-3 py-1 bg-white/20 text-white rounded-full text-sm font-medium mb-3">
-                  Ограничено предложение
-                </span>
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-                  До -40% на избрани инструменти
-                </h2>
-                <p className="text-white/80 mt-2 max-w-md">
-                  Не пропускайте нашите специални оферти. Промоцията е валидна до изчерпване на количествата.
-                </p>
+            <div className="relative p-8 md:p-12 lg:p-16">
+              <div className="text-center md:text-left md:flex md:items-center md:justify-between md:gap-8">
+                <div className="mb-6 md:mb-0">
+                  <span className="inline-block px-3 py-1 bg-white/20 text-white rounded-full text-sm font-medium mb-3">
+                    Ограничено предложение
+                  </span>
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
+                    До -40% на избрани инструменти
+                  </h2>
+                  <p className="text-white/80 mt-2 max-w-md">
+                    Не пропускайте нашите специални оферти!
+                  </p>
+                </div>
+
+                <div className="flex flex-col items-center gap-4">
+                  <p className="text-white/70 text-sm">Промоцията приключва след:</p>
+                  <CountdownTimer targetDate={new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)} />
+                  <Link
+                    href="/products?sale=true"
+                    className="btn btn-lg bg-white text-[var(--primary)] hover:bg-slate-100 mt-2"
+                  >
+                    Виж намаленията
+                    <ArrowRight size={20} aria-hidden="true" />
+                  </Link>
+                </div>
               </div>
-              <Link
-                href="/products?sale=true"
-                className="btn btn-lg bg-white text-[var(--primary)] hover:bg-slate-100 flex-shrink-0"
-              >
-                Виж намаленията
-                <ArrowRight size={20} aria-hidden="true" />
-              </Link>
             </div>
           </div>
         </div>
