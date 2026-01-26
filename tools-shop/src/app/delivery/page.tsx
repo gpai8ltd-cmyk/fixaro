@@ -282,7 +282,7 @@ export default function DeliveryPage() {
           <div className="rounded-xl bg-gray-50 p-5 shadow-sm">
             <ul className="list-none text-[var(--foreground)] space-y-2">
               <li><strong>Телефон:</strong> +359 888 123 456</li>
-              <li><strong>Имейл:</strong> info@toolsshop.bg</li>
+              <li><strong>Имейл:</strong> info@fixaro.bg</li>
               <li><strong>Работно време:</strong> Пон-Пет 9:00 - 18:00</li>
             </ul>
           </div>

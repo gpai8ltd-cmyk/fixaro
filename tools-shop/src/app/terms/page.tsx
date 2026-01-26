@@ -157,8 +157,8 @@ export default function TermsPage() {
             >
               <div className="px-5 pb-5">
                 <p className="text-[var(--foreground)] mb-4">
-                  Настоящите Общи условия уреждат отношенията между ToolsShop (наричан по-долу &quot;Продавач&quot;)
-                  и потребителите на уебсайта toolsshop.bg (наричани по-долу &quot;Клиенти&quot;) при извършване на
+                  Настоящите Общи условия уреждат отношенията между Fixaro (наричан по-долу &quot;Продавач&quot;)
+                  и потребителите на уебсайта fixaro.bg (наричани по-долу &quot;Клиенти&quot;) при извършване на
                   покупки на стоки чрез онлайн магазина.
                 </p>
                 <p className="text-[var(--foreground)]">
@@ -297,7 +297,7 @@ export default function TermsPage() {
               <div className="px-5 pb-5">
                 <p className="text-[var(--foreground)]">
                   Всички материали на този уебсайт, включително текстове, изображения, лога и дизайн,
-                  са собственост на ToolsShop или са използвани с разрешение. Забранено е копирането,
+                  са собственост на Fixaro или са използвани с разрешение. Забранено е копирането,
                   разпространението или използването им без изрично писмено съгласие.
                 </p>
               </div>
@@ -411,7 +411,7 @@ export default function TermsPage() {
                 </p>
                 <ul className="list-none text-[var(--foreground)] space-y-1">
                   <li>Телефон: +359 888 123 456</li>
-                  <li>Имейл: info@toolsshop.bg</li>
+                  <li>Имейл: info@fixaro.bg</li>
                   <li>Адрес: гр. София, бул. &quot;Цариградско шосе&quot; 100</li>
                 </ul>
               </div>

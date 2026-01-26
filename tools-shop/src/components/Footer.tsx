@@ -170,9 +170,9 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="mailto:info@toolsshop.bg" className="flex items-center gap-2 text-slate-400 hover:text-[var(--primary)] transition-colors">
+                <a href="mailto:info@fixaro.bg" className="flex items-center gap-2 text-slate-400 hover:text-[var(--primary)] transition-colors">
                   <Mail size={18} />
-                  <span>info@toolsshop.bg</span>
+                  <span>info@fixaro.bg</span>
                 </a>
               </li>
               <li className="flex items-start gap-2 text-slate-400">
@@ -210,7 +210,7 @@ export default function Footer() {
       <div className="border-t border-slate-700">
         <div className="container-custom py-4">
           <p className="text-slate-500 text-sm text-center sm:text-left">
-            &copy; {new Date().getFullYear()} ToolsShop. Всички права запазени.
+            &copy; {new Date().getFullYear()} Fixaro. Всички права запазени.
           </p>
         </div>
       </div>

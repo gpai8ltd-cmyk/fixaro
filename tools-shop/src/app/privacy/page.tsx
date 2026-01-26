@@ -2,8 +2,8 @@ import { Metadata } from 'next';
 import { Shield, User, Database, Scale, Clock, UserCheck, Share2, Lock, AlertCircle, RefreshCw } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Политика за поверителност | ToolsShop',
-  description: 'Политика за поверителност и защита на личните данни (GDPR) на ToolsShop',
+  title: 'Политика за поверителност | Fixaro',
+  description: 'Политика за поверителност и защита на личните данни (GDPR) на Fixaro',
 };
 
 export default function PrivacyPage() {
@@ -47,7 +47,7 @@ export default function PrivacyPage() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-amber-600 mt-1">•</span>
-                <span><strong>Въпроси?</strong> Пишете ни на privacy@toolsshop.bg</span>
+                <span><strong>Въпроси?</strong> Пишете ни на privacy@fixaro.bg</span>
               </li>
             </ul>
           </div>
@@ -69,12 +69,12 @@ export default function PrivacyPage() {
               <div>
                 <h2 className="text-xl font-semibold text-[var(--foreground)] mb-3">1. Администратор на лични данни</h2>
                 <p className="text-[var(--foreground)] mb-4">
-                  ToolsShop е администратор на личните данни, които събираме чрез нашия уебсайт.
+                  Fixaro е администратор на личните данни, които събираме чрез нашия уебсайт.
                 </p>
                 <ul className="list-none text-[var(--foreground)] space-y-1">
-                  <li><strong>Наименование:</strong> ToolsShop ЕООД</li>
+                  <li><strong>Наименование:</strong> Fixaro ЕООД</li>
                   <li><strong>Адрес:</strong> гр. София, бул. &quot;Цариградско шосе&quot; 100</li>
-                  <li><strong>Имейл:</strong> privacy@toolsshop.bg</li>
+                  <li><strong>Имейл:</strong> privacy@fixaro.bg</li>
                   <li><strong>Телефон:</strong> +359 888 123 456</li>
                 </ul>
               </div>
@@ -199,7 +199,7 @@ export default function PrivacyPage() {
                   <li><strong>Право да оттеглите съгласие:</strong> по всяко време, без това да засяга законосъобразността на обработването преди оттеглянето</li>
                 </ul>
                 <p className="text-[var(--foreground)] mt-4">
-                  За упражняване на тези права, моля свържете се с нас на privacy@toolsshop.bg
+                  За упражняване на тези права, моля свържете се с нас на privacy@fixaro.bg
                 </p>
               </div>
             </div>

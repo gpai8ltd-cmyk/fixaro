@@ -52,10 +52,10 @@ export default function ContactPage() {
     {
       icon: Mail,
       title: 'Имейл',
-      value: 'info@toolsshop.bg',
+      value: 'info@fixaro.bg',
       subtext: 'Отговаряме до 24 часа',
       action: 'Изпратете имейл',
-      href: 'mailto:info@toolsshop.bg',
+      href: 'mailto:info@fixaro.bg',
       color: 'blue',
     },
     {
@@ -160,7 +160,7 @@ export default function ContactPage() {
             <span>Обадете се сега</span>
           </a>
           <a
-            href="mailto:info@toolsshop.bg"
+            href="mailto:info@fixaro.bg"
             className="flex items-center justify-center gap-3 p-4 bg-blue-50 text-blue-700 rounded-xl hover:bg-blue-100 transition-colors font-medium"
           >
             <Mail size={20} />

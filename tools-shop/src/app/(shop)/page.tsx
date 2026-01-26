@@ -394,7 +394,7 @@ export default async function HomePage() {
               <Headphones size={20} aria-hidden="true" />
               Обадете се
             </a>
-            <a href="mailto:info@toolsshop.bg" className="btn btn-outline btn-lg text-white border-white hover:bg-white hover:text-[var(--secondary)]">
+            <a href="mailto:info@fixaro.bg" className="btn btn-outline btn-lg text-white border-white hover:bg-white hover:text-[var(--secondary)]">
               Пишете ни
             </a>
           </div>

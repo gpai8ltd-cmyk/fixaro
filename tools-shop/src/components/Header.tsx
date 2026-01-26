@@ -180,7 +180,7 @@ export default function Header() {
             </button>
 
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2" aria-label="ToolsShop - Начало">
+            <Link href="/" className="flex items-center gap-2" aria-label="Fixaro - Начало">
               <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
                 <Wrench className="text-white" size={24} aria-hidden="true" />
               </div>
@@ -251,7 +251,7 @@ export default function Header() {
               {/* Social links */}
               <div className="hidden sm:flex items-center gap-1">
                 <a
-                  href="https://instagram.com/toolsshop.bg"
+                  href="https://instagram.com/fixaro.bg"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 text-[var(--foreground)] hover:text-[var(--primary)] transition-colors"
@@ -260,7 +260,7 @@ export default function Header() {
                   <Instagram size={20} aria-hidden="true" />
                 </a>
                 <a
-                  href="https://facebook.com/toolsshop.bg"
+                  href="https://facebook.com/fixaro.bg"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 text-[var(--foreground)] hover:text-[var(--primary)] transition-colors"
@@ -477,7 +477,7 @@ export default function Header() {
               </a>
               <div className="flex items-center gap-3">
                 <a
-                  href="https://instagram.com/toolsshop.bg"
+                  href="https://instagram.com/fixaro.bg"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 bg-[var(--card-hover)] rounded-lg flex items-center justify-center text-[var(--foreground)] hover:text-[var(--primary)] transition-colors"
@@ -486,7 +486,7 @@ export default function Header() {
                   <Instagram size={20} aria-hidden="true" />
                 </a>
                 <a
-                  href="https://facebook.com/toolsshop.bg"
+                  href="https://facebook.com/fixaro.bg"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 bg-[var(--card-hover)] rounded-lg flex items-center justify-center text-[var(--foreground)] hover:text-[var(--primary)] transition-colors"

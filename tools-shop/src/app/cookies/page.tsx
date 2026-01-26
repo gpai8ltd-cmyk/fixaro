@@ -342,7 +342,7 @@ export default function CookiesPage() {
             При въпроси относно използването на бисквитки, моля свържете се с нас:
           </p>
           <ul className="list-none text-[var(--foreground)]">
-            <li>Имейл: privacy@toolsshop.bg</li>
+            <li>Имейл: privacy@fixaro.bg</li>
             <li>Телефон: +359 888 123 456</li>
           </ul>
         </section>

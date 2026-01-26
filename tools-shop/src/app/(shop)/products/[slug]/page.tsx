@@ -110,7 +110,7 @@ export async function generateMetadata({ params }: PageProps) {
   }
 
   return {
-    title: `${product.nameBg} | ToolsShop`,
+    title: `${product.nameBg} | Fixaro`,
     description: product.descriptionBg?.slice(0, 160),
   };
 }

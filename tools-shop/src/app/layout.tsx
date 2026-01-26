@@ -7,18 +7,18 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://toolsshop.bg';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fixaro.bg';
 
 export const metadata: Metadata = {
   title: {
-    default: "ToolsShop - Качествени инструменти на достъпни цени",
-    template: "%s | ToolsShop",
+    default: "Fixaro - Качествени инструменти на достъпни цени",
+    template: "%s | Fixaro",
   },
   description: "Онлайн магазин за електроинструменти и ръчни инструменти. Бърза доставка с Еконт и Спиди. Наложен платеж.",
   keywords: ["инструменти", "електроинструменти", "ръчни инструменти", "винтоверт", "бормашина", "онлайн магазин", "България"],
-  authors: [{ name: "ToolsShop" }],
-  creator: "ToolsShop",
-  publisher: "ToolsShop",
+  authors: [{ name: "Fixaro" }],
+  creator: "Fixaro",
+  publisher: "Fixaro",
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: "/",
@@ -31,21 +31,21 @@ export const metadata: Metadata = {
     type: "website",
     locale: "bg_BG",
     url: siteUrl,
-    siteName: "ToolsShop",
-    title: "ToolsShop - Качествени инструменти на достъпни цени",
+    siteName: "Fixaro",
+    title: "Fixaro - Качествени инструменти на достъпни цени",
     description: "Онлайн магазин за електроинструменти и ръчни инструменти. Бърза доставка с Еконт и Спиди. Наложен платеж.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "ToolsShop - Магазин за инструменти",
+        alt: "Fixaro - Магазин за инструменти",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ToolsShop - Качествени инструменти на достъпни цени",
+    title: "Fixaro - Качествени инструменти на достъпни цени",
     description: "Онлайн магазин за електроинструменти и ръчни инструменти. Бърза доставка в цяла България.",
     images: ["/og-image.jpg"],
   },

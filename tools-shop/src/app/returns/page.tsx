@@ -2,8 +2,8 @@ import { Metadata } from 'next';
 import { RotateCcw, Clock, CheckCircle, AlertTriangle, Package, Phone, Mail, Truck } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Право на връщане | ToolsShop',
-  description: 'Информация за връщане на продукти и рекламации в ToolsShop - 14 дни право на отказ',
+  title: 'Право на връщане | Fixaro',
+  description: 'Информация за връщане на продукти и рекламации в Fixaro - 14 дни право на отказ',
 };
 
 export default function ReturnsPage() {
@@ -12,7 +12,7 @@ export default function ReturnsPage() {
       number: 1,
       icon: Phone,
       title: 'Свържете се с нас',
-      description: 'Изпратете имейл на returns@toolsshop.bg или се обадете на +359 888 123 456. Посочете номера на поръчката и причината за връщане.',
+      description: 'Изпратете имейл на returns@fixaro.bg или се обадете на +359 888 123 456. Посочете номера на поръчката и причината за връщане.',
     },
     {
       number: 2,
@@ -185,7 +185,7 @@ export default function ReturnsPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <a
-                href="mailto:returns@toolsshop.bg"
+                href="mailto:returns@fixaro.bg"
                 className="btn btn-primary inline-flex items-center justify-center gap-2"
               >
                 <Mail size={18} />
@@ -270,7 +270,7 @@ export default function ReturnsPage() {
           <h2 className="text-xl font-semibold text-[var(--foreground)] mb-4">Контакт за връщания</h2>
           <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-100">
             <ul className="list-none text-[var(--foreground)] space-y-2">
-              <li><strong>Имейл:</strong> returns@toolsshop.bg</li>
+              <li><strong>Имейл:</strong> returns@fixaro.bg</li>
               <li><strong>Телефон:</strong> +359 888 123 456</li>
               <li><strong>Адрес за връщане:</strong> гр. София, бул. "Цариградско шосе" 100</li>
               <li><strong>Работно време:</strong> Пон-Пет 9:00 - 18:00</li>

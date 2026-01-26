@@ -48,7 +48,7 @@ export default function AdminSidebar() {
             <Wrench className="text-white" size={20} />
           </div>
           <div>
-            <span className="text-lg font-bold text-white">ToolsShop</span>
+            <span className="text-lg font-bold text-white">Fixaro</span>
             <span className="block text-xs text-slate-400">Админ панел</span>
           </div>
         </Link>
