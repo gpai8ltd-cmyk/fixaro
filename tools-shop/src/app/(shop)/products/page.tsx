@@ -256,10 +256,10 @@ function ProductsContent() {
   return (
     <div className="container-custom py-6 md:py-8">
       {/* Breadcrumb */}
-      <nav className="text-sm text-[var(--muted)] mb-4">
+      <nav className="text-sm text-slate-500 mb-4">
         <a href="/" className="hover:text-[var(--primary)]">Начало</a>
         <span className="mx-2">/</span>
-        <span className="text-[var(--foreground)]">Продукти</span>
+        <span className="text-slate-800">Продукти</span>
       </nav>
 
       <div className="flex gap-8">
@@ -271,14 +271,14 @@ function ProductsContent() {
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold text-[var(--foreground)]">
+              <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
                 {searchQuery
                   ? `Резултати за "${searchQuery}"`
                   : selectedCategory
                   ? categoryOptions.find(c => c.slug === selectedCategory)?.name
                   : 'Всички продукти'}
               </h1>
-              <p className="text-[var(--muted)] mt-1">
+              <p className="text-slate-500 mt-1">
                 {filteredProducts.length} {filteredProducts.length === 1 ? 'продукт' : 'продукта'}
               </p>
             </div>
@@ -311,7 +311,7 @@ function ProductsContent() {
                 </select>
                 <ChevronDown
                   size={16}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[var(--muted)]"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500"
                 />
               </div>
 
@@ -336,7 +336,7 @@ function ProductsContent() {
           {/* Active filters */}
           {hasActiveFilters && (
             <div className="flex flex-wrap items-center gap-2 mb-4">
-              <span className="text-sm text-[var(--muted)]">Активни филтри:</span>
+              <span className="text-sm text-slate-500">Активни филтри:</span>
 
               {selectedCategory && (
                 <button
@@ -405,10 +405,10 @@ function ProductsContent() {
           ) : (
             <div className="text-center py-16">
               <Filter size={64} className="mx-auto text-[var(--muted-light)] mb-4" />
-              <h3 className="text-lg font-medium text-[var(--foreground)]">
+              <h3 className="text-lg font-medium text-slate-800">
                 Няма намерени продукти
               </h3>
-              <p className="text-[var(--muted)] mt-1">
+              <p className="text-slate-500 mt-1">
                 {products.length === 0
                   ? 'Все още няма добавени продукти'
                   : 'Опитайте да промените филтрите'}

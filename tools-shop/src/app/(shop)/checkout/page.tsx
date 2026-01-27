@@ -139,10 +139,10 @@ export default function CheckoutPage() {
       <main className="container-custom py-16">
         <div className="max-w-md mx-auto text-center">
           <Package size={80} className="mx-auto text-[var(--muted-light)] mb-6" aria-hidden="true" />
-          <h1 className="text-2xl font-bold text-[var(--foreground)] mb-2">
+          <h1 className="text-2xl font-bold text-slate-800 mb-2">
             Количката е празна
           </h1>
-          <p className="text-[var(--muted)] mb-6">
+          <p className="text-slate-500 mb-6">
             Добавете продукти в количката, за да направите поръчка.
           </p>
           <Link href="/products" className="btn btn-primary btn-lg">
@@ -160,17 +160,17 @@ export default function CheckoutPage() {
           <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle size={48} className="text-green-600" aria-hidden="true" />
           </div>
-          <h1 className="text-2xl font-bold text-[var(--foreground)] mb-2">
+          <h1 className="text-2xl font-bold text-slate-800 mb-2">
             Поръчката е приета!
           </h1>
-          <p className="text-[var(--muted)] mb-4">
+          <p className="text-slate-500 mb-4">
             Благодарим ви за поръчката. Ще се свържем с вас за потвърждение.
           </p>
           <div className="card p-6 mb-6">
-            <p className="text-sm text-[var(--muted)]">Номер на поръчка</p>
+            <p className="text-sm text-slate-500">Номер на поръчка</p>
             <p className="text-2xl font-bold text-[var(--primary)]">{orderNumber}</p>
           </div>
-          <p className="text-sm text-[var(--muted)] mb-6">
+          <p className="text-sm text-slate-500 mb-6">
             Ще получите потвърждение на имейл (ако сте посочили такъв).
             Очаквайте обаждане от наш представител.
           </p>
@@ -187,13 +187,13 @@ export default function CheckoutPage() {
       {/* Back link */}
       <Link
         href="/cart"
-        className="inline-flex items-center gap-1 text-[var(--muted)] hover:text-[var(--primary)] mb-6"
+        className="inline-flex items-center gap-1 text-slate-500 hover:text-[var(--primary)] mb-6"
       >
         <ArrowLeft size={18} aria-hidden="true" />
         Обратно към количката
       </Link>
 
-      <h1 className="text-2xl md:text-3xl font-bold text-[var(--foreground)] mb-8">
+      <h1 className="text-2xl md:text-3xl font-bold text-slate-800 mb-8">
         Завършване на поръчката
       </h1>
 
@@ -209,7 +209,7 @@ export default function CheckoutPage() {
           <div className="lg:col-span-2 space-y-6">
             {/* Contact info */}
             <section className="card p-6" aria-labelledby="contact-heading">
-              <h2 id="contact-heading" className="text-lg font-bold text-[var(--foreground)] mb-4 flex items-center gap-2">
+              <h2 id="contact-heading" className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
                 <User size={20} className="text-[var(--primary)]" aria-hidden="true" />
                 Данни за контакт
               </h2>
@@ -284,7 +284,7 @@ export default function CheckoutPage() {
 
             {/* Delivery */}
             <section className="card p-6" aria-labelledby="delivery-heading">
-              <h2 id="delivery-heading" className="text-lg font-bold text-[var(--foreground)] mb-4 flex items-center gap-2">
+              <h2 id="delivery-heading" className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
                 <Truck size={20} className="text-[var(--primary)]" aria-hidden="true" />
                 Доставка
               </h2>
@@ -307,8 +307,8 @@ export default function CheckoutPage() {
                         <Check size={12} className="text-white" />
                       </div>
                     )}
-                    <div className={`font-bold ${formData.courier === 'econt' ? 'text-[var(--primary)]' : 'text-[var(--foreground)]'}`}>Еконт</div>
-                    <div className="text-sm text-[var(--muted)]">1-3 работни дни</div>
+                    <div className={`font-bold ${formData.courier === 'econt' ? 'text-[var(--primary)]' : 'text-slate-800'}`}>Еконт</div>
+                    <div className="text-sm text-slate-500">1-3 работни дни</div>
                   </button>
 
                   <button
@@ -325,8 +325,8 @@ export default function CheckoutPage() {
                         <Check size={12} className="text-white" />
                       </div>
                     )}
-                    <div className={`font-bold ${formData.courier === 'speedy' ? 'text-[var(--primary)]' : 'text-[var(--foreground)]'}`}>Спиди</div>
-                    <div className="text-sm text-[var(--muted)]">1-3 работни дни</div>
+                    <div className={`font-bold ${formData.courier === 'speedy' ? 'text-[var(--primary)]' : 'text-slate-800'}`}>Спиди</div>
+                    <div className="text-sm text-slate-500">1-3 работни дни</div>
                   </button>
                 </div>
               </div>
@@ -350,10 +350,10 @@ export default function CheckoutPage() {
                       </div>
                     )}
                     <div className="flex items-center gap-3">
-                      <MapPin size={24} className={formData.deliveryType === 'address' ? 'text-[var(--primary)]' : 'text-[var(--muted)]'} aria-hidden="true" />
+                      <MapPin size={24} className={formData.deliveryType === 'address' ? 'text-[var(--primary)]' : 'text-slate-500'} aria-hidden="true" />
                       <div className="text-left">
                         <div className={`font-medium ${formData.deliveryType === 'address' ? 'text-[var(--primary)]' : ''}`}>До адрес</div>
-                        <div className="text-sm text-[var(--muted)]">Доставка до врата</div>
+                        <div className="text-sm text-slate-500">Доставка до врата</div>
                       </div>
                     </div>
                   </button>
@@ -373,10 +373,10 @@ export default function CheckoutPage() {
                       </div>
                     )}
                     <div className="flex items-center gap-3">
-                      <Building2 size={24} className={formData.deliveryType === 'office' ? 'text-[var(--primary)]' : 'text-[var(--muted)]'} aria-hidden="true" />
+                      <Building2 size={24} className={formData.deliveryType === 'office' ? 'text-[var(--primary)]' : 'text-slate-500'} aria-hidden="true" />
                       <div className="text-left">
                         <div className={`font-medium ${formData.deliveryType === 'office' ? 'text-[var(--primary)]' : ''}`}>До офис</div>
-                        <div className="text-sm text-[var(--muted)]">Вземете от офис</div>
+                        <div className="text-sm text-slate-500">Вземете от офис</div>
                       </div>
                     </div>
                   </button>
@@ -456,7 +456,7 @@ export default function CheckoutPage() {
 
             {/* Notes */}
             <section className="card p-6" aria-labelledby="notes-heading">
-              <h2 id="notes-heading" className="text-lg font-bold text-[var(--foreground)] mb-4">
+              <h2 id="notes-heading" className="text-lg font-bold text-slate-800 mb-4">
                 Бележки към поръчката
               </h2>
               <label htmlFor="notes" className="sr-only">Бележки</label>
@@ -475,7 +475,7 @@ export default function CheckoutPage() {
           {/* Order summary */}
           <aside className="lg:col-span-1" aria-labelledby="summary-heading">
             <div className="card p-6 sticky top-24">
-              <h2 id="summary-heading" className="text-lg font-bold text-[var(--foreground)] mb-4">
+              <h2 id="summary-heading" className="text-lg font-bold text-slate-800 mb-4">
                 Вашата поръчка
               </h2>
 
@@ -500,7 +500,7 @@ export default function CheckoutPage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium line-clamp-1">{item.name}</p>
-                      <p className="text-sm text-[var(--muted)]">
+                      <p className="text-sm text-slate-500">
                         {item.quantity} x {item.price.toFixed(2)} лв.
                       </p>
                     </div>
@@ -516,11 +516,11 @@ export default function CheckoutPage() {
               {/* Totals */}
               <dl className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <dt className="text-[var(--muted)]">Междинна сума</dt>
+                  <dt className="text-slate-500">Междинна сума</dt>
                   <dd>{total.toFixed(2)} лв.</dd>
                 </div>
                 <div className="flex justify-between">
-                  <dt className="text-[var(--muted)]">Доставка</dt>
+                  <dt className="text-slate-500">Доставка</dt>
                   <dd>
                     {deliveryFee === 0 ? (
                       <span className="text-green-600">Безплатна</span>
@@ -558,7 +558,7 @@ export default function CheckoutPage() {
                 )}
               </button>
 
-              <p className="text-xs text-[var(--muted)] text-center mt-4">
+              <p className="text-xs text-slate-500 text-center mt-4">
                 С натискане на бутона се съгласявате с нашите{' '}
                 <Link href="/terms" className="underline">общи условия</Link>
               </p>

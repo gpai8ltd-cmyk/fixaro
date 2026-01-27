@@ -181,10 +181,10 @@ export default async function HomePage() {
                   <feature.icon className="text-[var(--primary)]" size={24} aria-hidden="true" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-[var(--foreground)] text-sm md:text-base">
+                  <h3 className="font-medium text-slate-800 text-sm md:text-base">
                     {feature.title}
                   </h3>
-                  <p className="text-xs md:text-sm text-[var(--muted)]">
+                  <p className="text-xs md:text-sm text-slate-500">
                     {feature.description}
                   </p>
                 </div>
@@ -199,10 +199,10 @@ export default async function HomePage() {
         <div className="container-custom">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 id="categories-heading" className="text-2xl md:text-3xl font-bold text-[var(--foreground)]">
+              <h2 id="categories-heading" className="text-2xl md:text-3xl font-bold text-slate-800">
                 Категории
               </h2>
-              <p className="text-[var(--muted)] mt-1">
+              <p className="text-slate-500 mt-1">
                 Разгледайте нашите продуктови категории
               </p>
             </div>
@@ -255,7 +255,7 @@ export default async function HomePage() {
               })}
             </div>
           ) : (
-            <div className="text-center py-12 text-[var(--muted)]">
+            <div className="text-center py-12 text-slate-500">
               <Package size={48} className="mx-auto mb-4 opacity-50" />
               <p>Все още няма добавени категории</p>
             </div>
@@ -271,10 +271,10 @@ export default async function HomePage() {
         <div className="container-custom">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 id="featured-heading" className="text-2xl md:text-3xl font-bold text-[var(--foreground)]">
+              <h2 id="featured-heading" className="text-2xl md:text-3xl font-bold text-slate-800">
                 Популярни продукти
               </h2>
-              <p className="text-[var(--muted)] mt-1">
+              <p className="text-slate-500 mt-1">
                 Най-търсените инструменти тази седмица
               </p>
             </div>
@@ -314,7 +314,7 @@ export default async function HomePage() {
               })}
             </div>
           ) : (
-            <div className="text-center py-12 text-[var(--muted)]">
+            <div className="text-center py-12 text-slate-500">
               <Package size={48} className="mx-auto mb-4 opacity-50" />
               <p>Все още няма добавени продукти</p>
               <Link href="/admin" className="btn btn-primary mt-4">

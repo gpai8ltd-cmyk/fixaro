@@ -25,10 +25,10 @@ export default function CartPage() {
       <div className="container-custom py-16">
         <div className="max-w-md mx-auto text-center">
           <ShoppingBag size={80} className="mx-auto text-[var(--muted-light)] mb-6" />
-          <h1 className="text-2xl font-bold text-[var(--foreground)] mb-2">
+          <h1 className="text-2xl font-bold text-slate-800 mb-2">
             Количката е празна
           </h1>
-          <p className="text-[var(--muted)] mb-6">
+          <p className="text-slate-500 mb-6">
             Изглежда все още не сте добавили продукти в количката си.
           </p>
           <Link href="/products" className="btn btn-primary btn-lg">
@@ -45,10 +45,10 @@ export default function CartPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-[var(--foreground)]">
+          <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
             Количка
           </h1>
-          <p className="text-[var(--muted)]">
+          <p className="text-slate-500">
             {items.length} {items.length === 1 ? 'продукт' : 'продукта'}
           </p>
         </div>
@@ -89,7 +89,7 @@ export default function CartPage() {
               <div className="flex-1 min-w-0">
                 <Link
                   href={`/products/${item.id}`}
-                  className="font-medium text-[var(--foreground)] hover:text-[var(--primary)] line-clamp-2"
+                  className="font-medium text-slate-800 hover:text-[var(--primary)] line-clamp-2"
                 >
                   {item.name}
                 </Link>
@@ -99,7 +99,7 @@ export default function CartPage() {
                     {item.price.toFixed(2)} лв.
                   </span>
                   {item.oldPrice && (
-                    <span className="text-sm text-[var(--muted)] line-through">
+                    <span className="text-sm text-slate-500 line-through">
                       {item.oldPrice.toFixed(2)} лв.
                     </span>
                   )}
@@ -128,12 +128,12 @@ export default function CartPage() {
 
                   {/* Subtotal & Remove */}
                   <div className="flex items-center gap-4">
-                    <span className="text-lg font-bold text-[var(--foreground)] hidden sm:block">
+                    <span className="text-lg font-bold text-slate-800 hidden sm:block">
                       {(item.price * item.quantity).toFixed(2)} лв.
                     </span>
                     <button
                       onClick={() => removeItem(item.id)}
-                      className="p-2 text-[var(--muted)] hover:text-red-500 transition-colors"
+                      className="p-2 text-slate-500 hover:text-red-500 transition-colors"
                       aria-label="Премахни"
                     >
                       <Trash2 size={20} />
@@ -147,7 +147,7 @@ export default function CartPage() {
           {/* Continue shopping */}
           <Link
             href="/products"
-            className="btn btn-ghost text-[var(--muted)] mt-4"
+            className="btn btn-ghost text-slate-500 mt-4"
           >
             <ArrowLeft size={18} />
             Продължи пазаруването
@@ -157,18 +157,18 @@ export default function CartPage() {
         {/* Order summary */}
         <div className="lg:col-span-1">
           <div className="card p-6 sticky top-24">
-            <h2 className="text-lg font-bold text-[var(--foreground)] mb-4">
+            <h2 className="text-lg font-bold text-slate-800 mb-4">
               Обобщение
             </h2>
 
             <div className="space-y-3 text-sm">
               <div className="flex justify-between">
-                <span className="text-[var(--muted)]">Междинна сума</span>
+                <span className="text-slate-500">Междинна сума</span>
                 <span className="font-medium">{total.toFixed(2)} лв.</span>
               </div>
 
               <div className="flex justify-between">
-                <span className="text-[var(--muted)]">Доставка</span>
+                <span className="text-slate-500">Доставка</span>
                 <span className="font-medium">
                   {deliveryFee === 0 ? (
                     <span className="text-green-600">Безплатна</span>
@@ -202,7 +202,7 @@ export default function CartPage() {
               <ArrowRight size={20} />
             </Link>
 
-            <p className="text-xs text-[var(--muted)] text-center mt-4">
+            <p className="text-xs text-slate-500 text-center mt-4">
               Плащане при доставка (наложен платеж)
             </p>
           </div>
