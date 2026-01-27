@@ -65,18 +65,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
           <div>
-            <Link href="/" className="flex items-center gap-3 mb-4">
+            <Link href="/" className="inline-block mb-4">
               <Image
-                src="/images/logo-icon.jpeg"
+                src="/images/logo.png"
                 alt="Fixaro"
-                width={56}
-                height={56}
-                className="rounded-xl shadow-lg"
+                width={160}
+                height={106}
               />
-              <span className="text-2xl font-bold uppercase tracking-wider">
-                <span className="text-[var(--primary)]">FIX</span>
-                <span className="text-white">ARO</span>
-              </span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed mb-4">
               Вашият надежден партньор за качествени инструменти.

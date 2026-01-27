@@ -181,21 +181,21 @@ export default function Header() {
 
             {/* Logo */}
             <Link href="/" className="flex items-center" aria-label="Fixaro - Начало">
-              {/* Mobile: wide logo smaller */}
+              {/* Mobile: smaller logo */}
               <Image
-                src="/images/logo-wide.jpeg"
+                src="/images/logo.png"
                 alt="Fixaro"
-                width={120}
-                height={38}
-                className="sm:hidden rounded-md"
+                width={130}
+                height={86}
+                className="sm:hidden"
               />
-              {/* Desktop: wide logo larger */}
+              {/* Desktop: larger logo */}
               <Image
-                src="/images/logo-wide.jpeg"
+                src="/images/logo.png"
                 alt="Fixaro"
                 width={180}
-                height={56}
-                className="hidden sm:block rounded-lg"
+                height={120}
+                className="hidden sm:block"
               />
             </Link>
 
@@ -428,11 +428,10 @@ export default function Header() {
             <div className="flex items-center justify-between p-4 border-b border-[var(--border)]">
               <Link href="/" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
                 <Image
-                  src="/images/logo-wide.jpeg"
+                  src="/images/logo.png"
                   alt="Fixaro"
-                  width={130}
-                  height={40}
-                  className="rounded-md"
+                  width={140}
+                  height={93}
                 />
               </Link>
               <button
