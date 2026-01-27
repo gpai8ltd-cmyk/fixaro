@@ -65,15 +65,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
           <div>
-            <Link href="/" className="flex items-center gap-2 mb-4">
+            <Link href="/" className="flex items-center gap-3 mb-4">
               <Image
                 src="/images/logo-icon.jpeg"
                 alt="Fixaro"
-                width={44}
-                height={44}
-                className="rounded-lg"
+                width={56}
+                height={56}
+                className="rounded-xl shadow-lg"
               />
-              <span className="text-xl font-bold uppercase tracking-wider">
+              <span className="text-2xl font-bold uppercase tracking-wider">
                 <span className="text-[var(--primary)]">FIX</span>
                 <span className="text-white">ARO</span>
               </span>

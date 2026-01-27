@@ -180,18 +180,23 @@ export default function Header() {
             </button>
 
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2" aria-label="Fixaro - Начало">
+            <Link href="/" className="flex items-center gap-2 sm:gap-3" aria-label="Fixaro - Начало">
+              {/* Mobile: larger icon logo */}
               <Image
                 src="/images/logo-icon.jpeg"
                 alt="Fixaro"
-                width={44}
-                height={44}
-                className="rounded-lg"
+                width={48}
+                height={48}
+                className="rounded-xl sm:hidden shadow-md"
               />
-              <span className="text-xl font-bold hidden sm:block uppercase tracking-wider">
-                <span className="text-[var(--primary)]">FIX</span>
-                <span className="text-[var(--secondary)]">ARO</span>
-              </span>
+              {/* Desktop: wide logo */}
+              <Image
+                src="/images/logo-wide.jpeg"
+                alt="Fixaro"
+                width={160}
+                height={50}
+                className="hidden sm:block rounded-lg"
+              />
             </Link>
 
             {/* Desktop navigation */}
@@ -421,15 +426,15 @@ export default function Header() {
           {/* Menu panel */}
           <div className="absolute left-0 top-0 bottom-0 w-[280px] bg-[var(--background)] mobile-menu-enter">
             <div className="flex items-center justify-between p-4 border-b border-[var(--border)]">
-              <Link href="/" className="flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
+              <Link href="/" className="flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
                 <Image
                   src="/images/logo-icon.jpeg"
                   alt="Fixaro"
-                  width={36}
-                  height={36}
-                  className="rounded-lg"
+                  width={48}
+                  height={48}
+                  className="rounded-xl shadow-md"
                 />
-                <span className="text-lg font-bold uppercase tracking-wider">
+                <span className="text-xl font-bold uppercase tracking-wider">
                   <span className="text-[var(--primary)]">FIX</span>
                   <span className="text-[var(--secondary)]">ARO</span>
                 </span>
