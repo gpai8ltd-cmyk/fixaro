@@ -163,15 +163,15 @@ export default function Footer() {
             <h3 className="font-bold text-lg mb-4">Контакти</h3>
             <ul className="space-y-3">
               <li>
-                <a href="tel:+359888123456" className="flex items-center gap-2 text-slate-400 hover:text-[var(--primary)] transition-colors">
+                <a href="tel:+359879696506" className="flex items-center gap-2 text-slate-400 hover:text-[var(--primary)] transition-colors">
                   <Phone size={18} />
-                  <span>+359 888 123 456</span>
+                  <span>+359 87 9696506</span>
                 </a>
               </li>
               <li>
-                <a href="mailto:info@fixaro.bg" className="flex items-center gap-2 text-slate-400 hover:text-[var(--primary)] transition-colors">
+                <a href="mailto:fixaroshop@gmail.com" className="flex items-center gap-2 text-slate-400 hover:text-[var(--primary)] transition-colors">
                   <Mail size={18} />
-                  <span>info@fixaro.bg</span>
+                  <span>fixaroshop@gmail.com</span>
                 </a>
               </li>
               <li className="flex items-start gap-2 text-slate-400">

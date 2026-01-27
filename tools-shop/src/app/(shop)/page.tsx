@@ -390,11 +390,11 @@ export default async function HomePage() {
             Свържете се с нас и ние ще ви помогнем да изберете правилния инструмент за вашите нужди.
           </p>
           <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="tel:+359888123456" className="btn btn-primary btn-lg">
+            <a href="tel:+359879696506" className="btn btn-primary btn-lg">
               <Headphones size={20} aria-hidden="true" />
               Обадете се
             </a>
-            <a href="mailto:info@fixaro.bg" className="btn btn-outline btn-lg text-white border-white hover:bg-white hover:text-[var(--secondary)]">
+            <a href="mailto:fixaroshop@gmail.com" className="btn btn-outline btn-lg text-white border-white hover:bg-white hover:text-[var(--secondary)]">
               Пишете ни
             </a>
           </div>

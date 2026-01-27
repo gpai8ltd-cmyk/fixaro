@@ -43,19 +43,19 @@ export default function ContactPage() {
     {
       icon: Phone,
       title: 'Телефон',
-      value: '+359 888 123 456',
+      value: '+359 87 9696506',
       subtext: 'Пон-Пет: 9:00 - 18:00',
       action: 'Обадете се',
-      href: 'tel:+359888123456',
+      href: 'tel:+359879696506',
       color: 'emerald',
     },
     {
       icon: Mail,
       title: 'Имейл',
-      value: 'info@fixaro.bg',
+      value: 'fixaroshop@gmail.com',
       subtext: 'Отговаряме до 24 часа',
       action: 'Изпратете имейл',
-      href: 'mailto:info@fixaro.bg',
+      href: 'mailto:fixaroshop@gmail.com',
       color: 'blue',
     },
     {
@@ -153,14 +153,14 @@ export default function ContactPage() {
         <h3 className="font-semibold text-[var(--foreground)] mb-4">Бързи въпроси</h3>
         <div className="grid sm:grid-cols-2 gap-3">
           <a
-            href="tel:+359888123456"
+            href="tel:+359879696506"
             className="flex items-center justify-center gap-3 p-4 bg-emerald-50 text-emerald-700 rounded-xl hover:bg-emerald-100 transition-colors font-medium"
           >
             <Phone size={20} />
             <span>Обадете се сега</span>
           </a>
           <a
-            href="mailto:info@fixaro.bg"
+            href="mailto:fixaroshop@gmail.com"
             className="flex items-center justify-center gap-3 p-4 bg-blue-50 text-blue-700 rounded-xl hover:bg-blue-100 transition-colors font-medium"
           >
             <Mail size={20} />

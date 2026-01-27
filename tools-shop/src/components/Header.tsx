@@ -479,9 +479,9 @@ export default function Header() {
             </nav>
 
             <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-[var(--border)] bg-[var(--card)]">
-              <a href="tel:+359888123456" className="flex items-center gap-2 text-[var(--foreground)] mb-3">
+              <a href="tel:+359879696506" className="flex items-center gap-2 text-[var(--foreground)] mb-3">
                 <Phone size={18} className="text-[var(--primary)]" aria-hidden="true" />
-                <span>+359 888 123 456</span>
+                <span>+359 87 9696506</span>
               </a>
               <div className="flex items-center gap-3">
                 <a
