@@ -76,15 +76,15 @@ export default function TermsPage() {
 
   return (
     <div className="container-custom py-12">
-      <h1 className="text-3xl font-bold text-slate-800 mb-4">Общи условия</h1>
-      <p className="text-slate-500 mb-8">Последна актуализация: {new Date().toLocaleDateString('bg-BG')}</p>
+      <h1 className="text-3xl font-bold text-white mb-4">Общи условия</h1>
+      <p className="text-slate-300 mb-8">Последна актуализация: {new Date().toLocaleDateString('bg-BG')}</p>
 
       <div className="lg:flex lg:gap-8">
         {/* Mobile TOC Toggle */}
         <div className="lg:hidden mb-6">
           <button
             onClick={() => setTocOpen(!tocOpen)}
-            className="flex items-center gap-2 w-full px-4 py-3 bg-amber-50 rounded-xl shadow-sm text-slate-800 font-medium"
+            className="flex items-center gap-2 w-full px-4 py-3 bg-amber-50 rounded-xl shadow-sm text-white font-medium"
           >
             {tocOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             Съдържание
@@ -115,7 +115,7 @@ export default function TermsPage() {
         {/* Desktop Sticky TOC Sidebar */}
         <aside className="hidden lg:block lg:w-72 flex-shrink-0">
           <nav className="sticky top-24 p-5 bg-amber-50 rounded-xl shadow-sm">
-            <h2 className="font-semibold text-slate-800 mb-4">Съдържание</h2>
+            <h2 className="font-semibold text-white mb-4">Съдържание</h2>
             <ul className="space-y-1">
               {sections.map((section) => (
                 <li key={section.id}>
@@ -143,9 +143,9 @@ export default function TermsPage() {
               onClick={() => toggleSection('section-1')}
               className="flex items-center justify-between w-full p-5 text-left"
             >
-              <h2 className="text-xl font-semibold text-slate-800">1. Общи положения</h2>
+              <h2 className="text-xl font-semibold text-white">1. Общи положения</h2>
               <ChevronDown
-                className={`w-5 h-5 text-slate-500 transition-transform duration-200 ${
+                className={`w-5 h-5 text-slate-300 transition-transform duration-200 ${
                   expanded.has('section-1') ? 'rotate-180' : ''
                 }`}
               />
@@ -156,12 +156,12 @@ export default function TermsPage() {
               } overflow-hidden`}
             >
               <div className="px-5 pb-5">
-                <p className="text-slate-800 mb-4">
+                <p className="text-white mb-4">
                   Настоящите Общи условия уреждат отношенията между Fixaro (наричан по-долу &quot;Продавач&quot;)
                   и потребителите на уебсайта fixaro.bg (наричани по-долу &quot;Клиенти&quot;) при извършване на
                   покупки на стоки чрез онлайн магазина.
                 </p>
-                <p className="text-slate-800">
+                <p className="text-white">
                   С използването на този уебсайт и/или извършването на поръчка, Вие се съгласявате с
                   настоящите Общи условия.
                 </p>
@@ -175,9 +175,9 @@ export default function TermsPage() {
               onClick={() => toggleSection('section-2')}
               className="flex items-center justify-between w-full p-5 text-left"
             >
-              <h2 className="text-xl font-semibold text-slate-800">2. Поръчка и сключване на договор</h2>
+              <h2 className="text-xl font-semibold text-white">2. Поръчка и сключване на договор</h2>
               <ChevronDown
-                className={`w-5 h-5 text-slate-500 transition-transform duration-200 ${
+                className={`w-5 h-5 text-slate-300 transition-transform duration-200 ${
                   expanded.has('section-2') ? 'rotate-180' : ''
                 }`}
               />
@@ -188,12 +188,12 @@ export default function TermsPage() {
               } overflow-hidden`}
             >
               <div className="px-5 pb-5">
-                <p className="text-slate-800 mb-4">
+                <p className="text-white mb-4">
                   Поръчката се счита за приета след потвърждение от страна на Продавача чрез електронна поща
                   или телефонно обаждане. Договорът за покупко-продажба се счита за сключен от момента на
                   потвърждаване на поръчката.
                 </p>
-                <ul className="list-disc pl-6 text-slate-800">
+                <ul className="list-disc pl-6 text-white">
                   <li>Клиентът избира желаните продукти и ги добавя в количката</li>
                   <li>Клиентът предоставя данни за доставка и избира метод на плащане</li>
                   <li>Клиентът потвърждава поръчката</li>
@@ -209,9 +209,9 @@ export default function TermsPage() {
               onClick={() => toggleSection('section-3')}
               className="flex items-center justify-between w-full p-5 text-left"
             >
-              <h2 className="text-xl font-semibold text-slate-800">3. Цени и плащане</h2>
+              <h2 className="text-xl font-semibold text-white">3. Цени и плащане</h2>
               <ChevronDown
-                className={`w-5 h-5 text-slate-500 transition-transform duration-200 ${
+                className={`w-5 h-5 text-slate-300 transition-transform duration-200 ${
                   expanded.has('section-3') ? 'rotate-180' : ''
                 }`}
               />
@@ -222,15 +222,15 @@ export default function TermsPage() {
               } overflow-hidden`}
             >
               <div className="px-5 pb-5">
-                <p className="text-slate-800 mb-4">
+                <p className="text-white mb-4">
                   Всички цени в сайта са в български лева (BGN) и включват ДДС. Продавачът си запазва
                   правото да променя цените без предварително уведомление, като промените не засягат
                   вече направени поръчки.
                 </p>
-                <p className="text-slate-800 mb-4">
+                <p className="text-white mb-4">
                   Методи на плащане:
                 </p>
-                <ul className="list-disc pl-6 text-slate-800">
+                <ul className="list-disc pl-6 text-white">
                   <li>Наложен платеж - плащане в брой при доставка</li>
                   <li>Банков превод</li>
                   <li>Плащане с карта (скоро)</li>
@@ -245,9 +245,9 @@ export default function TermsPage() {
               onClick={() => toggleSection('section-4')}
               className="flex items-center justify-between w-full p-5 text-left"
             >
-              <h2 className="text-xl font-semibold text-slate-800">4. Гаранция</h2>
+              <h2 className="text-xl font-semibold text-white">4. Гаранция</h2>
               <ChevronDown
-                className={`w-5 h-5 text-slate-500 transition-transform duration-200 ${
+                className={`w-5 h-5 text-slate-300 transition-transform duration-200 ${
                   expanded.has('section-4') ? 'rotate-180' : ''
                 }`}
               />
@@ -258,15 +258,15 @@ export default function TermsPage() {
               } overflow-hidden`}
             >
               <div className="px-5 pb-5">
-                <p className="text-slate-800 mb-4">
+                <p className="text-white mb-4">
                   Всички продукти се предлагат с гаранция съгласно Закона за защита на потребителите.
                   Гаранционният срок е посочен в описанието на всеки продукт и започва да тече от датата
                   на покупката.
                 </p>
-                <p className="text-slate-800 mb-4">
+                <p className="text-white mb-4">
                   Гаранцията не покрива:
                 </p>
-                <ul className="list-disc pl-6 text-slate-800">
+                <ul className="list-disc pl-6 text-white">
                   <li>Повреди, причинени от неправилна употреба</li>
                   <li>Нормално износване</li>
                   <li>Повреди от външни фактори</li>
@@ -282,9 +282,9 @@ export default function TermsPage() {
               onClick={() => toggleSection('section-5')}
               className="flex items-center justify-between w-full p-5 text-left"
             >
-              <h2 className="text-xl font-semibold text-slate-800">5. Интелектуална собственост</h2>
+              <h2 className="text-xl font-semibold text-white">5. Интелектуална собственост</h2>
               <ChevronDown
-                className={`w-5 h-5 text-slate-500 transition-transform duration-200 ${
+                className={`w-5 h-5 text-slate-300 transition-transform duration-200 ${
                   expanded.has('section-5') ? 'rotate-180' : ''
                 }`}
               />
@@ -295,7 +295,7 @@ export default function TermsPage() {
               } overflow-hidden`}
             >
               <div className="px-5 pb-5">
-                <p className="text-slate-800">
+                <p className="text-white">
                   Всички материали на този уебсайт, включително текстове, изображения, лога и дизайн,
                   са собственост на Fixaro или са използвани с разрешение. Забранено е копирането,
                   разпространението или използването им без изрично писмено съгласие.
@@ -310,9 +310,9 @@ export default function TermsPage() {
               onClick={() => toggleSection('section-6')}
               className="flex items-center justify-between w-full p-5 text-left"
             >
-              <h2 className="text-xl font-semibold text-slate-800">6. Ограничение на отговорността</h2>
+              <h2 className="text-xl font-semibold text-white">6. Ограничение на отговорността</h2>
               <ChevronDown
-                className={`w-5 h-5 text-slate-500 transition-transform duration-200 ${
+                className={`w-5 h-5 text-slate-300 transition-transform duration-200 ${
                   expanded.has('section-6') ? 'rotate-180' : ''
                 }`}
               />
@@ -323,7 +323,7 @@ export default function TermsPage() {
               } overflow-hidden`}
             >
               <div className="px-5 pb-5">
-                <p className="text-slate-800">
+                <p className="text-white">
                   Продавачът не носи отговорност за щети, възникнали от неправилна употреба на продуктите,
                   забавяне на доставката поради форсмажорни обстоятелства или технически проблеми извън
                   неговия контрол.
@@ -338,9 +338,9 @@ export default function TermsPage() {
               onClick={() => toggleSection('section-7')}
               className="flex items-center justify-between w-full p-5 text-left"
             >
-              <h2 className="text-xl font-semibold text-slate-800">7. Изменения на Общите условия</h2>
+              <h2 className="text-xl font-semibold text-white">7. Изменения на Общите условия</h2>
               <ChevronDown
-                className={`w-5 h-5 text-slate-500 transition-transform duration-200 ${
+                className={`w-5 h-5 text-slate-300 transition-transform duration-200 ${
                   expanded.has('section-7') ? 'rotate-180' : ''
                 }`}
               />
@@ -351,7 +351,7 @@ export default function TermsPage() {
               } overflow-hidden`}
             >
               <div className="px-5 pb-5">
-                <p className="text-slate-800">
+                <p className="text-white">
                   Продавачът си запазва правото да изменя настоящите Общи условия по всяко време.
                   Измененията влизат в сила от момента на публикуването им на уебсайта.
                 </p>
@@ -365,9 +365,9 @@ export default function TermsPage() {
               onClick={() => toggleSection('section-8')}
               className="flex items-center justify-between w-full p-5 text-left"
             >
-              <h2 className="text-xl font-semibold text-slate-800">8. Приложимо право</h2>
+              <h2 className="text-xl font-semibold text-white">8. Приложимо право</h2>
               <ChevronDown
-                className={`w-5 h-5 text-slate-500 transition-transform duration-200 ${
+                className={`w-5 h-5 text-slate-300 transition-transform duration-200 ${
                   expanded.has('section-8') ? 'rotate-180' : ''
                 }`}
               />
@@ -378,7 +378,7 @@ export default function TermsPage() {
               } overflow-hidden`}
             >
               <div className="px-5 pb-5">
-                <p className="text-slate-800">
+                <p className="text-white">
                   За всички неуредени в настоящите Общи условия въпроси се прилага българското законодателство.
                   Всички спорове се решават чрез преговори, а при непостигане на съгласие - от компетентния
                   български съд.
@@ -393,9 +393,9 @@ export default function TermsPage() {
               onClick={() => toggleSection('section-9')}
               className="flex items-center justify-between w-full p-5 text-left"
             >
-              <h2 className="text-xl font-semibold text-slate-800">9. Контакт</h2>
+              <h2 className="text-xl font-semibold text-white">9. Контакт</h2>
               <ChevronDown
-                className={`w-5 h-5 text-slate-500 transition-transform duration-200 ${
+                className={`w-5 h-5 text-slate-300 transition-transform duration-200 ${
                   expanded.has('section-9') ? 'rotate-180' : ''
                 }`}
               />
@@ -406,10 +406,10 @@ export default function TermsPage() {
               } overflow-hidden`}
             >
               <div className="px-5 pb-5">
-                <p className="text-slate-800 mb-4">
+                <p className="text-white mb-4">
                   При въпроси относно Общите условия, моля свържете се с нас:
                 </p>
-                <ul className="list-none text-slate-800 space-y-1">
+                <ul className="list-none text-white space-y-1">
                   <li>Телефон: +359 888 123 456</li>
                   <li>Имейл: info@fixaro.bg</li>
                   <li>Адрес: гр. София, бул. &quot;Цариградско шосе&quot; 100</li>

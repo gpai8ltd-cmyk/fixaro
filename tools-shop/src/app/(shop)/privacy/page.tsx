@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <div className="container-custom py-12 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold text-slate-800 mb-4">Политика за поверителност</h1>
-      <p className="text-slate-500 mb-8">Последна актуализация: {new Date().toLocaleDateString('bg-BG')}</p>
+      <h1 className="text-3xl font-bold text-white mb-4">Политика за поверителност</h1>
+      <p className="text-slate-300 mb-8">Последна актуализация: {new Date().toLocaleDateString('bg-BG')}</p>
 
       {/* GDPR Compliance Box */}
       <div className="bg-blue-50 border border-blue-200 rounded-xl p-5 mb-8 shadow-sm">
@@ -27,8 +27,8 @@ export default function PrivacyPage() {
             <Shield className="w-6 h-6 text-amber-700" />
           </div>
           <div>
-            <h2 className="text-lg font-semibold text-slate-800 mb-3">Накратко за Вашите данни</h2>
-            <ul className="space-y-2 text-slate-800">
+            <h2 className="text-lg font-semibold text-white mb-3">Накратко за Вашите данни</h2>
+            <ul className="space-y-2 text-white">
               <li className="flex items-start gap-2">
                 <span className="text-amber-600 mt-1">•</span>
                 <span><strong>Какво събираме:</strong> Име, контакти, адрес за доставка и история на поръчките</span>
@@ -58,7 +58,7 @@ export default function PrivacyPage() {
       <div className="space-y-10">
         {/* Group 1: Data Collection (Sections 1-2) */}
         <div className="space-y-4">
-          <h3 className="text-sm font-medium text-slate-500 uppercase tracking-wide mb-2">Събиране на данни</h3>
+          <h3 className="text-sm font-medium text-slate-300 uppercase tracking-wide mb-2">Събиране на данни</h3>
 
           {/* Section 1 */}
           <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
@@ -67,11 +67,11 @@ export default function PrivacyPage() {
                 <User className="w-5 h-5 text-amber-600" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-slate-800 mb-3">1. Администратор на лични данни</h2>
-                <p className="text-slate-800 mb-4">
+                <h2 className="text-xl font-semibold text-white mb-3">1. Администратор на лични данни</h2>
+                <p className="text-white mb-4">
                   Fixaro е администратор на личните данни, които събираме чрез нашия уебсайт.
                 </p>
-                <ul className="list-none text-slate-800 space-y-1">
+                <ul className="list-none text-white space-y-1">
                   <li><strong>Наименование:</strong> Fixaro ЕООД</li>
                   <li><strong>Адрес:</strong> гр. София, бул. &quot;Цариградско шосе&quot; 100</li>
                   <li><strong>Имейл:</strong> privacy@fixaro.bg</li>
@@ -88,11 +88,11 @@ export default function PrivacyPage() {
                 <Database className="w-5 h-5 text-amber-600" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-slate-800 mb-3">2. Какви данни събираме</h2>
-                <p className="text-slate-800 mb-4">
+                <h2 className="text-xl font-semibold text-white mb-3">2. Какви данни събираме</h2>
+                <p className="text-white mb-4">
                   Събираме следните категории лични данни:
                 </p>
-                <ul className="list-disc pl-6 text-slate-800 space-y-1">
+                <ul className="list-disc pl-6 text-white space-y-1">
                   <li><strong>Идентификационни данни:</strong> име, фамилия</li>
                   <li><strong>Данни за контакт:</strong> имейл адрес, телефонен номер, адрес за доставка</li>
                   <li><strong>Данни за поръчки:</strong> история на покупките, предпочитания</li>
@@ -106,7 +106,7 @@ export default function PrivacyPage() {
 
         {/* Group 2: Processing & Legal (Sections 3-4) */}
         <div className="space-y-4">
-          <h3 className="text-sm font-medium text-slate-500 uppercase tracking-wide mb-2">Обработка и правно основание</h3>
+          <h3 className="text-sm font-medium text-slate-300 uppercase tracking-wide mb-2">Обработка и правно основание</h3>
 
           {/* Section 3 */}
           <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
@@ -115,11 +115,11 @@ export default function PrivacyPage() {
                 <Database className="w-5 h-5 text-blue-600" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-slate-800 mb-3">3. Цели на обработване</h2>
-                <p className="text-slate-800 mb-4">
+                <h2 className="text-xl font-semibold text-white mb-3">3. Цели на обработване</h2>
+                <p className="text-white mb-4">
                   Обработваме Вашите лични данни за следните цели:
                 </p>
-                <ul className="list-disc pl-6 text-slate-800 space-y-1">
+                <ul className="list-disc pl-6 text-white space-y-1">
                   <li>Изпълнение на поръчки и доставка на продукти</li>
                   <li>Комуникация относно поръчки и клиентско обслужване</li>
                   <li>Изпращане на маркетингови съобщения (само с Ваше съгласие)</li>
@@ -138,11 +138,11 @@ export default function PrivacyPage() {
                 <Scale className="w-5 h-5 text-blue-600" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-slate-800 mb-3">4. Правно основание</h2>
-                <p className="text-slate-800 mb-4">
+                <h2 className="text-xl font-semibold text-white mb-3">4. Правно основание</h2>
+                <p className="text-white mb-4">
                   Обработваме личните Ви данни на следните правни основания:
                 </p>
-                <ul className="list-disc pl-6 text-slate-800 space-y-1">
+                <ul className="list-disc pl-6 text-white space-y-1">
                   <li><strong>Изпълнение на договор:</strong> за обработка на поръчки</li>
                   <li><strong>Съгласие:</strong> за маркетингови комуникации</li>
                   <li><strong>Законово задължение:</strong> за счетоводни и данъчни цели</li>
@@ -155,7 +155,7 @@ export default function PrivacyPage() {
 
         {/* Group 3: Your Rights (Sections 5-6) - Highlighted */}
         <div className="space-y-4">
-          <h3 className="text-sm font-medium text-slate-500 uppercase tracking-wide mb-2">Вашите права</h3>
+          <h3 className="text-sm font-medium text-slate-300 uppercase tracking-wide mb-2">Вашите права</h3>
 
           {/* Section 5 */}
           <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-green-100">
@@ -164,11 +164,11 @@ export default function PrivacyPage() {
                 <Clock className="w-5 h-5 text-green-700" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-slate-800 mb-3">5. Срок на съхранение</h2>
-                <p className="text-slate-800 mb-4">
+                <h2 className="text-xl font-semibold text-white mb-3">5. Срок на съхранение</h2>
+                <p className="text-white mb-4">
                   Съхраняваме личните Ви данни за следните периоди:
                 </p>
-                <ul className="list-disc pl-6 text-slate-800 space-y-1">
+                <ul className="list-disc pl-6 text-white space-y-1">
                   <li>Данни за поръчки: 5 години след последната поръчка</li>
                   <li>Счетоводни документи: 10 години съгласно закона</li>
                   <li>Маркетингови данни: до оттегляне на съгласието</li>
@@ -185,11 +185,11 @@ export default function PrivacyPage() {
                 <UserCheck className="w-5 h-5 text-green-700" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-slate-800 mb-3">6. Вашите права</h2>
-                <p className="text-slate-800 mb-4">
+                <h2 className="text-xl font-semibold text-white mb-3">6. Вашите права</h2>
+                <p className="text-white mb-4">
                   Съгласно GDPR, Вие имате следните права:
                 </p>
-                <ul className="list-disc pl-6 text-slate-800 space-y-1">
+                <ul className="list-disc pl-6 text-white space-y-1">
                   <li><strong>Право на достъп:</strong> да получите информация какви данни обработваме за Вас</li>
                   <li><strong>Право на коригиране:</strong> да поискате коригиране на неточни данни</li>
                   <li><strong>Право на изтриване:</strong> да поискате изтриване на данните си (&quot;право да бъдеш забравен&quot;)</li>
@@ -198,7 +198,7 @@ export default function PrivacyPage() {
                   <li><strong>Право на възражение:</strong> да възразите срещу обработването</li>
                   <li><strong>Право да оттеглите съгласие:</strong> по всяко време, без това да засяга законосъобразността на обработването преди оттеглянето</li>
                 </ul>
-                <p className="text-slate-800 mt-4">
+                <p className="text-white mt-4">
                   За упражняване на тези права, моля свържете се с нас на privacy@fixaro.bg
                 </p>
               </div>
@@ -208,7 +208,7 @@ export default function PrivacyPage() {
 
         {/* Group 4: Third Parties & Security (Sections 7-8) */}
         <div className="space-y-4">
-          <h3 className="text-sm font-medium text-slate-500 uppercase tracking-wide mb-2">Сигурност и трети страни</h3>
+          <h3 className="text-sm font-medium text-slate-300 uppercase tracking-wide mb-2">Сигурност и трети страни</h3>
 
           {/* Section 7 */}
           <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
@@ -217,17 +217,17 @@ export default function PrivacyPage() {
                 <Share2 className="w-5 h-5 text-purple-600" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-slate-800 mb-3">7. Споделяне на данни</h2>
-                <p className="text-slate-800 mb-4">
+                <h2 className="text-xl font-semibold text-white mb-3">7. Споделяне на данни</h2>
+                <p className="text-white mb-4">
                   Можем да споделяме Вашите данни със следните категории получатели:
                 </p>
-                <ul className="list-disc pl-6 text-slate-800 space-y-1">
+                <ul className="list-disc pl-6 text-white space-y-1">
                   <li>Куриерски компании (Еконт, Спиди) - за доставка на поръчки</li>
                   <li>Платежни оператори - за обработка на плащания</li>
                   <li>IT доставчици - за поддръжка на системите ни</li>
                   <li>Държавни органи - когато това се изисква по закон</li>
                 </ul>
-                <p className="text-slate-800 mt-4 font-medium">
+                <p className="text-white mt-4 font-medium">
                   Не продаваме Вашите лични данни на трети страни.
                 </p>
               </div>
@@ -241,11 +241,11 @@ export default function PrivacyPage() {
                 <Lock className="w-5 h-5 text-purple-600" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-slate-800 mb-3">8. Сигурност на данните</h2>
-                <p className="text-slate-800 mb-4">
+                <h2 className="text-xl font-semibold text-white mb-3">8. Сигурност на данните</h2>
+                <p className="text-white mb-4">
                   Прилагаме подходящи технически и организационни мерки за защита на Вашите данни:
                 </p>
-                <ul className="list-disc pl-6 text-slate-800 space-y-1">
+                <ul className="list-disc pl-6 text-white space-y-1">
                   <li>SSL криптиране на всички комуникации</li>
                   <li>Защитени сървъри с ограничен достъп</li>
                   <li>Редовни проверки за сигурност</li>
@@ -258,7 +258,7 @@ export default function PrivacyPage() {
 
         {/* Group 5: Updates & Complaints (Sections 9-10) */}
         <div className="space-y-4">
-          <h3 className="text-sm font-medium text-slate-500 uppercase tracking-wide mb-2">Жалби и актуализации</h3>
+          <h3 className="text-sm font-medium text-slate-300 uppercase tracking-wide mb-2">Жалби и актуализации</h3>
 
           {/* Section 9 */}
           <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
@@ -267,12 +267,12 @@ export default function PrivacyPage() {
                 <AlertCircle className="w-5 h-5 text-red-600" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-slate-800 mb-3">9. Жалби</h2>
-                <p className="text-slate-800 mb-4">
+                <h2 className="text-xl font-semibold text-white mb-3">9. Жалби</h2>
+                <p className="text-white mb-4">
                   Ако смятате, че обработваме данните Ви в нарушение на GDPR, имате право да подадете
                   жалба до Комисията за защита на личните данни:
                 </p>
-                <ul className="list-none text-slate-800 space-y-1">
+                <ul className="list-none text-white space-y-1">
                   <li><strong>Адрес:</strong> гр. София 1592, бул. &quot;Проф. Цветан Лазаров&quot; № 2</li>
                   <li><strong>Телефон:</strong> 02/91-53-518</li>
                   <li><strong>Уебсайт:</strong> www.cpdp.bg</li>
@@ -288,8 +288,8 @@ export default function PrivacyPage() {
                 <RefreshCw className="w-5 h-5 text-gray-600" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-slate-800 mb-3">10. Промени в политиката</h2>
-                <p className="text-slate-800">
+                <h2 className="text-xl font-semibold text-white mb-3">10. Промени в политиката</h2>
+                <p className="text-white">
                   Можем да актуализираме тази политика периодично. При съществени промени ще Ви уведомим
                   чрез имейл или известие на сайта.
                 </p>

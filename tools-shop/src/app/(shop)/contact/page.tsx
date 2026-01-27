@@ -114,7 +114,7 @@ export default function ContactPage() {
 
   return (
     <div className="container-custom py-12">
-      <h1 className="text-3xl font-bold text-slate-800 mb-8">Контакти</h1>
+      <h1 className="text-3xl font-bold text-white mb-8">Контакти</h1>
 
       {/* Contact Channel Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
@@ -129,9 +129,9 @@ export default function ContactPage() {
               <div className={`w-12 h-12 ${colors.iconBg} rounded-xl flex items-center justify-center mb-4`}>
                 <IconComponent className={colors.text} size={24} />
               </div>
-              <h3 className="font-semibold text-slate-800 mb-1">{card.title}</h3>
-              <p className="text-slate-800 font-medium text-sm mb-0.5">{card.value}</p>
-              <p className="text-slate-500 text-sm mb-4">{card.subtext}</p>
+              <h3 className="font-semibold text-white mb-1">{card.title}</h3>
+              <p className="text-white font-medium text-sm mb-0.5">{card.value}</p>
+              <p className="text-slate-300 text-sm mb-4">{card.subtext}</p>
               {card.action && card.href && (
                 <a
                   href={card.href}
@@ -150,7 +150,7 @@ export default function ContactPage() {
 
       {/* Quick Actions */}
       <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-100 mb-10">
-        <h3 className="font-semibold text-slate-800 mb-4">Бързи въпроси</h3>
+        <h3 className="font-semibold text-white mb-4">Бързи въпроси</h3>
         <div className="grid sm:grid-cols-2 gap-3">
           <a
             href="tel:+359879696506"
@@ -175,7 +175,7 @@ export default function ContactPage() {
           <div className="w-10 h-10 bg-[var(--primary)]/10 rounded-lg flex items-center justify-center">
             <MessageSquare className="text-[var(--primary)]" size={22} />
           </div>
-          <h2 className="text-xl font-bold text-slate-800">Изпратете съобщение</h2>
+          <h2 className="text-xl font-bold text-white">Изпратете съобщение</h2>
         </div>
 
         {success ? (
@@ -183,10 +183,10 @@ export default function ContactPage() {
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <Send className="text-green-600" size={32} />
             </div>
-            <h3 className="text-xl font-bold text-slate-800 mb-2">
+            <h3 className="text-xl font-bold text-white mb-2">
               Съобщението е изпратено!
             </h3>
-            <p className="text-slate-500 mb-6">
+            <p className="text-slate-300 mb-6">
               Благодарим Ви! Ще се свържем с Вас възможно най-скоро.
             </p>
             <button
@@ -206,7 +206,7 @@ export default function ContactPage() {
 
             <div className="grid md:grid-cols-2 gap-5">
               <div>
-                <label className="block text-sm font-medium text-slate-800 mb-2">Име *</label>
+                <label className="block text-sm font-medium text-white mb-2">Име *</label>
                 <input
                   type="text"
                   name="name"
@@ -218,7 +218,7 @@ export default function ContactPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-800 mb-2">Имейл *</label>
+                <label className="block text-sm font-medium text-white mb-2">Имейл *</label>
                 <input
                   type="email"
                   name="email"
@@ -233,7 +233,7 @@ export default function ContactPage() {
 
             <div className="grid md:grid-cols-2 gap-5">
               <div>
-                <label className="block text-sm font-medium text-slate-800 mb-2">Телефон</label>
+                <label className="block text-sm font-medium text-white mb-2">Телефон</label>
                 <input
                   type="tel"
                   name="phone"
@@ -244,7 +244,7 @@ export default function ContactPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-800 mb-2">Относно</label>
+                <label className="block text-sm font-medium text-white mb-2">Относно</label>
                 <select
                   name="subject"
                   value={formData.subject}
@@ -262,7 +262,7 @@ export default function ContactPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-800 mb-2">Съобщение *</label>
+              <label className="block text-sm font-medium text-white mb-2">Съобщение *</label>
               <textarea
                 name="message"
                 value={formData.message}
@@ -274,7 +274,7 @@ export default function ContactPage() {
               />
             </div>
 
-            <div className="flex items-center gap-2 text-sm text-slate-500">
+            <div className="flex items-center gap-2 text-sm text-slate-300">
               <input type="checkbox" id="privacy" required className="w-4 h-4 rounded border-slate-300 text-[var(--primary)] focus:ring-[var(--primary)]" />
               <label htmlFor="privacy">
                 Съгласен/а съм с{' '}
@@ -307,17 +307,17 @@ export default function ContactPage() {
 
       {/* Map Section */}
       <div>
-        <h2 className="text-xl font-bold text-slate-800 mb-4">Къде се намираме</h2>
+        <h2 className="text-xl font-bold text-white mb-4">Къде се намираме</h2>
         <div className="bg-white rounded-xl overflow-hidden shadow-sm border border-slate-100">
           <div className="bg-gradient-to-br from-slate-100 to-slate-200 h-[350px] flex items-center justify-center">
             <div className="text-center p-6">
               <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
                 <MapPin size={32} className="text-[var(--primary)]" />
               </div>
-              <p className="text-slate-800 font-medium text-lg mb-1">
+              <p className="text-white font-medium text-lg mb-1">
                 гр. София
               </p>
-              <p className="text-slate-500 mb-6">
+              <p className="text-slate-300 mb-6">
                 бул. "Цариградско шосе" 100
               </p>
               <a

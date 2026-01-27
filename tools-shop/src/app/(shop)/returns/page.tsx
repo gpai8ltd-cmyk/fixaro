@@ -48,7 +48,7 @@ export default function ReturnsPage() {
 
   return (
     <div className="container-custom py-12">
-      <h1 className="text-3xl font-bold text-slate-800 mb-8">Право на връщане</h1>
+      <h1 className="text-3xl font-bold text-white mb-8">Право на връщане</h1>
 
       {/* Highlight box */}
       <div className="bg-green-50 border border-green-200 rounded-xl p-6 mb-12 shadow-sm">
@@ -68,8 +68,8 @@ export default function ReturnsPage() {
 
       <div className="prose prose-slate max-w-none">
         <section className="mb-12">
-          <h2 className="text-xl font-semibold text-slate-800 mb-4">Условия за връщане</h2>
-          <p className="text-slate-800 mb-4">
+          <h2 className="text-xl font-semibold text-white mb-4">Условия за връщане</h2>
+          <p className="text-white mb-4">
             За да упражните правото си на връщане, продуктът трябва да отговаря на следните условия:
           </p>
 
@@ -77,29 +77,29 @@ export default function ReturnsPage() {
             <div className="bg-white rounded-xl p-4 flex items-start gap-3 shadow-sm border border-slate-100">
               <CheckCircle className="text-green-600 flex-shrink-0 mt-1" size={20} />
               <div>
-                <p className="font-medium text-slate-800">Неизползван продукт</p>
-                <p className="text-slate-500 text-sm">Продуктът не е бил използван</p>
+                <p className="font-medium text-white">Неизползван продукт</p>
+                <p className="text-slate-300 text-sm">Продуктът не е бил използван</p>
               </div>
             </div>
             <div className="bg-white rounded-xl p-4 flex items-start gap-3 shadow-sm border border-slate-100">
               <CheckCircle className="text-green-600 flex-shrink-0 mt-1" size={20} />
               <div>
-                <p className="font-medium text-slate-800">Оригинална опаковка</p>
-                <p className="text-slate-500 text-sm">Запазена е оригиналната опаковка</p>
+                <p className="font-medium text-white">Оригинална опаковка</p>
+                <p className="text-slate-300 text-sm">Запазена е оригиналната опаковка</p>
               </div>
             </div>
             <div className="bg-white rounded-xl p-4 flex items-start gap-3 shadow-sm border border-slate-100">
               <CheckCircle className="text-green-600 flex-shrink-0 mt-1" size={20} />
               <div>
-                <p className="font-medium text-slate-800">Всички аксесоари</p>
-                <p className="text-slate-500 text-sm">Включени са всички аксесоари и документи</p>
+                <p className="font-medium text-white">Всички аксесоари</p>
+                <p className="text-slate-300 text-sm">Включени са всички аксесоари и документи</p>
               </div>
             </div>
             <div className="bg-white rounded-xl p-4 flex items-start gap-3 shadow-sm border border-slate-100">
               <CheckCircle className="text-green-600 flex-shrink-0 mt-1" size={20} />
               <div>
-                <p className="font-medium text-slate-800">В срок от 14 дни</p>
-                <p className="text-slate-500 text-sm">От датата на получаване</p>
+                <p className="font-medium text-white">В срок от 14 дни</p>
+                <p className="text-slate-300 text-sm">От датата на получаване</p>
               </div>
             </div>
           </div>
@@ -107,7 +107,7 @@ export default function ReturnsPage() {
 
         {/* Visual Timeline */}
         <section className="mb-12">
-          <h2 className="text-xl font-semibold text-slate-800 mb-6">Как да върнете продукт</h2>
+          <h2 className="text-xl font-semibold text-white mb-6">Как да върнете продукт</h2>
 
           <div className="relative">
             {/* Vertical line */}
@@ -132,8 +132,8 @@ export default function ReturnsPage() {
                           <IconComponent className="text-[var(--primary)]" size={20} />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-slate-800 mb-1">{step.title}</h3>
-                          <p className="text-slate-500 text-sm">{step.description}</p>
+                          <h3 className="font-semibold text-white mb-1">{step.title}</h3>
+                          <p className="text-slate-300 text-sm">{step.description}</p>
                         </div>
                       </div>
                     </div>
@@ -146,15 +146,15 @@ export default function ReturnsPage() {
 
         {/* Comparison Table */}
         <section className="mb-12">
-          <h2 className="text-xl font-semibold text-slate-800 mb-4">Разходи за връщане</h2>
+          <h2 className="text-xl font-semibold text-white mb-4">Разходи за връщане</h2>
 
           <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
             <table className="w-full">
               <thead>
                 <tr className="bg-slate-50 border-b border-slate-100">
-                  <th className="text-left p-4 font-semibold text-slate-800">Сценарий</th>
-                  <th className="text-left p-4 font-semibold text-slate-800">Разходи</th>
-                  <th className="text-left p-4 font-semibold text-slate-800">Срок</th>
+                  <th className="text-left p-4 font-semibold text-white">Сценарий</th>
+                  <th className="text-left p-4 font-semibold text-white">Разходи</th>
+                  <th className="text-left p-4 font-semibold text-white">Срок</th>
                 </tr>
               </thead>
               <tbody>
@@ -163,12 +163,12 @@ export default function ReturnsPage() {
                     key={index}
                     className={`border-b border-slate-50 last:border-b-0 ${row.isFree ? 'bg-green-50/50' : ''}`}
                   >
-                    <td className="p-4 text-slate-800">{row.scenario}</td>
-                    <td className={`p-4 font-medium ${row.isFree ? 'text-green-700' : 'text-slate-800'}`}>
+                    <td className="p-4 text-white">{row.scenario}</td>
+                    <td className={`p-4 font-medium ${row.isFree ? 'text-green-700' : 'text-white'}`}>
                       {row.isFree && <CheckCircle className="inline-block mr-1 -mt-0.5" size={16} />}
                       {row.cost}
                     </td>
-                    <td className="p-4 text-slate-500">{row.deadline}</td>
+                    <td className="p-4 text-slate-300">{row.deadline}</td>
                   </tr>
                 ))}
               </tbody>
@@ -203,7 +203,7 @@ export default function ReturnsPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl font-semibold text-slate-800 mb-4">Продукти, които не подлежат на връщане</h2>
+          <h2 className="text-xl font-semibold text-white mb-4">Продукти, които не подлежат на връщане</h2>
           <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-4 shadow-sm">
             <div className="flex items-start gap-3">
               <AlertTriangle className="text-red-600 flex-shrink-0 mt-1" size={20} />
@@ -221,22 +221,22 @@ export default function ReturnsPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl font-semibold text-slate-800 mb-4">Рекламации и гаранция</h2>
-          <p className="text-slate-800 mb-4">
+          <h2 className="text-xl font-semibold text-white mb-4">Рекламации и гаранция</h2>
+          <p className="text-white mb-4">
             Ако продуктът има фабричен дефект или не отговаря на описанието, имате право на:
           </p>
-          <ul className="list-disc pl-6 text-slate-800 mb-4">
+          <ul className="list-disc pl-6 text-white mb-4">
             <li>Безплатен ремонт</li>
             <li>Замяна с нов продукт</li>
             <li>Пълно възстановяване на сумата</li>
           </ul>
 
           <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-100">
-            <h3 className="font-semibold text-slate-800 mb-3 flex items-center gap-2">
+            <h3 className="font-semibold text-white mb-3 flex items-center gap-2">
               <Clock className="text-[var(--primary)]" size={20} />
               Гаранционни срокове
             </h3>
-            <ul className="list-disc pl-6 text-slate-800">
+            <ul className="list-disc pl-6 text-white">
               <li><strong>Законова гаранция:</strong> 2 години за всички продукти</li>
               <li><strong>Търговска гаранция:</strong> Посочена в гаранционната карта</li>
             </ul>
@@ -244,8 +244,8 @@ export default function ReturnsPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl font-semibold text-slate-800 mb-4">Процедура за рекламация</h2>
-          <ol className="list-decimal pl-6 text-slate-800 mb-4">
+          <h2 className="text-xl font-semibold text-white mb-4">Процедура за рекламация</h2>
+          <ol className="list-decimal pl-6 text-white mb-4">
             <li className="mb-2">Свържете се с нас в рамките на гаранционния срок</li>
             <li className="mb-2">Опишете проблема и приложете снимки (ако е възможно)</li>
             <li className="mb-2">Изпратете продукта заедно с гаранционната карта и фактурата</li>
@@ -254,9 +254,9 @@ export default function ReturnsPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl font-semibold text-slate-800 mb-4">Формуляр за отказ</h2>
+          <h2 className="text-xl font-semibold text-white mb-4">Формуляр за отказ</h2>
           <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-100">
-            <p className="text-slate-800 mb-4">
+            <p className="text-white mb-4">
               Можете да изтеглите и попълните стандартния формуляр за упражняване право на отказ:
             </p>
             <button className="btn btn-primary">
@@ -267,9 +267,9 @@ export default function ReturnsPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl font-semibold text-slate-800 mb-4">Контакт за връщания</h2>
+          <h2 className="text-xl font-semibold text-white mb-4">Контакт за връщания</h2>
           <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-100">
-            <ul className="list-none text-slate-800 space-y-2">
+            <ul className="list-none text-white space-y-2">
               <li><strong>Имейл:</strong> returns@fixaro.bg</li>
               <li><strong>Телефон:</strong> +359 888 123 456</li>
               <li><strong>Адрес за връщане:</strong> гр. София, бул. "Цариградско шосе" 100</li>
