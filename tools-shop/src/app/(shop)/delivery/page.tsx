@@ -96,7 +96,7 @@ function FAQAccordion({ items }: { items: FAQItem[] }) {
               onClick={() => toggleItem(index)}
               className="w-full flex items-center justify-between p-5 text-left hover:bg-gray-50 transition-colors"
             >
-              <span className="font-semibold text-white">{item.question}</span>
+              <span className="font-semibold text-slate-800">{item.question}</span>
               <ChevronDown
                 size={20}
                 className={`text-slate-300 transition-transform duration-200 flex-shrink-0 ml-4 ${
@@ -109,7 +109,7 @@ function FAQAccordion({ items }: { items: FAQItem[] }) {
                 isOpen ? 'max-h-96' : 'max-h-0'
               }`}
             >
-              <div className="p-5 pt-0 text-white">
+              <div className="p-5 pt-0 text-slate-700">
                 {item.answer}
               </div>
             </div>
@@ -131,21 +131,21 @@ export default function DeliveryPage() {
           <div className="w-20 h-20 bg-[var(--primary)]/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <Truck className="text-[var(--primary)]" size={40} />
           </div>
-          <h3 className="font-bold text-lg mb-2">Безплатна доставка</h3>
+          <h3 className="font-bold text-lg mb-2 text-slate-800">Безплатна доставка</h3>
           <p className="text-slate-300">За поръчки над 100 лв.</p>
         </div>
         <div className="rounded-xl bg-white border border-gray-200 p-6 text-center shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200">
           <div className="w-20 h-20 bg-[var(--primary)]/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <Clock className="text-[var(--primary)]" size={40} />
           </div>
-          <h3 className="font-bold text-lg mb-2">Бърза доставка</h3>
+          <h3 className="font-bold text-lg mb-2 text-slate-800">Бърза доставка</h3>
           <p className="text-slate-300">1-3 работни дни</p>
         </div>
         <div className="rounded-xl bg-white border border-gray-200 p-6 text-center shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200">
           <div className="w-20 h-20 bg-[var(--primary)]/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <MapPin className="text-[var(--primary)]" size={40} />
           </div>
-          <h3 className="font-bold text-lg mb-2">До всяка точка</h3>
+          <h3 className="font-bold text-lg mb-2 text-slate-800">До всяка точка</h3>
           <p className="text-slate-300">В цяла България</p>
         </div>
       </div>
@@ -154,17 +154,17 @@ export default function DeliveryPage() {
         {/* Courier companies */}
         <section className="mb-10">
           <h2 className="text-xl font-semibold text-white mb-4">Куриерски компании</h2>
-          <p className="text-white mb-4">
+          <p className="text-slate-300 mb-4">
             Работим с водещите куриерски компании в България за да осигурим бърза и надеждна доставка:
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 mb-6">
             <div className="rounded-xl bg-white border border-gray-200 p-6 shadow-sm">
-              <h3 className="font-bold text-lg mb-3 flex items-center gap-2">
+              <h3 className="font-bold text-lg mb-3 flex items-center gap-2 text-slate-800">
                 <Package className="text-[var(--primary)]" size={24} />
                 Еконт
               </h3>
-              <ul className="list-disc pl-6 text-white space-y-2">
+              <ul className="list-disc pl-6 text-slate-700 space-y-2">
                 <li>Доставка до адрес</li>
                 <li>Доставка до офис на Еконт</li>
                 <li>Доставка до автомат</li>
@@ -172,11 +172,11 @@ export default function DeliveryPage() {
               </ul>
             </div>
             <div className="rounded-xl bg-white border border-gray-200 p-6 shadow-sm">
-              <h3 className="font-bold text-lg mb-3 flex items-center gap-2">
+              <h3 className="font-bold text-lg mb-3 flex items-center gap-2 text-slate-800">
                 <Package className="text-[var(--primary)]" size={24} />
                 Спиди
               </h3>
-              <ul className="list-disc pl-6 text-white space-y-2">
+              <ul className="list-disc pl-6 text-slate-700 space-y-2">
                 <li>Доставка до адрес</li>
                 <li>Доставка до офис на Спиди</li>
                 <li>Експресна доставка</li>
@@ -194,24 +194,24 @@ export default function DeliveryPage() {
             <table className="w-full">
               <thead>
                 <tr className="bg-gray-50">
-                  <th className="p-4 text-left font-semibold text-white">Стойност на поръчката</th>
-                  <th className="p-4 text-left font-semibold text-white">До офис</th>
-                  <th className="p-4 text-left font-semibold text-white">До адрес</th>
+                  <th className="p-4 text-left font-semibold text-slate-800">Стойност на поръчката</th>
+                  <th className="p-4 text-left font-semibold text-slate-800">До офис</th>
+                  <th className="p-4 text-left font-semibold text-slate-800">До адрес</th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="bg-white">
-                  <td className="p-4 text-white">До 50 лв.</td>
-                  <td className="p-4 text-white">5.99 лв.</td>
-                  <td className="p-4 text-white">7.99 лв.</td>
+                  <td className="p-4 text-slate-700">До 50 лв.</td>
+                  <td className="p-4 text-slate-700">5.99 лв.</td>
+                  <td className="p-4 text-slate-700">7.99 лв.</td>
                 </tr>
                 <tr className="bg-gray-50/50">
-                  <td className="p-4 text-white">50 - 100 лв.</td>
-                  <td className="p-4 text-white">4.99 лв.</td>
-                  <td className="p-4 text-white">5.99 лв.</td>
+                  <td className="p-4 text-slate-700">50 - 100 лв.</td>
+                  <td className="p-4 text-slate-700">4.99 лв.</td>
+                  <td className="p-4 text-slate-700">5.99 лв.</td>
                 </tr>
                 <tr className="bg-green-50">
-                  <td className="p-4 font-semibold text-white">Над 100 лв.</td>
+                  <td className="p-4 font-semibold text-slate-800">Над 100 лв.</td>
                   <td className="p-4 text-green-600 font-semibold">БЕЗПЛАТНО</td>
                   <td className="p-4 text-green-600 font-semibold">БЕЗПЛАТНО</td>
                 </tr>
@@ -234,7 +234,7 @@ export default function DeliveryPage() {
                 <CreditCard className="text-green-600" size={28} />
               </div>
               <div>
-                <h3 className="font-semibold mb-1">Наложен платеж</h3>
+                <h3 className="font-semibold mb-1 text-slate-800">Наложен платеж</h3>
                 <p className="text-slate-300 text-sm">
                   Плащате в брой на куриера при получаване на пратката.
                 </p>
@@ -245,7 +245,7 @@ export default function DeliveryPage() {
                 <CreditCard className="text-blue-600" size={28} />
               </div>
               <div>
-                <h3 className="font-semibold mb-1">Банков превод</h3>
+                <h3 className="font-semibold mb-1 text-slate-800">Банков превод</h3>
                 <p className="text-slate-300 text-sm">
                   Получавате данни за превод след потвърждение на поръчката.
                 </p>
@@ -257,10 +257,10 @@ export default function DeliveryPage() {
         {/* Important notes */}
         <section className="mb-10">
           <h2 className="text-xl font-semibold text-white mb-4">Получаване на пратка</h2>
-          <p className="text-white mb-4">
+          <p className="text-slate-300 mb-4">
             При получаване на пратката, моля проверете:
           </p>
-          <ul className="list-disc pl-6 text-white mb-4">
+          <ul className="list-disc pl-6 text-slate-300 mb-4">
             <li>Дали опаковката е непокътната</li>
             <li>Дали продуктите съответстват на поръчката</li>
             <li>Дали има видими повреди</li>
@@ -268,7 +268,7 @@ export default function DeliveryPage() {
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 shadow-sm">
             <p className="text-amber-800 text-sm">
               <strong>Важно:</strong> При забелязани повреди или несъответствия, моля откажете
-              приемането и се свържете с нас веднага на телефон +359 888 123 456.
+              приемането и се свържете с нас веднага на телефон +359 87 9696506.
             </p>
           </div>
         </section>
@@ -276,12 +276,12 @@ export default function DeliveryPage() {
         {/* Contact */}
         <section className="mb-10">
           <h2 className="text-xl font-semibold text-white mb-4">Контакт</h2>
-          <p className="text-white mb-4">
+          <p className="text-slate-300 mb-4">
             При въпроси относно доставката, моля свържете се с нас:
           </p>
           <div className="rounded-xl bg-gray-50 p-5 shadow-sm">
-            <ul className="list-none text-white space-y-2">
-              <li><strong>Телефон:</strong> +359 888 123 456</li>
+            <ul className="list-none text-slate-700 space-y-2">
+              <li><strong>Телефон:</strong> +359 87 9696506</li>
               <li><strong>Имейл:</strong> info@fixaro.bg</li>
               <li><strong>Работно време:</strong> Пон-Пет 9:00 - 18:00</li>
             </ul>

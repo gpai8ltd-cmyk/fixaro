@@ -144,7 +144,7 @@ export default function CookiesPage() {
 
         <section className="mb-10">
           <h2 className="text-xl font-semibold text-white mb-4">Какво са бисквитките?</h2>
-          <p className="text-white mb-4">
+          <p className="text-slate-300 mb-4">
             Бисквитките (cookies) са малки текстови файлове, които се съхраняват на Вашето устройство
             (компютър, таблет или телефон), когато посещавате уебсайт. Те позволяват на сайта да
             запомни Вашите действия и предпочитания за определен период от време.
@@ -153,7 +153,7 @@ export default function CookiesPage() {
 
         <section className="mb-10">
           <h2 className="text-xl font-semibold text-white mb-6">Управление на бисквитките</h2>
-          <p className="text-white mb-6">
+          <p className="text-slate-300 mb-6">
             Изберете кои категории бисквитки да разрешите. Задължителните бисквитки не могат да бъдат изключени.
           </p>
 
@@ -186,7 +186,7 @@ export default function CookiesPage() {
                         />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-semibold text-white mb-1 flex items-center gap-2">
+                        <h3 className="font-semibold text-slate-800 mb-1 flex items-center gap-2">
                           {category.name}
                           {isDisabled && (
                             <span className="text-xs bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full">
@@ -194,10 +194,10 @@ export default function CookiesPage() {
                             </span>
                           )}
                         </h3>
-                        <p className="text-slate-300 text-sm mb-3">{category.description}</p>
+                        <p className="text-slate-600 text-sm mb-3">{category.description}</p>
                         <ul className="space-y-1">
                           {category.cookies.map((cookie) => (
-                            <li key={cookie.name} className="text-sm text-white">
+                            <li key={cookie.name} className="text-sm text-slate-700">
                               <strong>{cookie.name}</strong> - {cookie.description}
                             </li>
                           ))}
@@ -226,10 +226,10 @@ export default function CookiesPage() {
             <table className="w-full">
               <thead>
                 <tr className="bg-gray-50">
-                  <th className="p-4 text-left font-semibold text-white">Бисквитка</th>
-                  <th className="p-4 text-left font-semibold text-white">Тип</th>
-                  <th className="p-4 text-left font-semibold text-white">Срок</th>
-                  <th className="p-4 text-left font-semibold text-white">Статус</th>
+                  <th className="p-4 text-left font-semibold text-slate-800">Бисквитка</th>
+                  <th className="p-4 text-left font-semibold text-slate-800">Тип</th>
+                  <th className="p-4 text-left font-semibold text-slate-800">Срок</th>
+                  <th className="p-4 text-left font-semibold text-slate-800">Статус</th>
                 </tr>
               </thead>
               <tbody>
@@ -238,9 +238,9 @@ export default function CookiesPage() {
                     key={cookie.name}
                     className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}
                   >
-                    <td className="p-4 font-mono text-sm">{cookie.name}</td>
-                    <td className="p-4 text-white">{cookie.type}</td>
-                    <td className="p-4 text-slate-300">{cookie.duration}</td>
+                    <td className="p-4 font-mono text-sm text-slate-800">{cookie.name}</td>
+                    <td className="p-4 text-slate-700">{cookie.type}</td>
+                    <td className="p-4 text-slate-600">{cookie.duration}</td>
                     <td className="p-4">
                       <span className={`
                         inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
@@ -277,9 +277,9 @@ export default function CookiesPage() {
                     {getCategoryStatus(cookie.category)}
                   </span>
                 </div>
-                <div className="text-sm text-slate-300 space-y-1">
-                  <p><span className="text-white">Тип:</span> {cookie.type}</p>
-                  <p><span className="text-white">Срок:</span> {cookie.duration}</p>
+                <div className="text-sm text-slate-600 space-y-1">
+                  <p><span className="text-slate-800">Тип:</span> {cookie.type}</p>
+                  <p><span className="text-slate-800">Срок:</span> {cookie.duration}</p>
                 </div>
               </div>
             ))}
@@ -288,27 +288,27 @@ export default function CookiesPage() {
 
         <section className="mb-10">
           <h2 className="text-xl font-semibold text-white mb-4">Как да управлявате бисквитките в браузъра</h2>
-          <p className="text-white mb-4">
+          <p className="text-slate-300 mb-4">
             Можете да контролирате и/или изтривате бисквитки по Ваше желание. Повечето браузъри
             позволяват управление на бисквитките чрез настройките им.
           </p>
 
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="rounded-xl bg-gray-50 p-4 shadow-sm">
-              <strong className="text-white">Google Chrome:</strong>
-              <p className="text-slate-300 text-sm mt-1">Настройки - Поверителност и сигурност - Бисквитки</p>
+              <strong className="text-slate-800">Google Chrome:</strong>
+              <p className="text-slate-600 text-sm mt-1">Настройки - Поверителност и сигурност - Бисквитки</p>
             </div>
             <div className="rounded-xl bg-gray-50 p-4 shadow-sm">
-              <strong className="text-white">Mozilla Firefox:</strong>
-              <p className="text-slate-300 text-sm mt-1">Настройки - Поверителност и защита - Бисквитки</p>
+              <strong className="text-slate-800">Mozilla Firefox:</strong>
+              <p className="text-slate-600 text-sm mt-1">Настройки - Поверителност и защита - Бисквитки</p>
             </div>
             <div className="rounded-xl bg-gray-50 p-4 shadow-sm">
-              <strong className="text-white">Safari:</strong>
-              <p className="text-slate-300 text-sm mt-1">Предпочитания - Поверителност - Управление на данни</p>
+              <strong className="text-slate-800">Safari:</strong>
+              <p className="text-slate-600 text-sm mt-1">Предпочитания - Поверителност - Управление на данни</p>
             </div>
             <div className="rounded-xl bg-gray-50 p-4 shadow-sm">
-              <strong className="text-white">Microsoft Edge:</strong>
-              <p className="text-slate-300 text-sm mt-1">Настройки - Бисквитки и разрешения за сайтове</p>
+              <strong className="text-slate-800">Microsoft Edge:</strong>
+              <p className="text-slate-600 text-sm mt-1">Настройки - Бисквитки и разрешения за сайтове</p>
             </div>
           </div>
 
@@ -322,15 +322,15 @@ export default function CookiesPage() {
 
         <section className="mb-10">
           <h2 className="text-xl font-semibold text-white mb-4">Бисквитки на трети страни</h2>
-          <p className="text-white mb-4">
+          <p className="text-slate-300 mb-4">
             Някои бисквитки се поставят от трети страни, които предоставят услуги на нашия сайт:
           </p>
-          <ul className="list-disc pl-6 text-white mb-4">
+          <ul className="list-disc pl-6 text-slate-300 mb-4">
             <li><strong>Google Analytics</strong> - за анализ на посещаемостта</li>
             <li><strong>Facebook</strong> - за социални функции и реклама</li>
             <li><strong>Google Fonts</strong> - за зареждане на шрифтове</li>
           </ul>
-          <p className="text-white">
+          <p className="text-slate-300">
             За повече информация относно бисквитките на тези услуги, моля посетете техните
             политики за поверителност.
           </p>
@@ -338,12 +338,12 @@ export default function CookiesPage() {
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-white mb-4">Контакт</h2>
-          <p className="text-white mb-4">
+          <p className="text-slate-300 mb-4">
             При въпроси относно използването на бисквитки, моля свържете се с нас:
           </p>
-          <ul className="list-none text-white">
+          <ul className="list-none text-slate-300">
             <li>Имейл: privacy@fixaro.bg</li>
-            <li>Телефон: +359 888 123 456</li>
+            <li>Телефон: +359 87 9696506</li>
           </ul>
         </section>
       </div>
