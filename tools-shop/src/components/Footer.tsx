@@ -69,8 +69,8 @@ export default function Footer() {
               <Image
                 src="/images/logo.png"
                 alt="Fixaro"
-                width={160}
-                height={106}
+                width={200}
+                height={133}
               />
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed mb-4">

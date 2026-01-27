@@ -185,16 +185,16 @@ export default function Header() {
               <Image
                 src="/images/logo.png"
                 alt="Fixaro"
-                width={130}
-                height={86}
+                width={150}
+                height={100}
                 className="sm:hidden"
               />
               {/* Desktop: larger logo */}
               <Image
                 src="/images/logo.png"
                 alt="Fixaro"
-                width={180}
-                height={120}
+                width={220}
+                height={146}
                 className="hidden sm:block"
               />
             </Link>
@@ -430,8 +430,8 @@ export default function Header() {
                 <Image
                   src="/images/logo.png"
                   alt="Fixaro"
-                  width={140}
-                  height={93}
+                  width={160}
+                  height={106}
                 />
               </Link>
               <button
