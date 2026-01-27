@@ -260,7 +260,7 @@ export default function Header() {
               {/* Social links */}
               <div className="hidden sm:flex items-center gap-1">
                 <a
-                  href="https://instagram.com/fixaro.bg"
+                  href="https://www.instagram.com/fixaroshop?igsh=MWNxNzBjZ2xrZDdtMA=="
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 text-[var(--foreground)] hover:text-[var(--primary)] transition-colors"
@@ -269,7 +269,7 @@ export default function Header() {
                   <Instagram size={20} aria-hidden="true" />
                 </a>
                 <a
-                  href="https://facebook.com/fixaro.bg"
+                  href="https://www.facebook.com/share/1Apq8MJgrz/?mibextid=wwXIfr"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 text-[var(--foreground)] hover:text-[var(--primary)] transition-colors"
@@ -485,7 +485,7 @@ export default function Header() {
               </a>
               <div className="flex items-center gap-3">
                 <a
-                  href="https://instagram.com/fixaro.bg"
+                  href="https://www.instagram.com/fixaroshop?igsh=MWNxNzBjZ2xrZDdtMA=="
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 bg-[var(--card-hover)] rounded-lg flex items-center justify-center text-[var(--foreground)] hover:text-[var(--primary)] transition-colors"
@@ -494,7 +494,7 @@ export default function Header() {
                   <Instagram size={20} aria-hidden="true" />
                 </a>
                 <a
-                  href="https://facebook.com/fixaro.bg"
+                  href="https://www.facebook.com/share/1Apq8MJgrz/?mibextid=wwXIfr"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 bg-[var(--card-hover)] rounded-lg flex items-center justify-center text-[var(--foreground)] hover:text-[var(--primary)] transition-colors"

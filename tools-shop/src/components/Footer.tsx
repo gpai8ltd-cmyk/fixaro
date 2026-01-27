@@ -187,14 +187,18 @@ export default function Footer() {
             {/* Social */}
             <div className="flex items-center gap-3 mt-4">
               <a
-                href="#"
+                href="https://www.facebook.com/share/1Apq8MJgrz/?mibextid=wwXIfr"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 bg-slate-700 rounded-lg flex items-center justify-center hover:bg-[var(--primary)] transition-colors"
                 aria-label="Facebook"
               >
                 <Facebook size={20} />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/fixaroshop?igsh=MWNxNzBjZ2xrZDdtMA=="
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 bg-slate-700 rounded-lg flex items-center justify-center hover:bg-[var(--primary)] transition-colors"
                 aria-label="Instagram"
               >
