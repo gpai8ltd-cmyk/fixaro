@@ -181,9 +181,13 @@ export default function Header() {
 
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2" aria-label="Fixaro - Начало">
-              <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
-                <Wrench className="text-white" size={24} aria-hidden="true" />
-              </div>
+              <Image
+                src="/images/logo-icon.jpeg"
+                alt="Fixaro"
+                width={44}
+                height={44}
+                className="rounded-lg"
+              />
               <span className="text-xl font-bold hidden sm:block uppercase tracking-wider">
                 <span className="text-[var(--primary)]">FIX</span>
                 <span className="text-[var(--secondary)]">ARO</span>
@@ -418,9 +422,13 @@ export default function Header() {
           <div className="absolute left-0 top-0 bottom-0 w-[280px] bg-[var(--background)] mobile-menu-enter">
             <div className="flex items-center justify-between p-4 border-b border-[var(--border)]">
               <Link href="/" className="flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
-                <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-                  <Wrench className="text-white" size={18} aria-hidden="true" />
-                </div>
+                <Image
+                  src="/images/logo-icon.jpeg"
+                  alt="Fixaro"
+                  width={36}
+                  height={36}
+                  className="rounded-lg"
+                />
                 <span className="text-lg font-bold uppercase tracking-wider">
                   <span className="text-[var(--primary)]">FIX</span>
                   <span className="text-[var(--secondary)]">ARO</span>

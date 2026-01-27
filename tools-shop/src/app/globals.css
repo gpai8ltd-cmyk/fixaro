@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  /* Primary - Orange/Amber for tools/industrial feel */
-  --primary: #f59e0b;
-  --primary-dark: #d97706;
-  --primary-light: #fbbf24;
+  /* Primary - Lime green to match Fixaro logo */
+  --primary: #84cc16;
+  --primary-dark: #65a30d;
+  --primary-light: #a3e635;
 
   /* Secondary - Dark blue/slate */
   --secondary: #1e293b;

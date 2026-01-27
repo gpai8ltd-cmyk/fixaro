@@ -1,6 +1,6 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import {
-  Wrench,
   Phone,
   Mail,
   MapPin,
@@ -66,9 +66,13 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
-                <Wrench className="text-white" size={24} />
-              </div>
+              <Image
+                src="/images/logo-icon.jpeg"
+                alt="Fixaro"
+                width={44}
+                height={44}
+                className="rounded-lg"
+              />
               <span className="text-xl font-bold uppercase tracking-wider">
                 <span className="text-[var(--primary)]">FIX</span>
                 <span className="text-white">ARO</span>
