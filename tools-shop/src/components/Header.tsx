@@ -180,21 +180,21 @@ export default function Header() {
             </button>
 
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 sm:gap-3" aria-label="Fixaro - Начало">
-              {/* Mobile: larger icon logo */}
-              <Image
-                src="/images/logo-icon.jpeg"
-                alt="Fixaro"
-                width={48}
-                height={48}
-                className="rounded-xl sm:hidden shadow-md"
-              />
-              {/* Desktop: wide logo */}
+            <Link href="/" className="flex items-center" aria-label="Fixaro - Начало">
+              {/* Mobile: wide logo smaller */}
               <Image
                 src="/images/logo-wide.jpeg"
                 alt="Fixaro"
-                width={160}
-                height={50}
+                width={120}
+                height={38}
+                className="sm:hidden rounded-md"
+              />
+              {/* Desktop: wide logo larger */}
+              <Image
+                src="/images/logo-wide.jpeg"
+                alt="Fixaro"
+                width={180}
+                height={56}
                 className="hidden sm:block rounded-lg"
               />
             </Link>
@@ -426,18 +426,14 @@ export default function Header() {
           {/* Menu panel */}
           <div className="absolute left-0 top-0 bottom-0 w-[280px] bg-[var(--background)] mobile-menu-enter">
             <div className="flex items-center justify-between p-4 border-b border-[var(--border)]">
-              <Link href="/" className="flex items-center gap-3" onClick={() => setMobileMenuOpen(false)}>
+              <Link href="/" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
                 <Image
-                  src="/images/logo-icon.jpeg"
+                  src="/images/logo-wide.jpeg"
                   alt="Fixaro"
-                  width={48}
-                  height={48}
-                  className="rounded-xl shadow-md"
+                  width={130}
+                  height={40}
+                  className="rounded-md"
                 />
-                <span className="text-xl font-bold uppercase tracking-wider">
-                  <span className="text-[var(--primary)]">FIX</span>
-                  <span className="text-[var(--secondary)]">ARO</span>
-                </span>
               </Link>
               <button
                 onClick={() => setMobileMenuOpen(false)}
