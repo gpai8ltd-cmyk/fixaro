@@ -264,26 +264,7 @@ export default function AdminProductsPage() {
                       </span>
                     </td>
                     <td className="p-4 text-right">
-                      {/* Mobile: Direct action buttons */}
-                      <div className="flex items-center justify-end gap-1 sm:hidden">
-                        <Link
-                          href={`/admin/products/${product.id}/edit`}
-                          className="p-2 hover:bg-slate-100 rounded-lg text-[var(--primary)]"
-                          title="Редактирай"
-                        >
-                          <Edit size={18} />
-                        </Link>
-                        <button
-                          onClick={() => deleteProduct(product.id)}
-                          className="p-2 hover:bg-red-50 rounded-lg text-red-600"
-                          title="Изтрий"
-                        >
-                          <Trash2 size={18} />
-                        </button>
-                      </div>
-
-                      {/* Desktop: Dropdown menu */}
-                      <div className="relative hidden sm:block" ref={openMenu === product.id ? menuRef : null}>
+                      <div className="relative" ref={openMenu === product.id ? menuRef : null}>
                         <button
                           onClick={() => setOpenMenu(openMenu === product.id ? null : product.id)}
                           className="p-2 hover:bg-slate-100 rounded-lg"

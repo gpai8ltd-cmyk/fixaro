@@ -158,26 +158,7 @@ export default function AdminCategoriesPage() {
                   </span>
                 </div>
                 <div className="col-span-4 sm:col-span-2 text-right">
-                  {/* Mobile: Direct action buttons */}
-                  <div className="flex items-center justify-end gap-1 sm:hidden">
-                    <Link
-                      href={`/admin/categories/${category.id}/edit`}
-                      className="p-2 hover:bg-slate-100 rounded-lg text-[var(--primary)]"
-                      title="Редактирай"
-                    >
-                      <Edit size={18} />
-                    </Link>
-                    <button
-                      onClick={() => deleteCategory(category.id)}
-                      className="p-2 hover:bg-red-50 rounded-lg text-red-600"
-                      title="Изтрий"
-                    >
-                      <Trash2 size={18} />
-                    </button>
-                  </div>
-
-                  {/* Desktop: Dropdown menu */}
-                  <div className="relative hidden sm:inline-block" ref={openMenu === category.id ? menuRef : null}>
+                  <div className="relative inline-block" ref={openMenu === category.id ? menuRef : null}>
                     <button
                       onClick={() => setOpenMenu(openMenu === category.id ? null : category.id)}
                       className="p-2 hover:bg-slate-100 rounded-lg"
