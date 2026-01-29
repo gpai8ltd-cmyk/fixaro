@@ -125,10 +125,10 @@ export default function AdminCategoriesPage() {
       <div className="card">
         <div className="p-4 border-b border-[var(--border)] bg-slate-50">
           <div className="grid grid-cols-12 gap-4 text-sm font-medium text-[var(--muted)]">
-            <div className="col-span-5">Категория</div>
+            <div className="col-span-8 sm:col-span-5">Категория</div>
             <div className="col-span-3 hidden sm:block">Slug</div>
             <div className="col-span-2 hidden sm:block">Продукти</div>
-            <div className="col-span-2 text-right">Действия</div>
+            <div className="col-span-4 sm:col-span-2 text-right">Действия</div>
           </div>
         </div>
 
@@ -136,7 +136,7 @@ export default function AdminCategoriesPage() {
           {categories.map((category) => (
             <div key={category.id} className="p-4 hover:bg-slate-50 transition-colors">
               <div className="grid grid-cols-12 gap-4 items-center">
-                <div className="col-span-5">
+                <div className="col-span-8 sm:col-span-5">
                   <div className="flex items-center gap-3">
                     <FolderTree size={20} className="text-[var(--primary)]" />
                     <div>
@@ -157,8 +157,27 @@ export default function AdminCategoriesPage() {
                     {category._count.products}
                   </span>
                 </div>
-                <div className="col-span-2 text-right">
-                  <div className="relative inline-block" ref={openMenu === category.id ? menuRef : null}>
+                <div className="col-span-4 sm:col-span-2 text-right">
+                  {/* Mobile: Direct action buttons */}
+                  <div className="flex items-center justify-end gap-1 sm:hidden">
+                    <Link
+                      href={`/admin/categories/${category.id}/edit`}
+                      className="p-2 hover:bg-slate-100 rounded-lg text-[var(--primary)]"
+                      title="Редактирай"
+                    >
+                      <Edit size={18} />
+                    </Link>
+                    <button
+                      onClick={() => deleteCategory(category.id)}
+                      className="p-2 hover:bg-red-50 rounded-lg text-red-600"
+                      title="Изтрий"
+                    >
+                      <Trash2 size={18} />
+                    </button>
+                  </div>
+
+                  {/* Desktop: Dropdown menu */}
+                  <div className="relative hidden sm:inline-block" ref={openMenu === category.id ? menuRef : null}>
                     <button
                       onClick={() => setOpenMenu(openMenu === category.id ? null : category.id)}
                       className="p-2 hover:bg-slate-100 rounded-lg"
