@@ -118,13 +118,13 @@ export default function ProductCard({
           <div className="quick-view-overlay absolute inset-0 bg-black/30 flex items-center justify-center gap-3">
             <button
               onClick={handleAddToCart}
-              className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--primary)] hover:text-white transition-colors shadow-lg transform hover:scale-110"
+              className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-gray-800 hover:bg-[var(--primary)] hover:text-white transition-colors shadow-lg transform hover:scale-110"
               aria-label={`Добави ${name} в количката`}
             >
               <ShoppingCart size={20} aria-hidden="true" />
             </button>
             <span
-              className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--primary)] hover:text-white transition-colors shadow-lg transform hover:scale-110"
+              className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-gray-800 hover:bg-[var(--primary)] hover:text-white transition-colors shadow-lg transform hover:scale-110"
               aria-label="Преглед"
             >
               <Eye size={20} aria-hidden="true" />
