@@ -222,7 +222,10 @@ export default function Footer() {
       <div className="bg-slate-900 py-3">
         <div className="container-custom text-center">
           <p className="text-slate-500 text-xs">
-            Powered by <span className="text-[var(--primary)] font-semibold">GPAI</span>
+            Powered by <a href="https://www.gpailtd.com" target="_blank" rel="noopener noreferrer" className="text-[var(--primary)] font-semibold hover:underline">GPAI</a>
+          </p>
+          <p className="text-slate-600 text-xs mt-1">
+            <a href="https://www.gpailtd.com" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--primary)] transition-colors">www.gpailtd.com</a>
           </p>
         </div>
       </div>

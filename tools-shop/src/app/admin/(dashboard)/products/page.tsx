@@ -281,7 +281,7 @@ export default function AdminProductsPage() {
                           >
                             <Link
                               href={`/admin/products/${product.id}/edit`}
-                              className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-slate-50"
+                              className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-slate-50"
                               role="menuitem"
                             >
                               <Edit size={16} />
@@ -290,7 +290,7 @@ export default function AdminProductsPage() {
                             <Link
                               href={`/products/${product.slug}`}
                               target="_blank"
-                              className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-slate-50"
+                              className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-slate-50"
                               role="menuitem"
                             >
                               <Eye size={16} />

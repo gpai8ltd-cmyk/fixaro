@@ -266,7 +266,7 @@ export default function CookiesPage() {
                 className="rounded-xl bg-white border border-gray-200 p-4 shadow-sm"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-mono text-sm font-semibold">{cookie.name}</span>
+                  <span className="font-mono text-sm font-semibold text-gray-800">{cookie.name}</span>
                   <span className={`
                     inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                     ${enabledCategories[cookie.category]
@@ -277,9 +277,9 @@ export default function CookiesPage() {
                     {getCategoryStatus(cookie.category)}
                   </span>
                 </div>
-                <div className="text-sm text-slate-600 space-y-1">
-                  <p><span className="text-slate-800">Тип:</span> {cookie.type}</p>
-                  <p><span className="text-slate-800">Срок:</span> {cookie.duration}</p>
+                <div className="text-sm text-gray-600 space-y-1">
+                  <p><span className="text-gray-800 font-medium">Тип:</span> {cookie.type}</p>
+                  <p><span className="text-gray-800 font-medium">Срок:</span> {cookie.duration}</p>
                 </div>
               </div>
             ))}
