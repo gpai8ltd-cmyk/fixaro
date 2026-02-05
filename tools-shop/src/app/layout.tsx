@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { OrganizationJsonLd, LocalBusinessJsonLd, WebSiteJsonLd } from "@/components/JsonLd";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -34,20 +35,11 @@ export const metadata: Metadata = {
     siteName: "Fixaro",
     title: "Fixaro - Качествени инструменти на достъпни цени",
     description: "Онлайн магазин за електроинструменти и ръчни инструменти. Бърза доставка с Еконт и Спиди. Наложен платеж.",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Fixaro - Магазин за инструменти",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Fixaro - Качествени инструменти на достъпни цени",
     description: "Онлайн магазин за електроинструменти и ръчни инструменти. Бърза доставка в цяла България.",
-    images: ["/og-image.jpg"],
   },
   robots: {
     index: true,
@@ -61,8 +53,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    // google: "your-google-verification-code",
-    // yandex: "your-yandex-verification-code",
+    google: "AsM_4v2ZCeAntq3XklrBmmcsL9ZWNawchXmRP3D_EfM",
   },
 };
 
@@ -83,6 +74,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="bg">
+      <head>
+        <OrganizationJsonLd />
+        <LocalBusinessJsonLd />
+        <WebSiteJsonLd />
+      </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         {children}
       </body>
