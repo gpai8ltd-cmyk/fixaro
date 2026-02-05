@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
+import { sendOrderStatusUpdate } from '@/lib/email';
 
 export async function GET(
   request: NextRequest,
@@ -64,6 +65,28 @@ export async function PUT(
       data: updateData,
       include: { items: true, customer: true },
     });
+
+    // Send status update email if requested and customer has email
+    if (body.sendEmail && updated.customerEmail && body.status) {
+      const statusMap: Record<string, 'processing' | 'shipped' | 'delivered' | 'cancelled'> = {
+        'PROCESSING': 'processing',
+        'SHIPPED': 'shipped',
+        'DELIVERED': 'delivered',
+        'CANCELLED': 'cancelled',
+      };
+
+      const mappedStatus = statusMap[body.status];
+      if (mappedStatus) {
+        sendOrderStatusUpdate({
+          orderNumber: updated.orderNumber,
+          customerName: updated.customerName,
+          customerEmail: updated.customerEmail,
+          status: mappedStatus,
+          trackingNumber: updated.trackingNumber || undefined,
+          courier: updated.courier,
+        }).catch((err) => console.error('Failed to send status update email:', err));
+      }
+    }
 
     return NextResponse.json(updated);
   } catch (error) {

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { ArrowLeft, Save, AlertCircle, CheckCircle, Package, Truck, MapPin } from 'lucide-react';
+import { ArrowLeft, Save, AlertCircle, CheckCircle, Package, Truck, MapPin, Mail } from 'lucide-react';
 import Link from 'next/link';
 
 interface OrderItem {
@@ -56,6 +56,8 @@ export default function OrderDetailsPage() {
   const [status, setStatus] = useState('');
   const [trackingNumber, setTrackingNumber] = useState('');
   const [adminNotes, setAdminNotes] = useState('');
+  const [sendEmail, setSendEmail] = useState(false);
+  const [originalStatus, setOriginalStatus] = useState('');
 
   useEffect(() => {
     fetchOrder();
@@ -68,6 +70,7 @@ export default function OrderDetailsPage() {
       const data = await res.json();
       setOrder(data);
       setStatus(data.status);
+      setOriginalStatus(data.status);
       setTrackingNumber(data.trackingNumber || '');
       setAdminNotes(data.adminNotes || '');
     } catch {
@@ -86,14 +89,18 @@ export default function OrderDetailsPage() {
       const res = await fetch(`/api/orders/${params.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status, trackingNumber, adminNotes }),
+        body: JSON.stringify({ status, trackingNumber, adminNotes, sendEmail: sendEmail && status !== originalStatus }),
       });
 
       if (!res.ok) throw new Error('Failed to update');
 
       const updated = await res.json();
       setOrder(updated);
-      setSuccess('Поръчката е обновена успешно');
+      setOriginalStatus(updated.status);
+      setSendEmail(false);
+      setSuccess(sendEmail && status !== originalStatus && updated.customerEmail
+        ? 'Поръчката е обновена и имейлът е изпратен'
+        : 'Поръчката е обновена успешно');
       setTimeout(() => setSuccess(''), 3000);
     } catch {
       setError('Грешка при запазване');
@@ -233,6 +240,27 @@ export default function OrderDetailsPage() {
                 <option key={opt.value} value={opt.value}>{opt.label}</option>
               ))}
             </select>
+
+            {/* Email notification option */}
+            {order.customerEmail && ['PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED'].includes(status) && status !== originalStatus && (
+              <label className="flex items-center gap-3 mt-4 p-3 bg-blue-50 rounded-lg cursor-pointer hover:bg-blue-100 transition-colors">
+                <input
+                  type="checkbox"
+                  checked={sendEmail}
+                  onChange={(e) => setSendEmail(e.target.checked)}
+                  className="w-4 h-4 text-[var(--primary)] rounded"
+                />
+                <Mail size={18} className="text-blue-600" />
+                <span className="text-sm text-blue-800">Уведоми клиента по имейл</span>
+              </label>
+            )}
+
+            {!order.customerEmail && status !== originalStatus && ['PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED'].includes(status) && (
+              <p className="mt-3 text-sm text-amber-600 flex items-center gap-2">
+                <AlertCircle size={16} />
+                Клиентът няма въведен имейл
+              </p>
+            )}
           </div>
 
           {/* Customer */}

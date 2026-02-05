@@ -68,7 +68,9 @@ export default function CheckoutPage() {
       newErrors.phone = 'Невалиден телефонен номер';
     }
 
-    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    if (!formData.email.trim()) {
+      newErrors.email = 'Моля, въведете имейл';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Невалиден имейл адрес';
     }
 
@@ -171,7 +173,7 @@ export default function CheckoutPage() {
             <p className="text-2xl font-bold text-[var(--primary)]">{orderNumber}</p>
           </div>
           <p className="text-sm text-slate-500 mb-6">
-            Ще получите потвърждение на имейл (ако сте посочили такъв).
+            Ще получите потвърждение на посочения имейл адрес.
             Очаквайте обаждане от наш представител.
           </p>
           <Link href="/" className="btn btn-primary btn-lg">
@@ -261,7 +263,7 @@ export default function CheckoutPage() {
 
                 <div className="sm:col-span-2">
                   <label htmlFor="email" className="label">
-                    Имейл (по избор)
+                    Имейл <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="email"
@@ -269,6 +271,8 @@ export default function CheckoutPage() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
+                    required
+                    aria-required="true"
                     aria-invalid={!!errors.email}
                     aria-describedby={errors.email ? 'email-error' : undefined}
                     className={`input ${errors.email ? 'border-red-500 focus:ring-red-500' : ''}`}

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { checkoutSchema, formatZodError } from '@/lib/validations';
-import { sendOrderNotification } from '@/lib/email';
+import { sendOrderNotification, sendOrderConfirmationToCustomer } from '@/lib/email';
 
 export async function GET(request: NextRequest) {
   try {
@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
       include: { items: true },
     });
 
-    // Send email notification (don't await - fire and forget)
+    // Send email notification to shop owner (don't await - fire and forget)
     sendOrderNotification({
       orderNumber: order.orderNumber,
       customerName: order.customerName,
@@ -112,6 +112,23 @@ export async function POST(request: NextRequest) {
       notes: order.notes,
       items: order.items,
     }).catch((err) => console.error('Failed to send order notification:', err));
+
+    // Send confirmation email to customer (if email provided)
+    sendOrderConfirmationToCustomer({
+      orderNumber: order.orderNumber,
+      customerName: order.customerName,
+      customerPhone: order.customerPhone,
+      customerEmail: order.customerEmail,
+      deliveryCity: order.deliveryCity,
+      deliveryAddress: order.deliveryAddress,
+      courier: order.courier,
+      courierOffice: order.courierOffice,
+      subtotal: order.subtotal,
+      deliveryFee: order.deliveryFee,
+      total: order.total,
+      notes: order.notes,
+      items: order.items,
+    }).catch((err) => console.error('Failed to send customer confirmation:', err));
 
     return NextResponse.json({
       success: true,
