@@ -265,7 +265,7 @@ export async function sendOrderConfirmationToCustomer(order: OrderEmailData) {
         <div style="margin-top: 25px; padding: 20px; background: #eff6ff; border-radius: 8px;">
           <p style="margin: 0 0 10px 0; font-weight: 600; color: #1e40af;">Имате въпроси?</p>
           <p style="margin: 0; color: #3b82f6;">
-            Телефон: <a href="tel:+359888123456" style="color: #f97316; text-decoration: none;">0888 123 456</a><br>
+            Телефон: <a href="tel:+359879696506" style="color: #f97316; text-decoration: none;">0879 696 506</a><br>
             Имейл: <a href="mailto:fixaroshop@gmail.com" style="color: #f97316; text-decoration: none;">fixaroshop@gmail.com</a>
           </p>
         </div>
@@ -382,7 +382,7 @@ export async function sendOrderStatusUpdate(data: StatusUpdateEmailData) {
         <div style="margin-top: 25px; padding: 20px; background: #eff6ff; border-radius: 8px;">
           <p style="margin: 0 0 10px 0; font-weight: 600; color: #1e40af;">Имате въпроси?</p>
           <p style="margin: 0; color: #3b82f6;">
-            Телефон: <a href="tel:+359888123456" style="color: #f97316; text-decoration: none;">0888 123 456</a><br>
+            Телефон: <a href="tel:+359879696506" style="color: #f97316; text-decoration: none;">0879 696 506</a><br>
             Имейл: <a href="mailto:fixaroshop@gmail.com" style="color: #f97316; text-decoration: none;">fixaroshop@gmail.com</a>
           </p>
         </div>
