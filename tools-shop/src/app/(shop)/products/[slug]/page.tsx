@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import ProductDetailClient from './ProductDetailClient';
+import { ProductJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -91,11 +92,32 @@ export default async function ProductPage({ params }: PageProps) {
     };
   });
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fixaro.bg';
+
   return (
-    <ProductDetailClient
-      product={productData}
-      relatedProducts={relatedProductsData}
-    />
+    <>
+      <ProductJsonLd
+        name={productData.name}
+        description={productData.description || ''}
+        image={productData.images[0]}
+        price={productData.price}
+        availability={productData.inStock ? 'InStock' : 'OutOfStock'}
+        sku={productData.id}
+        url={`${siteUrl}/products/${productData.slug}`}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Начало', url: siteUrl },
+          { name: 'Продукти', url: `${siteUrl}/products` },
+          { name: productData.category, url: `${siteUrl}/products?category=${productData.categorySlug}` },
+          { name: productData.name, url: `${siteUrl}/products/${productData.slug}` },
+        ]}
+      />
+      <ProductDetailClient
+        product={productData}
+        relatedProducts={relatedProductsData}
+      />
+    </>
   );
 }
 
