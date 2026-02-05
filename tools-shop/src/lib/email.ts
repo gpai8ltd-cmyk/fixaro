@@ -11,7 +11,7 @@ function getResendClient(): Resend | null {
 }
 
 const SHOP_EMAIL = 'fixaroshop@gmail.com';
-const FROM_EMAIL = 'Fixaro <onboarding@resend.dev>'; // Use verified domain in production
+const FROM_EMAIL = 'Fixaro <noreply@fixaro.bg>';
 
 interface OrderItem {
   productName: string;
