@@ -187,7 +187,7 @@ export default function AdminProductsPage() {
         </div>
       )}
 
-      <div className="card overflow-hidden">
+      <div className="card">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-slate-50 border-b border-[var(--border)]">
