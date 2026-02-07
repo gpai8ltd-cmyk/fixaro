@@ -52,6 +52,9 @@ interface Props {
   relatedProducts: RelatedProduct[];
 }
 
+const BGN_TO_EUR = 1.95583;
+const toEur = (bgn: number) => (bgn / BGN_TO_EUR).toFixed(2);
+
 export default function ProductDetailClient({ product, relatedProducts }: Props) {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -172,33 +175,25 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
           </h1>
 
           {/* Price */}
-          <div className="flex items-center gap-3 mb-6">
-            <span className="text-3xl font-bold text-[var(--primary)]">
-              {product.price.toFixed(2)} лв.
-            </span>
-            {product.oldPrice && (
-              <span className="text-xl text-slate-500 line-through">
-                {product.oldPrice.toFixed(2)} лв.
+          <div className="mb-6">
+            <div className="flex items-center gap-3">
+              <span className="text-3xl font-bold text-[var(--primary)]">
+                {product.price.toFixed(2)} лв.
               </span>
-            )}
-            {discount > 0 && product.oldPrice && (
-              <span className="badge badge-error">Спестявате {(product.oldPrice - product.price).toFixed(2)} лв.</span>
-            )}
+              {product.oldPrice && (
+                <span className="text-xl text-slate-500 line-through">
+                  {product.oldPrice.toFixed(2)} лв.
+                </span>
+              )}
+              {discount > 0 && product.oldPrice && (
+                <span className="badge badge-error">Спестявате {(product.oldPrice - product.price).toFixed(2)} лв.</span>
+              )}
+            </div>
+            <div className="text-sm text-slate-500 mt-1">
+              {toEur(product.price)} € {product.oldPrice && <span className="line-through">{toEur(product.oldPrice)} €</span>}
+            </div>
           </div>
 
-          {/* Stock status */}
-          <div className="mb-6">
-            {product.inStock ? (
-              <div className="flex items-center gap-2 text-green-600">
-                <Check size={20} />
-                <span className="font-medium">В наличност ({product.stockCount} бр.)</span>
-              </div>
-            ) : (
-              <div className="flex items-center gap-2 text-red-500">
-                <span className="font-medium">Изчерпан</span>
-              </div>
-            )}
-          </div>
 
           {/* Quantity & Add to cart */}
           <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -207,7 +202,6 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
                 className="w-12 h-12 flex items-center justify-center hover:bg-[var(--card-hover)] transition-colors"
-                disabled={!product.inStock}
               >
                 <Minus size={18} />
               </button>
@@ -215,9 +209,8 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
                 {quantity}
               </span>
               <button
-                onClick={() => setQuantity(Math.min(product.stockCount, quantity + 1))}
+                onClick={() => setQuantity(quantity + 1)}
                 className="w-12 h-12 flex items-center justify-center hover:bg-[var(--card-hover)] transition-colors"
-                disabled={!product.inStock || quantity >= product.stockCount}
               >
                 <Plus size={18} />
               </button>
@@ -226,13 +219,11 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
             {/* Add to cart button */}
             <button
               onClick={handleAddToCart}
-              disabled={!product.inStock || addedToCart}
+              disabled={addedToCart}
               className={`btn btn-lg flex-1 ${
                 addedToCart
                   ? 'bg-green-500 text-white'
-                  : product.inStock
-                  ? 'btn-primary'
-                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  : 'btn-primary'
               }`}
             >
               {addedToCart ? (
@@ -240,13 +231,11 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
                   <Check size={20} />
                   Добавено!
                 </>
-              ) : product.inStock ? (
+              ) : (
                 <>
                   <ShoppingCart size={20} />
                   Добави в количката
                 </>
-              ) : (
-                'Изчерпан'
               )}
             </button>
           </div>
@@ -271,7 +260,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
               </div>
               <div className="text-sm">
                 <div className="font-medium">Безплатна доставка</div>
-                <div className="text-slate-500">над 100 лв.</div>
+                <div className="text-slate-500">над 100 лв. / {toEur(100)} €</div>
               </div>
             </div>
             <div className="flex items-center gap-3">

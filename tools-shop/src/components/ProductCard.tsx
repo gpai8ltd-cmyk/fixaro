@@ -25,6 +25,9 @@ const badgeConfig: Record<string, { icon: React.ElementType; color: string; bg: 
   'Препоръчано': { icon: Star, color: 'text-purple-600', bg: 'bg-purple-100' },
 };
 
+const BGN_TO_EUR = 1.95583;
+const toEur = (bgn: number) => (bgn / BGN_TO_EUR).toFixed(2);
+
 export default function ProductCard({
   id,
   name,
@@ -33,15 +36,11 @@ export default function ProductCard({
   oldPrice,
   image,
   category,
-  stock,
-  inStock = true,
   badge,
 }: ProductCardProps) {
   const { addItem } = useCart();
 
   const discount = oldPrice ? Math.round(((oldPrice - price) / oldPrice) * 100) : 0;
-  const isAvailable = inStock && (stock === undefined || stock > 0);
-  const isLowStock = stock !== undefined && stock > 0 && stock <= 5;
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -88,49 +87,24 @@ export default function ProductCard({
               {badge}
             </span>
           )}
-          {isLowStock && (
-            <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold bg-amber-100 text-amber-700">
-              Последни {stock} бр.
-            </span>
-          )}
         </div>
 
-        {/* Stock badge - top right */}
-        {!isAvailable && (
-          <div className="absolute top-2 right-2">
-            <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-semibold bg-red-100 text-red-700">
-              Изчерпан
-            </span>
-          </div>
-        )}
-
-        {/* Out of stock overlay */}
-        {!isAvailable && (
-          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-            <span className="bg-white text-[var(--foreground)] px-4 py-2 rounded-lg font-medium shadow-lg">
-              Изчерпан
-            </span>
-          </div>
-        )}
-
         {/* Hover actions - Quick view overlay */}
-        {isAvailable && (
-          <div className="quick-view-overlay absolute inset-0 bg-black/30 flex items-center justify-center gap-3">
-            <button
-              onClick={handleAddToCart}
-              className="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition-colors shadow-lg transform hover:scale-110 group/btn"
-              aria-label={`Добави ${name} в количката`}
-            >
-              <ShoppingCart size={20} className="text-gray-800 group-hover/btn:text-white" aria-hidden="true" />
-            </button>
-            <span
-              className="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition-colors shadow-lg transform hover:scale-110 group/eye"
-              aria-label="Преглед"
-            >
-              <Eye size={20} className="text-gray-800 group-hover/eye:text-white" aria-hidden="true" />
-            </span>
-          </div>
-        )}
+        <div className="quick-view-overlay absolute inset-0 bg-black/30 flex items-center justify-center gap-3">
+          <button
+            onClick={handleAddToCart}
+            className="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition-colors shadow-lg transform hover:scale-110 group/btn"
+            aria-label={`Добави ${name} в количката`}
+          >
+            <ShoppingCart size={20} className="text-gray-800 group-hover/btn:text-white" aria-hidden="true" />
+          </button>
+          <span
+            className="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:bg-[var(--primary)] transition-colors shadow-lg transform hover:scale-110 group/eye"
+            aria-label="Преглед"
+          >
+            <Eye size={20} className="text-gray-800 group-hover/eye:text-white" aria-hidden="true" />
+          </span>
+        </div>
       </div>
 
       {/* Content */}
@@ -145,30 +119,30 @@ export default function ProductCard({
           {name}
         </h3>
 
-        <div className="flex items-center gap-2 mt-2">
-          <span className="price-current">
-            {price.toFixed(2)} лв.
-          </span>
-          {oldPrice && (
-            <span className="price-old">
-              {oldPrice.toFixed(2)} лв.
+        <div className="flex flex-col gap-1 mt-2">
+          <div className="flex items-center gap-2">
+            <span className="price-current">
+              {price.toFixed(2)} лв.
             </span>
-          )}
+            {oldPrice && (
+              <span className="price-old">
+                {oldPrice.toFixed(2)} лв.
+              </span>
+            )}
+          </div>
+          <span className="text-xs text-[var(--muted)]">
+            {toEur(price)} € {oldPrice && <span className="line-through">{toEur(oldPrice)} €</span>}
+          </span>
         </div>
 
         {/* Mobile add to cart button */}
         <button
           onClick={handleAddToCart}
-          disabled={!isAvailable}
-          className={`w-full mt-3 lg:hidden py-3 px-4 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors ${
-            isAvailable
-              ? 'btn btn-primary'
-              : 'bg-gray-200 text-gray-500 cursor-not-allowed'
-          }`}
-          aria-label={isAvailable ? `Добави ${name} в количката` : 'Продуктът е изчерпан'}
+          className="w-full mt-3 lg:hidden py-3 px-4 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors btn btn-primary"
+          aria-label={`Добави ${name} в количката`}
         >
           <ShoppingCart size={18} aria-hidden="true" />
-          <span>{isAvailable ? 'Добави' : 'Изчерпан'}</span>
+          <span>Добави</span>
         </button>
       </div>
     </Link>

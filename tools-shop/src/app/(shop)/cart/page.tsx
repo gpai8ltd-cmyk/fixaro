@@ -13,6 +13,9 @@ import {
 } from 'lucide-react';
 import { useCart } from '@/store/cart';
 
+const BGN_TO_EUR = 1.95583;
+const toEur = (bgn: number) => (bgn / BGN_TO_EUR).toFixed(2);
+
 export default function CartPage() {
   const { items, removeItem, updateQuantity, subtotal, clearCart } = useCart();
   const total = subtotal();
@@ -94,15 +97,20 @@ export default function CartPage() {
                   {item.name}
                 </Link>
 
-                <div className="flex items-center gap-2 mt-2">
-                  <span className="text-lg font-bold text-[var(--primary)]">
-                    {item.price.toFixed(2)} лв.
-                  </span>
-                  {item.oldPrice && (
-                    <span className="text-sm text-slate-500 line-through">
-                      {item.oldPrice.toFixed(2)} лв.
+                <div className="mt-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg font-bold text-[var(--primary)]">
+                      {item.price.toFixed(2)} лв.
                     </span>
-                  )}
+                    {item.oldPrice && (
+                      <span className="text-sm text-slate-500 line-through">
+                        {item.oldPrice.toFixed(2)} лв.
+                      </span>
+                    )}
+                  </div>
+                  <span className="text-xs text-slate-500">
+                    {toEur(item.price)} € {item.oldPrice && <span className="line-through">{toEur(item.oldPrice)} €</span>}
+                  </span>
                 </div>
 
                 {/* Mobile: quantity & remove in one row */}
@@ -128,9 +136,12 @@ export default function CartPage() {
 
                   {/* Subtotal & Remove */}
                   <div className="flex items-center gap-4">
-                    <span className="text-lg font-bold text-slate-800 hidden sm:block">
-                      {(item.price * item.quantity).toFixed(2)} лв.
-                    </span>
+                    <div className="hidden sm:block text-right">
+                      <span className="text-lg font-bold text-slate-800">
+                        {(item.price * item.quantity).toFixed(2)} лв.
+                      </span>
+                      <div className="text-xs text-slate-500">{toEur(item.price * item.quantity)} €</div>
+                    </div>
                     <button
                       onClick={() => removeItem(item.id)}
                       className="p-2 text-slate-500 hover:text-red-500 transition-colors"
@@ -164,7 +175,10 @@ export default function CartPage() {
             <div className="space-y-3 text-sm">
               <div className="flex justify-between">
                 <span className="text-slate-500">Междинна сума</span>
-                <span className="font-medium">{total.toFixed(2)} лв.</span>
+                <div className="text-right">
+                  <span className="font-medium">{total.toFixed(2)} лв.</span>
+                  <div className="text-xs text-slate-500">{toEur(total)} €</div>
+                </div>
               </div>
 
               <div className="flex justify-between">
@@ -173,14 +187,17 @@ export default function CartPage() {
                   {deliveryFee === 0 ? (
                     <span className="text-green-600">Безплатна</span>
                   ) : (
-                    `${deliveryFee.toFixed(2)} лв.`
+                    <div className="text-right">
+                      <span>{deliveryFee.toFixed(2)} лв.</span>
+                      <div className="text-xs text-slate-500">{toEur(deliveryFee)} €</div>
+                    </div>
                   )}
                 </span>
               </div>
 
               {total < 100 && (
                 <div className="p-3 bg-amber-50 text-amber-800 rounded-lg text-sm">
-                  Добавете още <strong>{(100 - total).toFixed(2)} лв.</strong> за безплатна доставка!
+                  Добавете още <strong>{(100 - total).toFixed(2)} лв.</strong> ({toEur(100 - total)} €) за безплатна доставка!
                 </div>
               )}
 
@@ -188,9 +205,12 @@ export default function CartPage() {
 
               <div className="flex justify-between text-lg">
                 <span className="font-bold">Общо</span>
-                <span className="font-bold text-[var(--primary)]">
-                  {finalTotal.toFixed(2)} лв.
-                </span>
+                <div className="text-right">
+                  <span className="font-bold text-[var(--primary)]">
+                    {finalTotal.toFixed(2)} лв.
+                  </span>
+                  <div className="text-sm text-slate-500">{toEur(finalTotal)} €</div>
+                </div>
               </div>
             </div>
 

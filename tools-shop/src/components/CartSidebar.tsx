@@ -5,6 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/store/cart';
 
+const BGN_TO_EUR = 1.95583;
+const toEur = (bgn: number) => (bgn / BGN_TO_EUR).toFixed(2);
+
 export default function CartSidebar() {
   const { items, isOpen, closeCart, removeItem, updateQuantity, subtotal } = useCart();
   const total = subtotal();
@@ -91,15 +94,18 @@ export default function CartSidebar() {
                       {item.name}
                     </h3>
 
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="price-current text-base">
-                        {item.price.toFixed(2)} лв.
-                      </span>
-                      {item.oldPrice && (
-                        <span className="price-old text-xs">
-                          {item.oldPrice.toFixed(2)} лв.
+                    <div className="mt-1">
+                      <div className="flex items-center gap-2">
+                        <span className="price-current text-base">
+                          {item.price.toFixed(2)} лв.
                         </span>
-                      )}
+                        {item.oldPrice && (
+                          <span className="price-old text-xs">
+                            {item.oldPrice.toFixed(2)} лв.
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-xs text-[var(--muted)]">{toEur(item.price)} €</span>
                     </div>
 
                     {/* Quantity controls */}
@@ -144,9 +150,12 @@ export default function CartSidebar() {
           <div className="border-t border-[var(--border)] p-4 space-y-4 bg-[var(--card)]">
             <div className="flex justify-between items-center">
               <span className="text-[var(--muted)]">Междинна сума:</span>
-              <span className="text-xl font-bold text-[var(--foreground)]">
-                {total.toFixed(2)} лв.
-              </span>
+              <div className="text-right">
+                <span className="text-xl font-bold text-[var(--foreground)]">
+                  {total.toFixed(2)} лв.
+                </span>
+                <div className="text-xs text-[var(--muted)]">{toEur(total)} €</div>
+              </div>
             </div>
 
             <p className="text-sm text-[var(--muted)]">

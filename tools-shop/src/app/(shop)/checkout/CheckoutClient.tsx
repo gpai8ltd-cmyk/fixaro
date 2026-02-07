@@ -18,6 +18,9 @@ import { useCart } from '@/store/cart';
 type DeliveryType = 'address' | 'office';
 type Courier = 'econt' | 'speedy';
 
+const BGN_TO_EUR = 1.95583;
+const toEur = (bgn: number) => (bgn / BGN_TO_EUR).toFixed(2);
+
 export default function CheckoutClient() {
   const { items, subtotal, clearCart } = useCart();
   const total = subtotal();
@@ -501,11 +504,14 @@ export default function CheckoutClient() {
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium line-clamp-1">{item.name}</p>
                       <p className="text-sm text-slate-500">
-                        {item.quantity} x {item.price.toFixed(2)} лв.
+                        {item.quantity} x {item.price.toFixed(2)} лв. ({toEur(item.price)} €)
                       </p>
                     </div>
-                    <div className="text-sm font-medium">
-                      {(item.price * item.quantity).toFixed(2)} лв.
+                    <div className="text-right">
+                      <div className="text-sm font-medium">
+                        {(item.price * item.quantity).toFixed(2)} лв.
+                      </div>
+                      <div className="text-xs text-slate-500">{toEur(item.price * item.quantity)} €</div>
                     </div>
                   </li>
                 ))}
@@ -517,7 +523,10 @@ export default function CheckoutClient() {
               <dl className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <dt className="text-slate-500">Междинна сума</dt>
-                  <dd>{total.toFixed(2)} лв.</dd>
+                  <dd className="text-right">
+                    <div>{total.toFixed(2)} лв.</div>
+                    <div className="text-xs text-slate-500">{toEur(total)} €</div>
+                  </dd>
                 </div>
                 <div className="flex justify-between">
                   <dt className="text-slate-500">Доставка</dt>
@@ -525,7 +534,10 @@ export default function CheckoutClient() {
                     {deliveryFee === 0 ? (
                       <span className="text-green-600">Безплатна</span>
                     ) : (
-                      `${deliveryFee.toFixed(2)} лв.`
+                      <div className="text-right">
+                        <div>{deliveryFee.toFixed(2)} лв.</div>
+                        <div className="text-xs text-slate-500">{toEur(deliveryFee)} €</div>
+                      </div>
                     )}
                   </dd>
                 </div>
@@ -534,7 +546,10 @@ export default function CheckoutClient() {
 
                 <div className="flex justify-between text-lg font-bold">
                   <dt>Общо</dt>
-                  <dd className="text-[var(--primary)]">{finalTotal.toFixed(2)} лв.</dd>
+                  <dd className="text-right">
+                    <div className="text-[var(--primary)]">{finalTotal.toFixed(2)} лв.</div>
+                    <div className="text-sm font-normal text-slate-500">{toEur(finalTotal)} €</div>
+                  </dd>
                 </div>
               </dl>
 
