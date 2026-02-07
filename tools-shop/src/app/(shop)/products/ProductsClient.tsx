@@ -29,10 +29,22 @@ interface Product {
   };
 }
 
+interface CategoryChild {
+  id: string;
+  nameBg: string;
+  slug: string;
+  parentId: string | null;
+  _count: {
+    products: number;
+  };
+}
+
 interface Category {
   id: string;
   nameBg: string;
   slug: string;
+  parentId: string | null;
+  children?: CategoryChild[];
   _count: {
     products: number;
   };
@@ -104,9 +116,10 @@ function ProductsContent() {
   const filteredProducts = useMemo(() => {
     let result = [...products];
 
-    // Filter by category
+    // Filter by category (includes subcategories when parent is selected)
     if (selectedCategory) {
-      result = result.filter(p => p.category?.slug === selectedCategory);
+      const slugs = getCategorySlugs(selectedCategory);
+      result = result.filter(p => slugs.includes(p.category?.slug));
     }
 
     // Filter by price range
@@ -147,13 +160,33 @@ function ProductsContent() {
 
   const hasActiveFilters = selectedCategory || selectedPriceRange !== null || showOnlySale;
 
-  // Build categories list with "All" option
-  const categoryOptions = useMemo(() => {
-    return [
-      { name: 'Всички', slug: '' },
-      ...categories.map(c => ({ name: c.nameBg, slug: c.slug }))
-    ];
+  // Build categories list: root categories with their children
+  const rootCategories = useMemo(() => {
+    return categories.filter(c => !c.parentId);
   }, [categories]);
+
+  // For backward compatibility with existing references
+  const categoryOptions = useMemo(() => {
+    const options: { name: string; slug: string }[] = [{ name: 'Всички', slug: '' }];
+    rootCategories.forEach(c => {
+      options.push({ name: c.nameBg, slug: c.slug });
+      if (c.children) {
+        c.children.forEach(child => {
+          options.push({ name: child.nameBg, slug: child.slug });
+        });
+      }
+    });
+    return options;
+  }, [rootCategories]);
+
+  // Get all child slugs for a parent category (for filtering)
+  const getCategorySlugs = (slug: string): string[] => {
+    const parent = rootCategories.find(c => c.slug === slug);
+    if (parent && parent.children && parent.children.length > 0) {
+      return [slug, ...parent.children.map(c => c.slug)];
+    }
+    return [slug];
+  };
 
   const FilterSidebar = ({ mobile = false }) => (
     <div className={mobile ? '' : 'hidden lg:block w-64 flex-shrink-0'}>
@@ -174,18 +207,46 @@ function ProductsContent() {
         <div className="mb-6">
           <h4 className="font-medium mb-2">Категория</h4>
           <div className="space-y-1">
-            {categoryOptions.map((cat) => (
-              <button
-                key={cat.slug}
-                onClick={() => setSelectedCategory(cat.slug)}
-                className={`block w-full text-left px-3 py-2 rounded-lg transition-colors ${
-                  selectedCategory === cat.slug
-                    ? 'bg-[var(--primary)] text-white'
-                    : 'hover:bg-[var(--card-hover)]'
-                }`}
-              >
-                {cat.name}
-              </button>
+            <button
+              onClick={() => setSelectedCategory('')}
+              className={`block w-full text-left px-3 py-2 rounded-lg transition-colors ${
+                selectedCategory === ''
+                  ? 'bg-[var(--primary)] text-white'
+                  : 'hover:bg-[var(--card-hover)]'
+              }`}
+            >
+              Всички
+            </button>
+            {rootCategories.map((cat) => (
+              <div key={cat.slug}>
+                <button
+                  onClick={() => setSelectedCategory(cat.slug)}
+                  className={`block w-full text-left px-3 py-2 rounded-lg transition-colors font-medium ${
+                    selectedCategory === cat.slug
+                      ? 'bg-[var(--primary)] text-white'
+                      : 'hover:bg-[var(--card-hover)]'
+                  }`}
+                >
+                  {cat.nameBg}
+                </button>
+                {cat.children && cat.children.length > 0 && (
+                  <div className="ml-3 space-y-0.5">
+                    {cat.children.map((child) => (
+                      <button
+                        key={child.slug}
+                        onClick={() => setSelectedCategory(child.slug)}
+                        className={`block w-full text-left px-3 py-1.5 rounded-lg transition-colors text-sm ${
+                          selectedCategory === child.slug
+                            ? 'bg-[var(--primary)] text-white'
+                            : 'text-[var(--muted)] hover:bg-[var(--card-hover)] hover:text-[var(--foreground)]'
+                        }`}
+                      >
+                        {child.nameBg}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         </div>

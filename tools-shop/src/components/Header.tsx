@@ -28,12 +28,19 @@ interface SearchSuggestion {
   image: string;
 }
 
-const categories = [
-  { name: 'Електроинструменти', slug: 'elektro-instrumenti' },
-  { name: 'Ръчни инструменти', slug: 'rachni-instrumenti' },
-  { name: 'Измервателни уреди', slug: 'izmervatelnii-uredi' },
-  { name: 'Градински инструменти', slug: 'gradinski-instrumenti' },
-];
+interface CategoryChild {
+  id: string;
+  nameBg: string;
+  slug: string;
+}
+
+interface CategoryItem {
+  id: string;
+  nameBg: string;
+  slug: string;
+  parentId: string | null;
+  children?: CategoryChild[];
+}
 
 export default function Header() {
   const router = useRouter();
@@ -46,15 +53,23 @@ export default function Header() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [categories, setCategories] = useState<CategoryItem[]>([]);
+  const [expandedMobileCategory, setExpandedMobileCategory] = useState<string | null>(null);
   const { totalItems, openCart } = useCart();
   const categoriesRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchContainerRef = useRef<HTMLDivElement>(null);
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Prevent hydration mismatch
+  // Prevent hydration mismatch + fetch categories
   useEffect(() => {
     setMounted(true);
+    fetch('/api/categories?tree=true')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) setCategories(data);
+      })
+      .catch(() => {});
   }, []);
 
   // Close categories dropdown when clicking outside
@@ -231,17 +246,33 @@ export default function Header() {
                   }`}
                   onMouseLeave={() => setCategoriesOpen(false)}
                 >
-                  <div className="bg-[var(--card)] border border-[var(--border)] rounded-lg shadow-lg py-2 min-w-[200px]">
+                  <div className="bg-[var(--card)] border border-[var(--border)] rounded-lg shadow-lg py-2 min-w-[220px]">
                     {categories.map((category) => (
-                      <Link
-                        key={category.slug}
-                        href={`/products?category=${category.slug}`}
-                        role="menuitem"
-                        className="block px-4 py-2 text-[var(--foreground)] hover:bg-[var(--card-hover)] hover:text-[var(--primary)] transition-colors"
-                        onClick={() => setCategoriesOpen(false)}
-                      >
-                        {category.name}
-                      </Link>
+                      <div key={category.slug}>
+                        <Link
+                          href={`/products?category=${category.slug}`}
+                          role="menuitem"
+                          className="block px-4 py-2 text-[var(--foreground)] hover:bg-[var(--card-hover)] hover:text-[var(--primary)] transition-colors font-medium"
+                          onClick={() => setCategoriesOpen(false)}
+                        >
+                          {category.nameBg}
+                        </Link>
+                        {category.children && category.children.length > 0 && (
+                          <div className="ml-3 border-l-2 border-[var(--border)]">
+                            {category.children.map((child) => (
+                              <Link
+                                key={child.slug}
+                                href={`/products?category=${child.slug}`}
+                                role="menuitem"
+                                className="block px-4 py-1.5 text-sm text-[var(--muted)] hover:bg-[var(--card-hover)] hover:text-[var(--primary)] transition-colors"
+                                onClick={() => setCategoriesOpen(false)}
+                              >
+                                {child.nameBg}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -456,15 +487,45 @@ export default function Header() {
                 <span className="text-sm text-[var(--muted)] uppercase tracking-wide" id="mobile-categories-label">Категории</span>
                 <div className="mt-2 space-y-1" role="list" aria-labelledby="mobile-categories-label">
                   {categories.map((category) => (
-                    <Link
-                      key={category.slug}
-                      href={`/products?category=${category.slug}`}
-                      className="block py-2 pl-2 text-[var(--foreground)] hover:text-[var(--primary)]"
-                      onClick={() => setMobileMenuOpen(false)}
-                      role="listitem"
-                    >
-                      {category.name}
-                    </Link>
+                    <div key={category.slug} role="listitem">
+                      <div className="flex items-center justify-between">
+                        <Link
+                          href={`/products?category=${category.slug}`}
+                          className="flex-1 py-2 pl-2 text-[var(--foreground)] hover:text-[var(--primary)]"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {category.nameBg}
+                        </Link>
+                        {category.children && category.children.length > 0 && (
+                          <button
+                            onClick={() => setExpandedMobileCategory(
+                              expandedMobileCategory === category.id ? null : category.id
+                            )}
+                            className="p-2 text-[var(--muted)] hover:text-[var(--primary)]"
+                            aria-label={`Покажи подкатегории на ${category.nameBg}`}
+                          >
+                            <ChevronDown
+                              size={16}
+                              className={`transition-transform ${expandedMobileCategory === category.id ? 'rotate-180' : ''}`}
+                            />
+                          </button>
+                        )}
+                      </div>
+                      {category.children && category.children.length > 0 && expandedMobileCategory === category.id && (
+                        <div className="ml-4 border-l-2 border-[var(--border)] space-y-1 pb-1">
+                          {category.children.map((child) => (
+                            <Link
+                              key={child.slug}
+                              href={`/products?category=${child.slug}`}
+                              className="block py-1.5 pl-3 text-sm text-[var(--muted)] hover:text-[var(--primary)]"
+                              onClick={() => setMobileMenuOpen(false)}
+                            >
+                              {child.nameBg}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   ))}
                 </div>
               </div>

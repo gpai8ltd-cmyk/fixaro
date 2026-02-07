@@ -10,6 +10,13 @@ interface Category {
   nameBg: string;
   nameEn: string;
   description: string;
+  parentId: string | null;
+}
+
+interface ParentCategory {
+  id: string;
+  nameBg: string;
+  parentId: string | null;
 }
 
 export default function EditCategoryPage({ params }: { params: Promise<{ id: string }> }) {
@@ -19,32 +26,45 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [parentCategories, setParentCategories] = useState<ParentCategory[]>([]);
 
   const [formData, setFormData] = useState({
     nameBg: '',
     nameEn: '',
     description: '',
+    parentId: '',
   });
 
-  // Load category
+  // Load category and all categories for parent selection
   useEffect(() => {
     async function loadData() {
       try {
-        const res = await fetch(`/api/categories/${id}`);
+        const [categoryRes, categoriesRes] = await Promise.all([
+          fetch(`/api/categories/${id}`),
+          fetch('/api/categories'),
+        ]);
 
-        if (!res.ok) {
+        if (!categoryRes.ok) {
           setError('Категорията не е намерена');
           setIsLoading(false);
           return;
         }
 
-        const category: Category = await res.json();
+        const category: Category = await categoryRes.json();
+        const allCategories: ParentCategory[] = await categoriesRes.json();
 
         setFormData({
           nameBg: category.nameBg,
           nameEn: category.nameEn || '',
           description: category.description || '',
+          parentId: category.parentId || '',
         });
+
+        // Filter: only root categories, exclude self and own children
+        const validParents = (Array.isArray(allCategories) ? allCategories : []).filter(
+          (c: ParentCategory) => c.id !== id && !c.parentId
+        );
+        setParentCategories(validParents);
       } catch (err) {
         setError('Грешка при зареждане на данните');
       } finally {
@@ -55,7 +75,7 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
     loadData();
   }, [id]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
@@ -70,7 +90,10 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
       const res = await fetch(`/api/categories/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          parentId: formData.parentId || null,
+        }),
       });
 
       const data = await res.json();
@@ -154,6 +177,26 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
                 onChange={handleChange}
                 className="input"
               />
+            </div>
+
+            <div>
+              <label className="label">Родителска категория</label>
+              <select
+                name="parentId"
+                value={formData.parentId}
+                onChange={handleChange}
+                className="input"
+              >
+                <option value="">Без (основна категория)</option>
+                {parentCategories.map(cat => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.nameBg}
+                  </option>
+                ))}
+              </select>
+              <p className="text-xs text-[var(--muted)] mt-1">
+                Оставете празно за основна категория или изберете родител за подкатегория
+              </p>
             </div>
 
             <div>

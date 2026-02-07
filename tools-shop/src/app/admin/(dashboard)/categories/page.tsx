@@ -9,7 +9,9 @@ import {
   FolderTree,
   MoreHorizontal,
   Loader2,
-  AlertCircle
+  AlertCircle,
+  ChevronRight,
+  CornerDownRight
 } from 'lucide-react';
 
 interface Category {
@@ -17,6 +19,12 @@ interface Category {
   nameBg: string;
   nameEn: string;
   slug: string;
+  parentId: string | null;
+  parent?: {
+    id: string;
+    nameBg: string;
+  } | null;
+  children?: Category[];
   _count: {
     products: number;
   };
@@ -84,6 +92,31 @@ export default function AdminCategoriesPage() {
     setOpenMenu(null);
   };
 
+  // Build hierarchical view: root categories first, then their children
+  const buildHierarchy = () => {
+    const rootCategories = categories.filter(c => !c.parentId);
+    const childCategories = categories.filter(c => c.parentId);
+
+    const rows: { category: Category; isChild: boolean }[] = [];
+    rootCategories.forEach(root => {
+      rows.push({ category: root, isChild: false });
+      const children = childCategories.filter(c => c.parentId === root.id);
+      children.forEach(child => {
+        rows.push({ category: child, isChild: true });
+      });
+    });
+
+    // Add orphaned children (parent deleted but children remain)
+    const listedIds = new Set(rows.map(r => r.category.id));
+    childCategories.forEach(child => {
+      if (!listedIds.has(child.id)) {
+        rows.push({ category: child, isChild: true });
+      }
+    });
+
+    return rows;
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -91,6 +124,8 @@ export default function AdminCategoriesPage() {
       </div>
     );
   }
+
+  const hierarchicalRows = buildHierarchy();
 
   return (
     <div>
@@ -133,16 +168,27 @@ export default function AdminCategoriesPage() {
         </div>
 
         <div className="divide-y divide-[var(--border)]">
-          {categories.map((category) => (
-            <div key={category.id} className="p-4 hover:bg-slate-50 transition-colors">
+          {hierarchicalRows.map(({ category, isChild }) => (
+            <div key={category.id} className={`p-4 hover:bg-slate-50 transition-colors ${isChild ? 'bg-slate-25' : ''}`}>
               <div className="grid grid-cols-12 gap-4 items-center">
                 <div className="col-span-8 sm:col-span-5">
-                  <div className="flex items-center gap-3">
-                    <FolderTree size={20} className="text-[var(--primary)]" />
+                  <div className={`flex items-center gap-3 ${isChild ? 'pl-6' : ''}`}>
+                    {isChild ? (
+                      <CornerDownRight size={16} className="text-[var(--muted)]" />
+                    ) : (
+                      <FolderTree size={20} className="text-[var(--primary)]" />
+                    )}
                     <div>
-                      <p className="font-medium text-[var(--foreground)]">{category.nameBg}</p>
+                      <p className={`font-medium text-[var(--foreground)] ${isChild ? 'text-sm' : ''}`}>
+                        {category.nameBg}
+                      </p>
                       {category.nameEn && (
                         <p className="text-sm text-[var(--muted)]">{category.nameEn}</p>
+                      )}
+                      {isChild && category.parent && (
+                        <p className="text-xs text-[var(--muted)]">
+                          в {category.parent.nameBg}
+                        </p>
                       )}
                     </div>
                   </div>

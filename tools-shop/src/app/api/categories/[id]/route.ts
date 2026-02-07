@@ -14,7 +14,12 @@ export async function GET(
     const category = await prisma.category.findUnique({
       where: { id },
       include: {
-        _count: { select: { products: true } }
+        _count: { select: { products: true } },
+        children: {
+          orderBy: { nameBg: 'asc' },
+          include: { _count: { select: { products: true } } }
+        },
+        parent: true,
       },
     });
 
@@ -40,6 +45,7 @@ const updateCategorySchema = z.object({
   nameBg: z.string().min(1, 'Името е задължително').optional(),
   nameEn: z.string().optional(),
   description: z.string().optional(),
+  parentId: z.string().optional().nullable(),
 });
 
 // PUT - Update category
@@ -115,6 +121,7 @@ export async function PUT(
         ...(data.nameEn !== undefined && { nameEn: data.nameEn }),
         ...(data.nameBg && { slug }),
         ...(data.description !== undefined && { description: data.description }),
+        ...(data.parentId !== undefined && { parentId: data.parentId || null }),
       },
     });
 

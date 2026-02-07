@@ -1,22 +1,46 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Save } from 'lucide-react';
+import { ArrowLeft, Save, Loader2 } from 'lucide-react';
+
+interface ParentCategory {
+  id: string;
+  nameBg: string;
+  parentId: string | null;
+}
 
 export default function NewCategoryPage() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [parentCategories, setParentCategories] = useState<ParentCategory[]>([]);
+  const [loadingCategories, setLoadingCategories] = useState(true);
 
   const [formData, setFormData] = useState({
     nameBg: '',
     nameEn: '',
     description: '',
+    parentId: '',
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  // Load existing categories for parent selection
+  useEffect(() => {
+    fetch('/api/categories')
+      .then(res => res.json())
+      .then(data => {
+        // Only show root categories as potential parents (no nested subcategories)
+        const roots = (Array.isArray(data) ? data : []).filter(
+          (c: ParentCategory) => !c.parentId
+        );
+        setParentCategories(roots);
+      })
+      .catch(() => {})
+      .finally(() => setLoadingCategories(false));
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
@@ -30,7 +54,10 @@ export default function NewCategoryPage() {
       const res = await fetch('/api/categories', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          parentId: formData.parentId || null,
+        }),
       });
 
       const data = await res.json();
@@ -88,6 +115,33 @@ export default function NewCategoryPage() {
                 onChange={handleChange}
                 className="input"
               />
+            </div>
+
+            <div>
+              <label className="label">Родителска категория</label>
+              {loadingCategories ? (
+                <div className="flex items-center gap-2 text-sm text-[var(--muted)]">
+                  <Loader2 size={16} className="animate-spin" />
+                  Зареждане...
+                </div>
+              ) : (
+                <select
+                  name="parentId"
+                  value={formData.parentId}
+                  onChange={handleChange}
+                  className="input"
+                >
+                  <option value="">Без (основна категория)</option>
+                  {parentCategories.map(cat => (
+                    <option key={cat.id} value={cat.id}>
+                      {cat.nameBg}
+                    </option>
+                  ))}
+                </select>
+              )}
+              <p className="text-xs text-[var(--muted)] mt-1">
+                Оставете празно за основна категория или изберете родител за подкатегория
+              </p>
             </div>
 
             <div>

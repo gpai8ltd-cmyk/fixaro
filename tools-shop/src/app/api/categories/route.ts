@@ -4,16 +4,34 @@ import { getSession } from '@/lib/auth';
 import { z } from 'zod';
 
 // GET - List all categories
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const { searchParams } = new URL(request.url);
+    const tree = searchParams.get('tree');
+
     const categories = await prisma.category.findMany({
       orderBy: { nameBg: 'asc' },
       include: {
         _count: {
           select: { products: true }
-        }
+        },
+        children: {
+          orderBy: { nameBg: 'asc' },
+          include: {
+            _count: {
+              select: { products: true }
+            }
+          }
+        },
+        parent: true,
       }
     });
+
+    // If tree=true, return only root categories (with children nested)
+    if (tree === 'true') {
+      const rootCategories = categories.filter(c => !c.parentId);
+      return NextResponse.json(rootCategories);
+    }
 
     return NextResponse.json(categories);
   } catch (error) {
@@ -30,6 +48,7 @@ const createCategorySchema = z.object({
   nameBg: z.string().min(1, 'Името е задължително'),
   nameEn: z.string().optional(),
   description: z.string().optional(),
+  parentId: z.string().optional().nullable(),
 });
 
 // POST - Create new category
@@ -82,6 +101,7 @@ export async function POST(request: NextRequest) {
         nameEn: data.nameEn || '',
         slug: finalSlug,
         description: data.description || '',
+        ...(data.parentId && { parentId: data.parentId }),
       },
     });
 

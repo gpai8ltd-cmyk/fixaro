@@ -1,6 +1,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CookieConsent from '@/components/CookieConsent';
+import QuickOrderButton from '@/components/QuickOrderButton';
 
 export default function ShopLayout({
   children,
@@ -21,6 +22,7 @@ export default function ShopLayout({
         {children}
       </main>
       <Footer />
+      <QuickOrderButton />
       <CookieConsent />
     </div>
   );

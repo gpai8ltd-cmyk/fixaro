@@ -89,11 +89,19 @@ async function getHomePageData() {
       products = [...featuredProducts, ...additionalProducts];
     }
 
-    // Fetch categories with product count
+    // Fetch only root categories (no parentId) with product count
     const categories = await prisma.category.findMany({
+      where: { parentId: null },
       include: {
         _count: {
           select: { products: { where: { isActive: true } } },
+        },
+        children: {
+          include: {
+            _count: {
+              select: { products: { where: { isActive: true } } },
+            },
+          },
         },
       },
       orderBy: { nameBg: 'asc' },
