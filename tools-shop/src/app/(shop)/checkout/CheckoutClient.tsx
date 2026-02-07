@@ -511,7 +511,7 @@ export default function CheckoutClient() {
                       <div className="text-sm font-medium">
                         {(item.price * item.quantity).toFixed(2)} лв.
                       </div>
-                      <div className="text-xs text-slate-500">{toEur(item.price * item.quantity)} €</div>
+                      <div className="text-sm font-medium text-slate-600">{toEur(item.price * item.quantity)} €</div>
                     </div>
                   </li>
                 ))}
@@ -525,7 +525,7 @@ export default function CheckoutClient() {
                   <dt className="text-slate-500">Междинна сума</dt>
                   <dd className="text-right">
                     <div>{total.toFixed(2)} лв.</div>
-                    <div className="text-xs text-slate-500">{toEur(total)} €</div>
+                    <div className="text-sm font-medium text-slate-600">{toEur(total)} €</div>
                   </dd>
                 </div>
                 <div className="flex justify-between">
@@ -536,7 +536,7 @@ export default function CheckoutClient() {
                     ) : (
                       <div className="text-right">
                         <div>{deliveryFee.toFixed(2)} лв.</div>
-                        <div className="text-xs text-slate-500">{toEur(deliveryFee)} €</div>
+                        <div className="text-sm font-medium text-slate-600">{toEur(deliveryFee)} €</div>
                       </div>
                     )}
                   </dd>
@@ -548,7 +548,7 @@ export default function CheckoutClient() {
                   <dt>Общо</dt>
                   <dd className="text-right">
                     <div className="text-[var(--primary)]">{finalTotal.toFixed(2)} лв.</div>
-                    <div className="text-sm font-normal text-slate-500">{toEur(finalTotal)} €</div>
+                    <div className="text-base font-semibold text-slate-600">{toEur(finalTotal)} €</div>
                   </dd>
                 </div>
               </dl>

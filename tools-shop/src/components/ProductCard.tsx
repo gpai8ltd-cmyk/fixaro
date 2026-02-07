@@ -130,9 +130,14 @@ export default function ProductCard({
               </span>
             )}
           </div>
-          <span className="text-xs text-[var(--muted)]">
-            {toEur(price)} € {oldPrice && <span className="line-through">{toEur(oldPrice)} €</span>}
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-semibold text-slate-600">
+              {toEur(price)} €
+            </span>
+            {oldPrice && (
+              <span className="text-xs text-slate-400 line-through">{toEur(oldPrice)} €</span>
+            )}
+          </div>
         </div>
 
         {/* Mobile add to cart button */}

@@ -189,8 +189,13 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
                 <span className="badge badge-error">Спестявате {(product.oldPrice - product.price).toFixed(2)} лв.</span>
               )}
             </div>
-            <div className="text-sm text-slate-500 mt-1">
-              {toEur(product.price)} € {product.oldPrice && <span className="line-through">{toEur(product.oldPrice)} €</span>}
+            <div className="flex items-center gap-2 mt-1">
+              <span className="text-xl font-semibold text-slate-600">
+                {toEur(product.price)} €
+              </span>
+              {product.oldPrice && (
+                <span className="text-base text-slate-400 line-through">{toEur(product.oldPrice)} €</span>
+              )}
             </div>
           </div>
 

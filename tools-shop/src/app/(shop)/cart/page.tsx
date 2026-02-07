@@ -108,9 +108,14 @@ export default function CartPage() {
                       </span>
                     )}
                   </div>
-                  <span className="text-xs text-slate-500">
-                    {toEur(item.price)} € {item.oldPrice && <span className="line-through">{toEur(item.oldPrice)} €</span>}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-semibold text-slate-600">
+                      {toEur(item.price)} €
+                    </span>
+                    {item.oldPrice && (
+                      <span className="text-xs text-slate-400 line-through">{toEur(item.oldPrice)} €</span>
+                    )}
+                  </div>
                 </div>
 
                 {/* Mobile: quantity & remove in one row */}
@@ -140,7 +145,7 @@ export default function CartPage() {
                       <span className="text-lg font-bold text-slate-800">
                         {(item.price * item.quantity).toFixed(2)} лв.
                       </span>
-                      <div className="text-xs text-slate-500">{toEur(item.price * item.quantity)} €</div>
+                      <div className="text-sm font-medium text-slate-600">{toEur(item.price * item.quantity)} €</div>
                     </div>
                     <button
                       onClick={() => removeItem(item.id)}
@@ -177,7 +182,7 @@ export default function CartPage() {
                 <span className="text-slate-500">Междинна сума</span>
                 <div className="text-right">
                   <span className="font-medium">{total.toFixed(2)} лв.</span>
-                  <div className="text-xs text-slate-500">{toEur(total)} €</div>
+                  <div className="text-sm font-medium text-slate-600">{toEur(total)} €</div>
                 </div>
               </div>
 
@@ -189,7 +194,7 @@ export default function CartPage() {
                   ) : (
                     <div className="text-right">
                       <span>{deliveryFee.toFixed(2)} лв.</span>
-                      <div className="text-xs text-slate-500">{toEur(deliveryFee)} €</div>
+                      <div className="text-sm font-medium text-slate-600">{toEur(deliveryFee)} €</div>
                     </div>
                   )}
                 </span>
@@ -209,7 +214,7 @@ export default function CartPage() {
                   <span className="font-bold text-[var(--primary)]">
                     {finalTotal.toFixed(2)} лв.
                   </span>
-                  <div className="text-sm text-slate-500">{toEur(finalTotal)} €</div>
+                  <div className="text-base font-semibold text-slate-600">{toEur(finalTotal)} €</div>
                 </div>
               </div>
             </div>

@@ -105,7 +105,7 @@ export default function CartSidebar() {
                           </span>
                         )}
                       </div>
-                      <span className="text-xs text-[var(--muted)]">{toEur(item.price)} €</span>
+                      <span className="text-sm font-semibold text-slate-600">{toEur(item.price)} €</span>
                     </div>
 
                     {/* Quantity controls */}
@@ -154,7 +154,7 @@ export default function CartSidebar() {
                 <span className="text-xl font-bold text-[var(--foreground)]">
                   {total.toFixed(2)} лв.
                 </span>
-                <div className="text-xs text-[var(--muted)]">{toEur(total)} €</div>
+                <div className="text-sm font-semibold text-slate-600">{toEur(total)} €</div>
               </div>
             </div>
 
