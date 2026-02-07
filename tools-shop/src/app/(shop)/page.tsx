@@ -227,38 +227,52 @@ export default async function HomePage() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
               {categories.map((category) => {
                 const IconComponent = categoryIcons[category.slug] || Package;
+                const children = (category as any).children || [];
+                const totalProducts = category._count.products + children.reduce((sum: number, c: any) => sum + (c._count?.products || 0), 0);
                 return (
-                  <Link
-                    key={category.slug}
-                    href={`/products?category=${category.slug}`}
-                    className="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-[var(--primary)] to-[var(--primary-dark)]"
-                  >
-                    <div className="aspect-[4/3] relative flex items-center justify-center">
-                      <IconComponent size={64} className="text-white/30" />
-                      {/* Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                    </div>
-
-                    {/* Content */}
-                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                      <div className="flex items-center gap-2 mb-2">
-                        <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
-                          <IconComponent size={20} aria-hidden="true" />
-                        </div>
-                        <span className="text-xs bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full">
-                          {category._count.products} продукт{category._count.products === 1 ? '' : 'а'}
-                        </span>
+                  <div key={category.slug} className="flex flex-col">
+                    <Link
+                      href={`/products?category=${category.slug}`}
+                      className="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-[var(--primary)] to-[var(--primary-dark)]"
+                    >
+                      <div className="aspect-[4/3] relative flex items-center justify-center">
+                        <IconComponent size={64} className="text-white/30" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                       </div>
-                      <h3 className="font-bold text-lg">
-                        {category.nameBg}
-                      </h3>
-                      {category.description && (
-                        <p className="text-sm text-white/70 mt-1 hidden sm:block">
-                          {category.description}
-                        </p>
-                      )}
-                    </div>
-                  </Link>
+
+                      <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                            <IconComponent size={20} aria-hidden="true" />
+                          </div>
+                          <span className="text-xs bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full">
+                            {totalProducts} продукт{totalProducts === 1 ? '' : 'а'}
+                          </span>
+                        </div>
+                        <h3 className="font-bold text-lg">
+                          {category.nameBg}
+                        </h3>
+                        {category.description && (
+                          <p className="text-sm text-white/70 mt-1 hidden sm:block">
+                            {category.description}
+                          </p>
+                        )}
+                      </div>
+                    </Link>
+                    {children.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 mt-2 px-1">
+                        {children.map((child: any) => (
+                          <Link
+                            key={child.slug}
+                            href={`/products?category=${child.slug}`}
+                            className="text-xs px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 hover:bg-[var(--primary)] hover:text-white transition-colors"
+                          >
+                            {child.nameBg}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 );
               })}
             </div>

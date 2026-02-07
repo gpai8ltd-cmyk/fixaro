@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowLeft, Save, Loader2 } from 'lucide-react';
 
 interface ParentCategory {
@@ -11,18 +11,21 @@ interface ParentCategory {
   parentId: string | null;
 }
 
-export default function NewCategoryPage() {
+function NewCategoryForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const preselectedParentId = searchParams.get('parentId') || '';
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [parentCategories, setParentCategories] = useState<ParentCategory[]>([]);
   const [loadingCategories, setLoadingCategories] = useState(true);
+  const [parentName, setParentName] = useState('');
 
   const [formData, setFormData] = useState({
     nameBg: '',
     nameEn: '',
     description: '',
-    parentId: '',
+    parentId: preselectedParentId,
   });
 
   // Load existing categories for parent selection
@@ -35,10 +38,15 @@ export default function NewCategoryPage() {
           (c: ParentCategory) => !c.parentId
         );
         setParentCategories(roots);
+        // Set parent name for subtitle
+        if (preselectedParentId) {
+          const parent = roots.find((c: ParentCategory) => c.id === preselectedParentId);
+          if (parent) setParentName(parent.nameBg);
+        }
       })
       .catch(() => {})
       .finally(() => setLoadingCategories(false));
-  }, []);
+  }, [preselectedParentId]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -82,8 +90,12 @@ export default function NewCategoryPage() {
           <ArrowLeft size={20} />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-[var(--foreground)]">Нова категория</h1>
-          <p className="text-[var(--muted)]">Добавете нова категория</p>
+          <h1 className="text-2xl font-bold text-[var(--foreground)]">
+            {parentName ? 'Нова подкатегория' : 'Нова категория'}
+          </h1>
+          <p className="text-[var(--muted)]">
+            {parentName ? `Подкатегория на "${parentName}"` : 'Добавете нова категория'}
+          </p>
         </div>
       </div>
 
@@ -176,5 +188,17 @@ export default function NewCategoryPage() {
         </div>
       </form>
     </div>
+  );
+}
+
+export default function NewCategoryPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center h-64">
+        <Loader2 className="animate-spin text-[var(--primary)]" size={32} />
+      </div>
+    }>
+      <NewCategoryForm />
+    </Suspense>
   );
 }

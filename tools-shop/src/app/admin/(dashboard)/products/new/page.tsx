@@ -9,10 +9,18 @@ import {
 } from 'lucide-react';
 import ImageUpload from '@/components/ImageUpload';
 
+interface CategoryChild {
+  id: string;
+  nameBg: string;
+  slug: string;
+}
+
 interface Category {
   id: string;
   nameBg: string;
   slug: string;
+  parentId: string | null;
+  children?: CategoryChild[];
 }
 
 export default function NewProductPage() {
@@ -35,11 +43,11 @@ export default function NewProductPage() {
     isFeatured: false,
   });
 
-  // Load categories
+  // Load categories (tree structure for hierarchical display)
   useEffect(() => {
-    fetch('/api/categories')
+    fetch('/api/categories?tree=true')
       .then(res => res.json())
-      .then(data => setCategories(data))
+      .then(data => setCategories(Array.isArray(data) ? data : []))
       .catch(err => console.error('Error loading categories:', err));
   }, []);
 
@@ -306,9 +314,16 @@ export default function NewProductPage() {
               >
                 <option value="">Избери категория</option>
                 {categories.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
-                    {cat.nameBg}
-                  </option>
+                  <optgroup key={cat.id} label={cat.nameBg}>
+                    <option value={cat.id}>
+                      {cat.nameBg} (всички)
+                    </option>
+                    {cat.children && cat.children.map((child) => (
+                      <option key={child.id} value={child.id}>
+                        ── {child.nameBg}
+                      </option>
+                    ))}
+                  </optgroup>
                 ))}
               </select>
 

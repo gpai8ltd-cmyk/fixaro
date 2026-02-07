@@ -179,9 +179,16 @@ export default function AdminCategoriesPage() {
                       <FolderTree size={20} className="text-[var(--primary)]" />
                     )}
                     <div>
-                      <p className={`font-medium text-[var(--foreground)] ${isChild ? 'text-sm' : ''}`}>
-                        {category.nameBg}
-                      </p>
+                      <div className="flex items-center gap-2">
+                        <p className={`font-medium text-[var(--foreground)] ${isChild ? 'text-sm' : ''}`}>
+                          {category.nameBg}
+                        </p>
+                        {!isChild && category.children && category.children.length > 0 && (
+                          <span className="text-xs bg-[var(--primary)]/10 text-[var(--primary)] px-1.5 py-0.5 rounded">
+                            {category.children.length} подкат.
+                          </span>
+                        )}
+                      </div>
                       {category.nameEn && (
                         <p className="text-sm text-[var(--muted)]">{category.nameEn}</p>
                       )}
@@ -216,7 +223,7 @@ export default function AdminCategoriesPage() {
 
                     {openMenu === category.id && (
                       <div
-                        className="absolute right-0 top-full mt-1 bg-white border border-[var(--border)] rounded-lg shadow-lg py-1 min-w-[160px] z-10"
+                        className="absolute right-0 top-full mt-1 bg-white border border-[var(--border)] rounded-lg shadow-lg py-1 min-w-[200px] z-10"
                         role="menu"
                       >
                         <Link
@@ -227,6 +234,16 @@ export default function AdminCategoriesPage() {
                           <Edit size={16} />
                           Редактирай
                         </Link>
+                        {!isChild && (
+                          <Link
+                            href={`/admin/categories/new?parentId=${category.id}`}
+                            className="flex items-center gap-2 px-4 py-2 text-sm text-[var(--primary)] hover:bg-slate-50"
+                            role="menuitem"
+                          >
+                            <Plus size={16} />
+                            Добави подкатегория
+                          </Link>
+                        )}
                         <hr className="my-1 border-[var(--border)]" />
                         <button
                           onClick={() => deleteCategory(category.id)}

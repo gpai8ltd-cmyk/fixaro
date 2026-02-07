@@ -10,10 +10,18 @@ import {
 } from 'lucide-react';
 import ImageUpload from '@/components/ImageUpload';
 
+interface CategoryChild {
+  id: string;
+  nameBg: string;
+  slug: string;
+}
+
 interface Category {
   id: string;
   nameBg: string;
   slug: string;
+  parentId: string | null;
+  children?: CategoryChild[];
 }
 
 interface Product {
@@ -60,7 +68,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
       try {
         const [productRes, categoriesRes] = await Promise.all([
           fetch(`/api/products/${id}`),
-          fetch('/api/categories'),
+          fetch('/api/categories?tree=true'),
         ]);
 
         if (!productRes.ok) {
@@ -382,9 +390,16 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
               >
                 <option value="">Избери категория</option>
                 {categories.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
-                    {cat.nameBg}
-                  </option>
+                  <optgroup key={cat.id} label={cat.nameBg}>
+                    <option value={cat.id}>
+                      {cat.nameBg} (всички)
+                    </option>
+                    {cat.children && cat.children.map((child) => (
+                      <option key={child.id} value={child.id}>
+                        ── {child.nameBg}
+                      </option>
+                    ))}
+                  </optgroup>
                 ))}
               </select>
             </div>
