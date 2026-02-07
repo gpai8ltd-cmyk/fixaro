@@ -113,6 +113,34 @@ function ProductsContent() {
     fetchData();
   }, [searchParams]);
 
+  // Build categories list: root categories with their children
+  const rootCategories = useMemo(() => {
+    return categories.filter(c => !c.parentId);
+  }, [categories]);
+
+  // For backward compatibility with existing references
+  const categoryOptions = useMemo(() => {
+    const options: { name: string; slug: string }[] = [{ name: 'Всички', slug: '' }];
+    rootCategories.forEach(c => {
+      options.push({ name: c.nameBg, slug: c.slug });
+      if (c.children) {
+        c.children.forEach(child => {
+          options.push({ name: child.nameBg, slug: child.slug });
+        });
+      }
+    });
+    return options;
+  }, [rootCategories]);
+
+  // Get all child slugs for a parent category (for filtering)
+  const getCategorySlugs = (slug: string): string[] => {
+    const parent = rootCategories.find(c => c.slug === slug);
+    if (parent && parent.children && parent.children.length > 0) {
+      return [slug, ...parent.children.map(c => c.slug)];
+    }
+    return [slug];
+  };
+
   const filteredProducts = useMemo(() => {
     let result = [...products];
 
@@ -159,34 +187,6 @@ function ProductsContent() {
   };
 
   const hasActiveFilters = selectedCategory || selectedPriceRange !== null || showOnlySale;
-
-  // Build categories list: root categories with their children
-  const rootCategories = useMemo(() => {
-    return categories.filter(c => !c.parentId);
-  }, [categories]);
-
-  // For backward compatibility with existing references
-  const categoryOptions = useMemo(() => {
-    const options: { name: string; slug: string }[] = [{ name: 'Всички', slug: '' }];
-    rootCategories.forEach(c => {
-      options.push({ name: c.nameBg, slug: c.slug });
-      if (c.children) {
-        c.children.forEach(child => {
-          options.push({ name: child.nameBg, slug: child.slug });
-        });
-      }
-    });
-    return options;
-  }, [rootCategories]);
-
-  // Get all child slugs for a parent category (for filtering)
-  const getCategorySlugs = (slug: string): string[] => {
-    const parent = rootCategories.find(c => c.slug === slug);
-    if (parent && parent.children && parent.children.length > 0) {
-      return [slug, ...parent.children.map(c => c.slug)];
-    }
-    return [slug];
-  };
 
   const FilterSidebar = ({ mobile = false }) => (
     <div className={mobile ? '' : 'hidden lg:block w-64 flex-shrink-0'}>
