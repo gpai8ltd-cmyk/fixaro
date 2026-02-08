@@ -56,6 +56,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
+  // Dynamic category pages
+  let categoryPages: MetadataRoute.Sitemap = [];
+
+  try {
+    const categories = await prisma.category.findMany({
+      select: {
+        slug: true,
+        updatedAt: true,
+      },
+    });
+
+    categoryPages = categories.map((category) => ({
+      url: `${siteUrl}/products?category=${category.slug}`,
+      lastModified: category.updatedAt,
+      changeFrequency: 'daily' as const,
+      priority: 0.85,
+    }));
+  } catch (error) {
+    console.error('Error fetching categories for sitemap:', error);
+  }
+
   // Dynamic product pages
   let productPages: MetadataRoute.Sitemap = [];
 
@@ -78,5 +99,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('Error fetching products for sitemap:', error);
   }
 
-  return [...staticPages, ...productPages];
+  return [...staticPages, ...categoryPages, ...productPages];
 }

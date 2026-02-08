@@ -6,7 +6,7 @@ export function OrganizationJsonLd() {
     '@type': 'Organization',
     name: 'Fixaro',
     url: siteUrl,
-    logo: `${siteUrl}/logo.png`,
+    logo: `${siteUrl}/images/logo.png`,
     description: 'Онлайн магазин за електроинструменти и ръчни инструменти. Бърза доставка в цяла България.',
     contactPoint: {
       '@type': 'ContactPoint',
@@ -37,7 +37,7 @@ export function LocalBusinessJsonLd() {
     '@type': 'Store',
     '@id': `${siteUrl}/#store`,
     name: 'Fixaro',
-    image: `${siteUrl}/logo.png`,
+    image: `${siteUrl}/images/logo.png`,
     url: siteUrl,
     telephone: '+359-87-9696506',
     email: 'fixaroshop@gmail.com',

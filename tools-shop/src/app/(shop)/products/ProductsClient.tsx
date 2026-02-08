@@ -80,6 +80,13 @@ function ProductsContent() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
 
+  // Sync filter state with URL params when navigating
+  useEffect(() => {
+    setSelectedCategory(searchParams.get('category') || '');
+    setShowOnlySale(searchParams.get('sale') === 'true');
+    setSearchQuery(searchParams.get('q') || '');
+  }, [searchParams]);
+
   // Fetch products and categories
   useEffect(() => {
     const fetchData = async () => {
@@ -102,7 +109,6 @@ function ProductsContent() {
 
         setProducts(productsData);
         setCategories(categoriesData);
-        setSearchQuery(query || '');
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Грешка при зареждане');
       } finally {
