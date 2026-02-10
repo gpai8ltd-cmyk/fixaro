@@ -36,7 +36,7 @@ const features = [
   {
     icon: Truck,
     title: 'Безплатна доставка',
-    description: 'За поръчки над 100 лв.',
+    description: 'За поръчки над 100 €',
   },
   {
     icon: Shield,

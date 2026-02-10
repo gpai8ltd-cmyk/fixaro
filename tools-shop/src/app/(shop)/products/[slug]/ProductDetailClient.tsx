@@ -264,7 +264,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
               </div>
               <div className="text-sm">
                 <div className="font-medium">Безплатна доставка</div>
-                <div className="text-[var(--muted)]">над 100 лв. / {toEur(100)} €</div>
+                <div className="text-[var(--muted)]">над 100 €</div>
               </div>
             </div>
             <div className="flex items-center gap-3">

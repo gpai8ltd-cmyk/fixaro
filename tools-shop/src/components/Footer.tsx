@@ -26,7 +26,7 @@ export default function Footer() {
               </div>
               <div>
                 <p className="font-semibold text-white">Безплатна доставка</p>
-                <p className="text-sm text-slate-400">За поръчки над 100 лв.</p>
+                <p className="text-sm text-slate-400">За поръчки над 100 €</p>
               </div>
             </div>
             <div className="flex items-center gap-3">

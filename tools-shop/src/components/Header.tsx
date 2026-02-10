@@ -175,7 +175,7 @@ export default function Header() {
       {/* Top bar */}
       <div className="bg-[var(--secondary)] text-white text-sm py-2 hidden sm:block">
         <div className="container-custom flex justify-center items-center">
-          <span className="text-[var(--primary)] font-medium">Безплатна доставка над 51.13 €</span>
+          <span className="text-[var(--primary)] font-medium">Безплатна доставка над 100 €</span>
         </div>
       </div>
 
