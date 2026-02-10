@@ -63,9 +63,9 @@ export default function ProductCard({
           <Image
             src={image}
             alt={name}
-            width={300}
-            height={300}
-            className="w-full h-full object-cover"
+            fill
+            className="object-contain"
+            sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-slate-100">
@@ -108,19 +108,19 @@ export default function ProductCard({
       </div>
 
       {/* Content */}
-      <div className="p-4">
+      <div className="p-3 sm:p-4">
         {category && (
-          <span className="text-xs text-[var(--muted)] uppercase tracking-wide">
+          <span className="text-xs text-[var(--muted)] uppercase tracking-wide hidden sm:block">
             {category}
           </span>
         )}
 
-        <h3 className="font-medium text-[var(--foreground)] mt-1 line-clamp-2 group-hover:text-[var(--primary)] transition-colors">
+        <h3 className="text-sm sm:text-base font-medium text-[var(--foreground)] mt-1 line-clamp-2 group-hover:text-[var(--primary)] transition-colors">
           {name}
         </h3>
 
-        <div className="flex flex-col gap-1 mt-2">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col gap-0.5 mt-1.5">
+          <div className="flex items-center gap-1.5 flex-wrap">
             <span className="price-current">
               {price.toFixed(2)} лв.
             </span>
@@ -130,23 +130,18 @@ export default function ProductCard({
               </span>
             )}
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-semibold text-slate-600">
-              {toEur(price)} €
-            </span>
-            {oldPrice && (
-              <span className="text-xs text-slate-400 line-through">{toEur(oldPrice)} €</span>
-            )}
-          </div>
+          <span className="text-xs font-medium text-slate-500">
+            {toEur(price)} €
+          </span>
         </div>
 
         {/* Mobile add to cart button */}
         <button
           onClick={handleAddToCart}
-          className="w-full mt-3 lg:hidden py-3 px-4 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors btn btn-primary"
+          className="w-full mt-2 lg:hidden py-2 px-3 rounded-lg text-sm font-medium flex items-center justify-center gap-1.5 transition-colors btn btn-primary"
           aria-label={`Добави ${name} в количката`}
         >
-          <ShoppingCart size={18} aria-hidden="true" />
+          <ShoppingCart size={15} aria-hidden="true" />
           <span>Добави</span>
         </button>
       </div>

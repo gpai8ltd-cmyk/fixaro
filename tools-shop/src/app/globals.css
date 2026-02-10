@@ -446,30 +446,34 @@ body {
   will-change: transform, box-shadow;
 }
 
-/* Enhanced product card hover with scale and glow */
-.product-card:hover {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-              0 0 0 2px var(--primary);
-  border-color: var(--primary);
-  transform: translateY(-8px) scale(1.02);
+/* Enhanced product card hover — само на устройства с реален hover (не touch) */
+@media (hover: hover) {
+  .product-card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 0 0 2px var(--primary);
+    border-color: var(--primary);
+    transform: translateY(-4px) scale(1.01);
+  }
+
+  .product-card:hover .product-image img {
+    transform: scale(1.05);
+  }
+
+  .product-card:hover .quick-view-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .product-card .product-image {
   position: relative;
   aspect-ratio: 1;
   overflow: hidden;
-  background-color: #f1f5f9;
+  background-color: #f8fafc;
 }
 
 .product-card .product-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
   transition: transform 0.3s;
-}
-
-.product-card:hover .product-image img {
-  transform: scale(1.05);
 }
 
 .product-card .sale-badge {
@@ -505,11 +509,6 @@ body {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.product-card:hover .quick-view-overlay {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 /* Mobile menu animation */
 .mobile-menu-enter {
   animation: slideIn 0.3s ease-out forwards;
@@ -531,16 +530,21 @@ body {
 
 /* Price styles */
 .price-current {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--primary);
 }
 
+@media (min-width: 640px) {
+  .price-current {
+    font-size: 1.25rem;
+  }
+}
+
 .price-old {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: var(--muted);
   text-decoration: line-through;
-  margin-left: 0.5rem;
 }
 
 /* Skeleton loading */

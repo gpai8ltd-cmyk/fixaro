@@ -18,7 +18,6 @@ import {
 } from 'lucide-react';
 import { useCart } from '@/store/cart';
 import ProductCard from '@/components/ProductCard';
-import Reviews from '@/components/Reviews';
 import RecentlyViewed, { addToRecentlyViewed } from '@/components/RecentlyViewed';
 
 interface Product {
@@ -114,9 +113,9 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
               <Image
                 src={product.images[selectedImage]}
                 alt={product.name}
-                width={600}
-                height={600}
-                className="w-full h-full object-cover"
+                fill
+                className="object-contain"
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 priority
               />
             ) : (
@@ -301,8 +300,6 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
         </div>
       )}
 
-      {/* Reviews */}
-      <Reviews />
 
       {/* Recently Viewed */}
       <RecentlyViewed currentProductId={product.id} />
