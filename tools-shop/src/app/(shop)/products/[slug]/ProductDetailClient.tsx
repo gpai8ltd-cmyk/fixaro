@@ -92,7 +92,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
   return (
     <div className="container-custom py-6 md:py-8">
       {/* Breadcrumb */}
-      <nav className="text-sm text-slate-500 mb-6">
+      <nav className="text-sm text-[var(--muted)] mb-6">
         <Link href="/" className="hover:text-[var(--primary)]">Начало</Link>
         <ChevronRight size={14} className="inline mx-1" />
         <Link href="/products" className="hover:text-[var(--primary)]">Продукти</Link>
@@ -101,14 +101,14 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
           {product.category}
         </Link>
         <ChevronRight size={14} className="inline mx-1" />
-        <span className="text-slate-800">{product.name}</span>
+        <span className="text-[var(--foreground)]">{product.name}</span>
       </nav>
 
       <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
         {/* Images */}
         <div>
           {/* Main image */}
-          <div className="aspect-square bg-slate-100 rounded-xl overflow-hidden mb-4 relative">
+          <div className="aspect-square bg-[var(--card)] rounded-xl overflow-hidden mb-4 relative">
             {product.images[selectedImage] ? (
               <Image
                 src={product.images[selectedImage]}
@@ -169,7 +169,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
             </Link>
           </div>
 
-          <h1 className="text-2xl md:text-3xl font-bold text-slate-800 mb-4">
+          <h1 className="text-2xl md:text-3xl font-bold text-[var(--foreground)] mb-4">
             {product.name}
           </h1>
 
@@ -180,7 +180,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
                 {product.price.toFixed(2)} лв.
               </span>
               {product.oldPrice && (
-                <span className="text-xl text-slate-500 line-through">
+                <span className="text-xl text-[var(--muted)] line-through">
                   {product.oldPrice.toFixed(2)} лв.
                 </span>
               )}
@@ -189,11 +189,11 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
               )}
             </div>
             <div className="flex items-center gap-2 mt-1">
-              <span className="text-xl font-semibold text-slate-600">
+              <span className="text-xl font-semibold text-[var(--muted)]">
                 {toEur(product.price)} €
               </span>
               {product.oldPrice && (
-                <span className="text-base text-slate-400 line-through">{toEur(product.oldPrice)} €</span>
+                <span className="text-base text-[var(--muted)] line-through">{toEur(product.oldPrice)} €</span>
               )}
             </div>
           </div>
@@ -246,11 +246,11 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
 
           {/* Action buttons */}
           <div className="flex gap-4 mb-8">
-            <button className="btn btn-ghost text-slate-500">
+            <button className="btn btn-ghost text-[var(--muted)]">
               <Heart size={20} />
               <span className="hidden sm:inline">Любими</span>
             </button>
-            <button className="btn btn-ghost text-slate-500">
+            <button className="btn btn-ghost text-[var(--muted)]">
               <Share2 size={20} />
               <span className="hidden sm:inline">Сподели</span>
             </button>
@@ -264,7 +264,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
               </div>
               <div className="text-sm">
                 <div className="font-medium">Безплатна доставка</div>
-                <div className="text-slate-500">над 100 лв. / {toEur(100)} €</div>
+                <div className="text-[var(--muted)]">над 100 лв. / {toEur(100)} €</div>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -273,7 +273,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
               </div>
               <div className="text-sm">
                 <div className="font-medium">2 години гаранция</div>
-                <div className="text-slate-500">пълно покритие</div>
+                <div className="text-[var(--muted)]">пълно покритие</div>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -282,7 +282,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
               </div>
               <div className="text-sm">
                 <div className="font-medium">14 дни връщане</div>
-                <div className="text-slate-500">без въпроси</div>
+                <div className="text-[var(--muted)]">без въпроси</div>
               </div>
             </div>
           </div>
@@ -292,9 +292,9 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
       {/* Description */}
       {product.description && (
         <div className="mt-12">
-          <h2 className="text-xl font-bold text-slate-800 mb-4">Описание</h2>
+          <h2 className="text-xl font-bold text-[var(--foreground)] mb-4">Описание</h2>
           <div
-            className="prose prose-slate max-w-none"
+            className="prose max-w-none text-[var(--foreground)] [&_*]:text-[var(--foreground)]"
             dangerouslySetInnerHTML={{ __html: product.description }}
           />
         </div>
@@ -307,7 +307,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
       {/* Related products */}
       {relatedProducts.length > 0 && (
         <div className="mt-12">
-          <h2 className="text-xl font-bold text-slate-800 mb-6">Свързани продукти</h2>
+          <h2 className="text-xl font-bold text-[var(--foreground)] mb-6">Свързани продукти</h2>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {relatedProducts.map((prod) => (
               <ProductCard
