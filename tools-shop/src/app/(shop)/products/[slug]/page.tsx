@@ -131,8 +131,46 @@ export async function generateMetadata({ params }: PageProps) {
     };
   }
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fixaro.bg';
+  const categoryName = product.category?.nameBg || 'инструменти';
+
+  // Strip HTML tags from description for meta
+  const plainDescription = product.descriptionBg
+    ?.replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 155);
+
+  const description = plainDescription
+    ? `${plainDescription} | Fixaro`
+    : `Купи ${product.nameBg} от Fixaro. ${categoryName} с бърза доставка и гаранция 2 години. Наложен платеж.`;
+
+  let images: string[] = [];
+  try {
+    images = JSON.parse(product.images || '[]');
+  } catch {
+    images = [];
+  }
+
   return {
-    title: `${product.nameBg} | Fixaro`,
-    description: product.descriptionBg?.slice(0, 160),
+    title: `${product.nameBg} - купи онлайн | Fixaro`,
+    description,
+    keywords: [
+      product.nameBg,
+      `купи ${product.nameBg}`,
+      `${product.nameBg} цена`,
+      `${product.nameBg} онлайн`,
+      categoryName,
+      `${categoryName} онлайн`,
+      `купи ${categoryName}`,
+      'инструменти онлайн',
+      'Fixaro',
+    ],
+    openGraph: {
+      title: `${product.nameBg} | Fixaro`,
+      description,
+      url: `${siteUrl}/products/${slug}`,
+      images: images[0] ? [{ url: images[0], alt: product.nameBg }] : [],
+    },
   };
 }
