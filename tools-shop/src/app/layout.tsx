@@ -5,8 +5,9 @@ import { OrganizationJsonLd, LocalBusinessJsonLd, WebSiteJsonLd } from "@/compon
 import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
-  subsets: ["latin", "cyrillic"],
+  subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fixaro.bg';
@@ -78,20 +79,11 @@ export const metadata: Metadata = {
     siteName: "Fixaro",
     title: "Fixaro - Онлайн магазин за инструменти | Електроинструменти и ръчни инструменти",
     description: "Fixaro - онлайн магазин за инструменти. Електроинструменти, ръчни инструменти, винтоверти, бормашини и аксесоари на достъпни цени. Бърза доставка в цяла България.",
-    images: [
-      {
-        url: "/images/logo-icon.jpeg",
-        width: 512,
-        height: 512,
-        alt: "Fixaro - Онлайн магазин за инструменти",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Fixaro - Онлайн магазин за инструменти",
     description: "Електроинструменти и ръчни инструменти на достъпни цени. Бърза доставка с Еконт и Спиди в цяла България.",
-    images: ["/images/logo-icon.jpeg"],
   },
   robots: {
     index: true,
