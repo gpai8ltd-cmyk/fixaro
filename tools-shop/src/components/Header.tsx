@@ -174,13 +174,6 @@ export default function Header() {
 
   return (
     <>
-      {/* Top bar */}
-      <div className="bg-[var(--secondary)] text-white text-sm py-2 hidden sm:block">
-        <div className="container-custom flex justify-center items-center">
-          <span className="text-[var(--primary)] font-medium">Безплатна доставка над 100 €</span>
-        </div>
-      </div>
-
       {/* Main header */}
       <header className="bg-[var(--background)] border-b border-[var(--border)] sticky top-0 z-50">
         <div className="container-custom">
