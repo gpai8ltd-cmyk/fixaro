@@ -229,6 +229,7 @@ export default async function HomePage() {
                 const IconComponent = categoryIcons[category.slug] || Package;
                 const children = (category as any).children || [];
                 const totalProducts = category._count.products + children.reduce((sum: number, c: any) => sum + (c._count?.products || 0), 0);
+                const categoryWithImage = category as typeof category & { image?: string };
                 return (
                   <div key={category.slug} className="flex flex-col">
                     <Link
@@ -236,7 +237,16 @@ export default async function HomePage() {
                       className="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-[var(--primary)] to-[var(--primary-dark)]"
                     >
                       <div className="aspect-[4/3] relative flex items-center justify-center">
-                        <IconComponent size={64} className="text-white/30" />
+                        {categoryWithImage.image ? (
+                          <Image
+                            src={categoryWithImage.image}
+                            alt={category.nameBg}
+                            fill
+                            className="object-cover"
+                          />
+                        ) : (
+                          <IconComponent size={64} className="text-white/30" />
+                        )}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                       </div>
 
