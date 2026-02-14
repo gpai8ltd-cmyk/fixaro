@@ -35,8 +35,8 @@ const categoryIcons: Record<string, React.ComponentType<{ size?: number; classNa
 const features = [
   {
     icon: Truck,
-    title: 'Безплатна доставка',
-    description: 'За поръчки над 100 €',
+    title: 'Бърза доставка',
+    description: 'До врата или офис на куриер',
   },
   {
     icon: Shield,
