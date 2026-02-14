@@ -2,17 +2,20 @@
 
 import { useState, useRef } from 'react';
 import { Upload, X, Loader2, ImageIcon } from 'lucide-react';
+import { resizeImage, type ResizeOptions } from '@/lib/image-resize';
 
 interface ImageUploadProps {
   images: string[];
   onImagesChange: (images: string[]) => void;
   maxImages?: number;
+  resizeOptions?: ResizeOptions; // Options for automatic image resizing
 }
 
 export default function ImageUpload({
   images,
   onImagesChange,
-  maxImages = 10
+  maxImages = 10,
+  resizeOptions
 }: ImageUploadProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState('');
@@ -27,8 +30,19 @@ export default function ImageUpload({
 
     try {
       const uploadPromises = Array.from(files).map(async (file) => {
+        // Resize image if resizeOptions are provided
+        let fileToUpload = file;
+        if (resizeOptions) {
+          try {
+            fileToUpload = await resizeImage(file, resizeOptions);
+          } catch (resizeError) {
+            console.error('Resize error:', resizeError);
+            // Continue with original file if resize fails
+          }
+        }
+
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append('file', fileToUpload);
 
         const response = await fetch('/api/upload', {
           method: 'POST',

@@ -48,6 +48,7 @@ const createCategorySchema = z.object({
   nameBg: z.string().min(1, 'Името е задължително'),
   nameEn: z.string().optional(),
   description: z.string().optional(),
+  image: z.string().optional().nullable(),
   parentId: z.string().optional().nullable(),
 });
 
@@ -101,6 +102,7 @@ export async function POST(request: NextRequest) {
         nameEn: data.nameEn || '',
         slug: finalSlug,
         description: data.description || '',
+        image: data.image || null,
         ...(data.parentId && { parentId: data.parentId }),
       },
     });

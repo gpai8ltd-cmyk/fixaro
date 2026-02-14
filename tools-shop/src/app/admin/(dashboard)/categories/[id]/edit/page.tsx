@@ -4,12 +4,14 @@ import { useState, useEffect, use } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Save, Loader2 } from 'lucide-react';
+import ImageUpload from '@/components/ImageUpload';
 
 interface Category {
   id: string;
   nameBg: string;
   nameEn: string;
   description: string;
+  image: string | null;
   parentId: string | null;
 }
 
@@ -35,6 +37,8 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
     parentId: '',
   });
 
+  const [categoryImage, setCategoryImage] = useState<string[]>([]);
+
   // Load category and all categories for parent selection
   useEffect(() => {
     async function loadData() {
@@ -59,6 +63,11 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
           description: category.description || '',
           parentId: category.parentId || '',
         });
+
+        // Set existing image if available
+        if (category.image) {
+          setCategoryImage([category.image]);
+        }
 
         // Filter: only root categories, exclude self and own children
         const validParents = (Array.isArray(allCategories) ? allCategories : []).filter(
@@ -93,6 +102,7 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
         body: JSON.stringify({
           ...formData,
           parentId: formData.parentId || null,
+          image: categoryImage[0] || null, // First image or null
         }),
       });
 
@@ -208,6 +218,23 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
                 rows={3}
                 className="input resize-none"
               />
+            </div>
+
+            <div>
+              <label className="label">Снимка на категорията</label>
+              <ImageUpload
+                images={categoryImage}
+                onImagesChange={setCategoryImage}
+                maxImages={1}
+                resizeOptions={{
+                  maxWidth: 1200,
+                  maxHeight: 900,
+                  quality: 0.85,
+                }}
+              />
+              <p className="text-xs text-[var(--muted)] mt-1">
+                Препоръчителен размер: 1200x900px. Снимката ще се покаже в навигацията.
+              </p>
             </div>
 
             <div className="flex gap-3 pt-4">

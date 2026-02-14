@@ -32,12 +32,14 @@ interface CategoryChild {
   id: string;
   nameBg: string;
   slug: string;
+  image: string | null;
 }
 
 interface CategoryItem {
   id: string;
   nameBg: string;
   slug: string;
+  image: string | null;
   parentId: string | null;
   children?: CategoryChild[];
 }
@@ -246,16 +248,27 @@ export default function Header() {
                   }`}
                   onMouseLeave={() => setCategoriesOpen(false)}
                 >
-                  <div className="bg-[var(--card)] border border-[var(--border)] rounded-lg shadow-lg py-2 min-w-[220px]">
+                  <div className="bg-[var(--card)] border border-[var(--border)] rounded-lg shadow-lg py-2 min-w-[280px]">
                     {categories.map((category) => (
                       <div key={category.slug}>
                         <Link
                           href={`/products?category=${category.slug}`}
                           role="menuitem"
-                          className="block px-4 py-2 text-[var(--foreground)] hover:bg-[var(--card-hover)] hover:text-[var(--primary)] transition-colors font-medium"
+                          className="flex items-center gap-3 px-4 py-2 text-[var(--foreground)] hover:bg-[var(--card-hover)] hover:text-[var(--primary)] transition-colors"
                           onClick={() => setCategoriesOpen(false)}
                         >
-                          {category.nameBg}
+                          {category.image && (
+                            <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-[var(--card-hover)]">
+                              <Image
+                                src={category.image}
+                                alt={category.nameBg}
+                                width={40}
+                                height={40}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          )}
+                          <span className="font-medium">{category.nameBg}</span>
                         </Link>
                         {category.children && category.children.length > 0 && (
                           <div className="ml-3 border-l-2 border-[var(--border)]">
@@ -264,9 +277,20 @@ export default function Header() {
                                 key={child.slug}
                                 href={`/products?category=${child.slug}`}
                                 role="menuitem"
-                                className="block px-4 py-1.5 text-sm text-[var(--muted)] hover:bg-[var(--card-hover)] hover:text-[var(--primary)] transition-colors"
+                                className="flex items-center gap-3 px-4 py-1.5 text-sm text-[var(--muted)] hover:bg-[var(--card-hover)] hover:text-[var(--primary)] transition-colors"
                                 onClick={() => setCategoriesOpen(false)}
                               >
+                                {child.image && (
+                                  <div className="w-8 h-8 rounded-lg overflow-hidden flex-shrink-0 bg-[var(--card-hover)]">
+                                    <Image
+                                      src={child.image}
+                                      alt={child.nameBg}
+                                      width={32}
+                                      height={32}
+                                      className="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                )}
                                 {child.nameBg}
                               </Link>
                             ))}
@@ -491,9 +515,20 @@ export default function Header() {
                       <div className="flex items-center justify-between">
                         <Link
                           href={`/products?category=${category.slug}`}
-                          className="flex-1 py-2 pl-2 text-[var(--foreground)] hover:text-[var(--primary)]"
+                          className="flex-1 flex items-center gap-2 py-2 pl-2 text-[var(--foreground)] hover:text-[var(--primary)]"
                           onClick={() => setMobileMenuOpen(false)}
                         >
+                          {category.image && (
+                            <div className="w-8 h-8 rounded-lg overflow-hidden flex-shrink-0 bg-[var(--card-hover)]">
+                              <Image
+                                src={category.image}
+                                alt={category.nameBg}
+                                width={32}
+                                height={32}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          )}
                           {category.nameBg}
                         </Link>
                         {category.children && category.children.length > 0 && (
@@ -517,9 +552,20 @@ export default function Header() {
                             <Link
                               key={child.slug}
                               href={`/products?category=${child.slug}`}
-                              className="block py-1.5 pl-3 text-sm text-[var(--muted)] hover:text-[var(--primary)]"
+                              className="flex items-center gap-2 py-1.5 pl-3 text-sm text-[var(--muted)] hover:text-[var(--primary)]"
                               onClick={() => setMobileMenuOpen(false)}
                             >
+                              {child.image && (
+                                <div className="w-6 h-6 rounded overflow-hidden flex-shrink-0 bg-[var(--card-hover)]">
+                                  <Image
+                                    src={child.image}
+                                    alt={child.nameBg}
+                                    width={24}
+                                    height={24}
+                                    className="w-full h-full object-cover"
+                                  />
+                                </div>
+                              )}
                               {child.nameBg}
                             </Link>
                           ))}

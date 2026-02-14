@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowLeft, Save, Loader2 } from 'lucide-react';
+import ImageUpload from '@/components/ImageUpload';
 
 interface ParentCategory {
   id: string;
@@ -27,6 +28,8 @@ function NewCategoryForm() {
     description: '',
     parentId: preselectedParentId,
   });
+
+  const [categoryImage, setCategoryImage] = useState<string[]>([]);
 
   // Load existing categories for parent selection
   useEffect(() => {
@@ -65,6 +68,7 @@ function NewCategoryForm() {
         body: JSON.stringify({
           ...formData,
           parentId: formData.parentId || null,
+          image: categoryImage[0] || null, // First image or null
         }),
       });
 
@@ -165,6 +169,23 @@ function NewCategoryForm() {
                 rows={3}
                 className="input resize-none"
               />
+            </div>
+
+            <div>
+              <label className="label">Снимка на категорията</label>
+              <ImageUpload
+                images={categoryImage}
+                onImagesChange={setCategoryImage}
+                maxImages={1}
+                resizeOptions={{
+                  maxWidth: 1200,
+                  maxHeight: 900,
+                  quality: 0.85,
+                }}
+              />
+              <p className="text-xs text-[var(--muted)] mt-1">
+                Препоръчителен размер: 1200x900px. Снимката ще се покаже в навигацията.
+              </p>
             </div>
 
             <div className="flex gap-3 pt-4">
