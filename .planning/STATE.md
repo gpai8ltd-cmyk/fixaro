@@ -1,38 +1,38 @@
-# Project State: ToolsShop UI Fixes & Enhancements
+# Project State: ToolsShop Production Scaling
 
-**Last Updated:** 2026-01-26
-**Session:** Milestone complete (all 3 phases)
+**Last Updated:** 2026-02-15
+**Session:** Starting v2.0 milestone
 
 ---
 
 ## Project Reference
 
-**Core Value:** The shop must look professional and function correctly — broken search and placeholder pages undermine customer trust.
+See: `.planning/PROJECT.md` (updated 2026-02-15)
 
-**Current Focus:** Phase 3 - Animation & Polish (sale banner & product cards)
+**Core Value:** The shop must reliably process orders at scale — database bottlenecks and race conditions lose revenue and customer trust.
+
+**Current Focus:** v2.0 Milestone - Defining requirements for 500+ orders/day scaling
 
 ---
 
 ## Current Position
 
-**Active Phase:** Phase 3 - Animation & Polish (COMPLETE)
-**Active Plan:** 03-05 of 5 (Human Verification - complete)
-**Status:** All phases complete - project finished
+**Active Milestone:** v2.0 Production Scaling
+**Phase:** Not started (defining requirements)
+**Plan:** —
+**Status:** Defining requirements
+**Last activity:** 2026-02-15 — Milestone v2.0 started
 
 **Progress:**
 ```
-Phase 1: Critical Fixes        [██████████] 6/6 requirements
-Phase 2: Info Pages            [██████████] 6/6 requirements
-Phase 3: Animation & Polish    [██████████] 10/10 requirements
-
-Overall: 22/22 (100%)
+v2.0 Requirements: Gathering...
 ```
 
 ---
 
 ## Performance Metrics
 
-### Completion Stats
+### v1.0 Completion Stats (Archived)
 
 | Metric | Count |
 |--------|-------|
@@ -41,41 +41,25 @@ Overall: 22/22 (100%)
 | Plans executed | 13 |
 | Verifications passed | 5 |
 
-### Quality Indicators
-
-- **Requirement coverage:** 22/22 mapped (100%)
-- **Phase coherence:** 3 phases with clear delivery boundaries
-- **Success criteria:** 22 observable behaviors defined
-- **Blockers:** None
-
 ---
 
 ## Accumulated Context
 
 ### Decisions Made
 
+**v1.0 UI/UX Milestone:**
+
 | Decision | Rationale | Date |
 |----------|-----------|------|
 | 3-phase structure | Quick depth setting; natural grouping of fixes -> content -> polish | 2026-01-23 |
-| Group all info pages in Phase 2 | 6 pages share similar work pattern (layout redesign), efficient to batch | 2026-01-23 |
-| Animations as final phase | Polish layer requires stable foundation from Phases 1-2 | 2026-01-23 |
-| Custom inline Toggle component | Keep bundle small, match design system without external dependency | 2026-01-25 |
-| Single-open FAQ accordion | Cleaner UX, prevents overwhelming content display | 2026-01-25 |
 | react-intersection-observer over framer-motion | Lighter bundle sufficient for scroll-reveal, per research recommendation | 2026-01-25 |
-| Hide blobs for reduced motion | Complete display:none rather than just disabling animation for cleaner accessibility | 2026-01-25 |
-| blur(40px) limit on blobs | Research showed blur(60px) impacts mobile performance | 2026-01-25 |
-| HeroBlobs before gradient overlay | Blobs visible through gradient, icons on top | 2026-01-26 |
-| 20% opacity for floating icons | Subtle decoration that doesn't distract from hero content | 2026-01-26 |
-| Stats bar between hero and features | Natural flow: hero impact -> credibility stats -> features | 2026-01-26 |
-| 7-day countdown target as placeholder | Actual date should come from admin/CMS in production | 2026-01-26 |
-| tabular-nums for countdown digits | Prevents layout shift during countdown | 2026-01-26 |
-| will-change on product cards | GPU optimization hint for smoother animations | 2026-01-26 |
-| Text-based brand logos | Simpler than image files, no asset management needed | 2026-01-26 |
-| First-letter avatars for testimonials | Consistent with design system, no external images | 2026-01-26 |
-| Staggered animation delays (0, 100, 200ms) | Visual cascade effect for card reveals | 2026-01-26 |
-| URL input for product images | Simpler than file upload infrastructure; allows remote URLs and local paths | 2026-01-26 |
+| Custom inline components | Keep bundle small, match design system without external dependency | 2026-01-25 |
 | Find or create customer by phone | Avoid duplicate customers; use phone as unique identifier | 2026-01-26 |
 | Order number format ORD-YYYYMMDD-XXX | Human-readable identifiers with date context for easy sorting | 2026-01-26 |
+
+**v2.0 Scaling Milestone:**
+
+*(To be populated during planning)*
 
 ### Key Context
 
@@ -83,70 +67,39 @@ Overall: 22/22 (100%)
 - Next.js 16 App Router + TypeScript
 - Located in `tools-shop/` subdirectory
 - Tailwind CSS 4 for styling
+- Prisma ORM + PostgreSQL
+- Deployed on Vercel (serverless functions)
 - All UI in Bulgarian
 
-**Phase 1 Delivered:**
-- Search API works (SQLite-compatible queries)
-- Footer cleaned (no security badges, no courier logos)
-- Hero cleaned (no placeholder rating)
-- Social links in header (Instagram, Facebook)
+**v1.0 Delivered (Complete):**
+- Professional UI with modern info pages
+- Working search, navigation, social links
+- Trust-building sections with animations
+- Accessibility support (prefers-reduced-motion)
+- Admin dashboard with order management
 
-**Phase 2 Delivered:**
-- /terms: Sticky TOC + accordion sections
-- /privacy: Summary box + card layout with grouped sections
-- /cookies: Category toggles + enhanced cookie table
-- /delivery: Improved icon grid + FAQ accordion
-- /returns: Visual timeline + comparison table + CTA buttons
-- /contact: Channel cards + improved form + map section
+**v2.0 Target State:**
+- Handle 500+ orders/day reliably
+- Database connection pooling for serverless
+- Redis caching for products/categories
+- Queue-based email delivery
+- Collision-free order numbers
+- API pagination
+- Performance monitoring
 
-**Phase 3 Delivered (COMPLETE):**
-- Plan 01: Animation Foundation
-  - react-intersection-observer and react-countup installed
-  - AnimatedSection component for scroll-reveal
-  - usePrefersReducedMotion hook for accessibility
-  - Blob morph keyframes for hero backgrounds
-- Plan 02: Hero Enhancements & Stats Bar
-  - HeroBlobs component with gradient blob animations
-  - FloatingIcons component with 4 tool icons
-  - StatsBar with animated counters (5000+, 350+, 98%)
-  - Integrated into landing page
-- Plan 03: Trust-Building Sections
-  - WhyUsSection with 3 brand story cards
-  - TestimonialsSection with 3 customer reviews + star ratings
-  - BrandPartners strip with 6 tool brands
-  - All sections use scroll-reveal animations
-- Plan 04: Sale Banner & Product Card Enhancements
-  - CountdownTimer component with interval cleanup
-  - Sale banner with live 7-day countdown
-  - Enhanced product card hover (lift, scale, glow)
-  - Sale badge pulse animation
-  - Quick view overlay slide animation
-- Plan 05: Human Verification (COMPLETE)
-  - All 10 requirements verified working
-  - Build and TypeScript checks passed
-  - User visually approved landing page quality
-  - Phase 3 complete
-
-**Patterns Established:**
-- Toggle: w-12 h-6 rounded-full with translate-x animation
-- Accordion: max-h-0/max-h-96 with transition for expand/collapse
-- Card hover: hover:shadow-md hover:-translate-y-1 transition-all
-- Card hover enhanced: -8px lift + scale(1.02) + primary glow border
-- Timeline: vertical line with numbered circles
-- Scroll-reveal: AnimatedSection with threshold=0.1, triggerOnce=true
-- Blob animations: 8s duration, transform-only for GPU acceleration
-- Floating icons: animate-float with staggered delays, 20% opacity
-- Scroll-triggered counters: CountUp with enableScrollSpy, scrollSpyOnce
-- Countdown timer: setInterval with clearInterval cleanup
-- Sale badge pulse: 2s ease-in-out infinite animation
-- Trust section: heading + subtext + 3-column grid with staggered AnimatedSection
-- Testimonial card: quote icon + star rating + text + avatar with role
-- Brand strip: text logos with brand colors, hover opacity
+**Current Bottlenecks:**
+- No DB connection pooling → hits connection limits
+- No caching → every request hits database
+- Random order numbers → collision risk at scale
+- Fire-and-forget emails → no delivery guarantee
+- No pagination → loads all data in memory
+- In-memory rate limiting → doesn't work across instances
 
 **Constraints:**
-- UI/UX fixes only, no backend restructuring
-- Maintain existing visual design language
-- Must use existing Next.js + Tailwind stack
+- Vercel serverless hosting (affects pooling strategy)
+- Budget available for Redis/Queue services
+- Zero downtime during scaling changes
+- Must maintain existing UI/UX
 
 ---
 
@@ -154,27 +107,15 @@ Overall: 22/22 (100%)
 
 ### Immediate Next Steps
 
-- [x] Execute 03-01 (Animation Foundation)
-- [x] Execute 03-02 (Hero Enhancements & Stats Bar)
-- [x] Execute 03-03 (Trust-Building Sections)
-- [x] Execute 03-04 (Sale banner & product card enhancements)
-- [x] Execute 03-05 (Human verification)
+- [ ] Gather scaling requirements (in progress)
+- [ ] Define requirement categories
+- [ ] Create REQUIREMENTS.md
+- [ ] Research scaling patterns (optional)
+- [ ] Create ROADMAP.md with phases
 
-### Project Complete
+### Milestone v2.0
 
-**All 3 phases delivered:**
-- Phase 1: Critical Fixes (6/6 requirements)
-- Phase 2: Info Pages (6/6 requirements)
-- Phase 3: Animation & Polish (10/10 requirements)
-
-**Final deliverables:**
-- Working product search
-- Clean footer and hero
-- Social links in header
-- 6 redesigned info pages with modern layouts
-- Landing page with trust-building sections
-- Scroll animations and enhanced interactions
-- Full accessibility support (prefers-reduced-motion)
+*(Phases to be defined)*
 
 ---
 
@@ -196,38 +137,28 @@ Overall: 22/22 (100%)
 
 ## Session Continuity
 
-**Last session:** 2026-01-26 (quick task 001)
-**Stopped at:** Completed quick-001 (Admin Checkout Fixes)
+**Last session:** 2026-02-15 (new milestone start)
+**Stopped at:** Defining v2.0 requirements
 **Resume file:** None
 
 **What just happened:**
-- Quick task 001 executed (3/3 tasks complete)
-- Fixed admin product image upload (URL input instead of file upload)
-- Created orders API and connected checkout form
-- Protected admin API endpoints with authentication
-- Build and TypeScript checks passed
-- All functionality verified working
+- Started new milestone v2.0: Production Scaling
+- Updated PROJECT.md with new goals
+- Created MILESTONES.md to track v1.0 completion
+- Gathered initial context: Vercel hosting, budget available
+- Target: 500+ orders/day with proper infrastructure
 
-**Quick Tasks Status:**
-- Quick-001: Complete (admin checkout fixes)
-
-**Project Status:**
-- ALL 22 planned requirements delivered and verified
-- ALL 3 phases complete
-- Quick fixes applied as needed
+**Milestone Status:**
+- v1.0: Complete (22/22 requirements)
+- v2.0: Requirements gathering phase
 
 **Current state:**
-- Professional UI/UX fixes complete
-- Search working, navigation updated
-- All 6 info pages redesigned
-- Landing page has trust-building sections with animations
-- Full accessibility support
-- Admin can add product images via URL
-- Checkout creates orders in database
-- Admin APIs protected with authentication
-- No blockers, no outstanding work
+- v1.0 delivered professional UI/UX
+- v2.0 will add production-ready scaling infrastructure
+- Research phase next (or skip to requirements definition)
+- No blockers
 
 ---
 
 *State initialized: 2026-01-23*
-*Last update: 2026-01-26 after milestone complete*
+*Last update: 2026-02-15 after v2.0 milestone start*
