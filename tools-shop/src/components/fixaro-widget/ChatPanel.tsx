@@ -66,7 +66,8 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
       await conversation.startSession({ agentId: AGENT_ID, connectionType: "webrtc" });
       setSessionStarted(true);
       setError(null);
-    } catch {
+    } catch (err) {
+      console.error("Fixaro widget: startSession failed:", err);
       setError(BG.connectionError);
     }
   };
