@@ -230,7 +230,7 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
             onKeyDown={handleKeyDown}
             placeholder={isConnected ? BG.inputPlaceholder : BG.inputPlaceholderConnecting}
             disabled={!isConnected}
-            className="flex-1 text-sm px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400/20 disabled:opacity-50 disabled:cursor-not-allowed bg-white"
+            className="flex-1 text-sm px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400/20 disabled:opacity-50 disabled:cursor-not-allowed bg-white text-slate-800 placeholder:text-slate-400"
             aria-label={BG.inputPlaceholder}
           />
 
