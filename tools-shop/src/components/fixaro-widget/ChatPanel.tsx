@@ -87,8 +87,10 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
 
   const handleSend = () => {
     if (!input.trim() || conversation.status !== "connected") return;
+    const text = input.trim();
+    setMessages(prev => [...prev, { id: crypto.randomUUID(), text, source: "user", timestamp: new Date() }]);
     conversation.sendUserActivity();
-    conversation.sendUserMessage(input.trim());
+    conversation.sendUserMessage(text);
     setInput("");
   };
 
