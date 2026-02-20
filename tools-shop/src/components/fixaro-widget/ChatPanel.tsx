@@ -21,7 +21,7 @@ const BG = {
   connectionError: "Грешка при свързване. Моля, опитайте отново.",
 } as const;
 
-export function ChatPanel({ onClose }: ChatPanelProps) {
+export function ChatPanel({ onClose, categoryContext }: ChatPanelProps) {
   const [messages, setMessages] = useState<WidgetMessage[]>([]);
   const [input, setInput] = useState("");
   const [micMuted, setMicMuted] = useState(true); // text-first: mic off by default
@@ -29,6 +29,7 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
   const [error, setError] = useState<string | null>(null);
   const [connectionFailed, setConnectionFailed] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const hasSentContext = useRef(false);
 
   const conversation = useConversation({
     micMuted,
@@ -79,6 +80,21 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Send category context when connection is established
+  useEffect(() => {
+    if (conversation.status === "connected" && categoryContext && !hasSentContext.current) {
+      hasSentContext.current = true;
+      const contextMsg = categoryContext === "product-detail"
+        ? "Клиентът разглежда страница с конкретен продукт. Бъди готов да помогнеш с детайли, цена и наличност."
+        : `Клиентът разглежда категория: ${categoryContext}. Насочи препоръките към тази категория.`;
+      conversation.sendContextualUpdate(contextMsg);
+    }
+    // Reset flag on disconnect so it can fire again if reconnected
+    if (conversation.status === "disconnected") {
+      hasSentContext.current = false;
+    }
+  }, [conversation.status, conversation, categoryContext]);
 
   // Auto-scroll on new messages
   useEffect(() => {
