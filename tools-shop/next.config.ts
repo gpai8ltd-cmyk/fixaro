@@ -43,7 +43,7 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline'", // Tailwind inline styles
               "img-src 'self' https: data: blob:",
               "font-src 'self' data:",
-              "connect-src 'self' https:",
+              "connect-src 'self' https: wss://api.elevenlabs.io",
               "frame-ancestors 'self'",
               "base-uri 'self'",
               "form-action 'self'",
