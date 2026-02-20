@@ -14,7 +14,8 @@ import {
   Settings,
   LogOut,
   Menu,
-  X
+  X,
+  Bot
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -25,6 +26,7 @@ const menuItems = [
   { name: 'Поръчки', href: '/admin/orders', icon: ShoppingCart },
   { name: 'Клиенти', href: '/admin/customers', icon: Users },
   { name: 'Статистики', href: '/admin/stats', icon: BarChart3 },
+  { name: 'AI Асистент', href: '/admin/assistant', icon: Bot },
   { name: 'Промоции', href: '/admin/promotions', icon: Tag },
 ];
 
