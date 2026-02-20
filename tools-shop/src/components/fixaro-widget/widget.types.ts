@@ -9,6 +9,7 @@ export interface WidgetMessage {
 
 export interface ChatPanelProps {
   onClose: () => void;
+  categoryContext?: string | null;
 }
 
 export type ConnectionStatus = "disconnected" | "connecting" | "connected";
