@@ -1,0 +1,1 @@
+export { FixaroWidget } from "./FixaroWidget";
