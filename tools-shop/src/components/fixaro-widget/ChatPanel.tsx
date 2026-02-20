@@ -1,5 +1,5 @@
 "use client";
-import { useConversation } from "@elevenlabs/react";
+import { useConversation, type DisconnectionDetails } from "@elevenlabs/react";
 import { useState, useCallback, useRef, useEffect } from "react";
 import { Mic, MicOff, Send, X } from "lucide-react";
 import { ChatMessage } from "./ChatMessage";
@@ -27,6 +27,7 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
   const [micMuted, setMicMuted] = useState(true); // text-first: mic off by default
   const [voiceEnabled, setVoiceEnabled] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [connectionFailed, setConnectionFailed] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const conversation = useConversation({
@@ -40,22 +41,37 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
     onConnect: useCallback(({ conversationId }: { conversationId: string }) => {
       console.log("Fixaro widget connected:", conversationId);
       setError(null);
+      setConnectionFailed(false);
     }, []),
     onError: useCallback((message: string) => {
       console.error("Fixaro widget error:", message);
       setError(BG.connectionError);
     }, []),
+    onDisconnect: useCallback((details: DisconnectionDetails) => {
+      console.log("Fixaro widget disconnected:", details);
+    }, []),
   });
+
+  const startSession = useCallback(() => {
+    conversation
+      .startSession({
+        agentId: AGENT_ID,
+        connectionType: "websocket",
+        overrides: {
+          conversation: { textOnly: true },
+        },
+      })
+      .catch(err => {
+        console.error("Fixaro widget: startSession failed:", err);
+        setError(BG.connectionError);
+        setConnectionFailed(true);
+      });
+  }, [conversation]);
 
   // Auto-connect when panel mounts (panel only renders when isOpen=true in FixaroWidget)
   useEffect(() => {
     if (conversation.status === "disconnected") {
-      conversation
-        .startSession({ agentId: AGENT_ID, connectionType: "websocket" })
-        .catch(err => {
-          console.error("Fixaro widget: startSession failed:", err);
-          setError(BG.connectionError);
-        });
+      startSession();
     }
 
     return () => {
@@ -91,7 +107,8 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
 
   const isConnected = conversation.status === "connected";
   const isConnecting =
-    conversation.status === "connecting" || conversation.status === "disconnected";
+    !connectionFailed &&
+    (conversation.status === "connecting" || conversation.status === "disconnected");
   const hasError = error !== null && !isConnected && !isConnecting;
 
   const statusText = isConnected
@@ -157,7 +174,21 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
           <ChatMessage key={msg.id} message={msg} />
         ))}
         {error && isConnected === false && !isConnecting && (
-          <p className="text-xs text-red-500 text-center py-2">{error}</p>
+          <div className="flex flex-col items-center gap-2 py-2">
+            <p className="text-xs text-red-500 text-center">{error}</p>
+            {connectionFailed && (
+              <button
+                onClick={() => {
+                  setConnectionFailed(false);
+                  startSession();
+                }}
+                className="text-xs px-3 py-1.5 rounded-lg text-white transition-colors"
+                style={{ backgroundColor: "#84cc16" }}
+              >
+                Опитай отново
+              </button>
+            )}
+          </div>
         )}
         <div ref={messagesEndRef} />
       </div>
