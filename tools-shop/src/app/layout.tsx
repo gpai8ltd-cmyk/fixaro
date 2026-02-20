@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import { OrganizationJsonLd, LocalBusinessJsonLd, WebSiteJsonLd } from "@/components/JsonLd";
 import { Analytics } from "@vercel/analytics/react";
+import { FixaroWidgetLoader } from "@/components/fixaro-widget/FixaroWidgetLoader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -163,6 +164,8 @@ export default function RootLayout({
 
         {children}
         <Analytics />
+        {/* Fixaro conversational AI widget */}
+        <FixaroWidgetLoader />
       </body>
     </html>
   );
