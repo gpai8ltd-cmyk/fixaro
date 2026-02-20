@@ -1,4 +1,5 @@
-import { Bot, MessageSquare, Clock, ExternalLink, AlertTriangle } from 'lucide-react';
+import Link from 'next/link';
+import { Bot, MessageSquare, Clock, Eye, AlertTriangle } from 'lucide-react';
 
 const AGENT_ID = 'agent_0701khxj4n4herstwkr9dmjnhdrj';
 
@@ -6,7 +7,7 @@ interface Conversation {
   conversation_id: string;
   agent_id: string;
   status: string;
-  start_time: number;
+  start_time_unix_secs: number;
   call_duration_secs: number;
   message_count: number;
   has_audio: boolean;
@@ -23,7 +24,8 @@ const BG_MONTHS = [
   'Юли', 'Авг', 'Сеп', 'Окт', 'Ное', 'Дек',
 ];
 
-function formatDate(unixSeconds: number): string {
+function formatDate(unixSeconds: number | null | undefined): string {
+  if (!unixSeconds) return '—';
   const d = new Date(unixSeconds * 1000);
   const day = d.getDate();
   const month = BG_MONTHS[d.getMonth()];
@@ -159,7 +161,8 @@ export default async function AssistantPage() {
   const total = conversations.length;
   const now = new Date();
   const thisMonth = conversations.filter((c) => {
-    const d = new Date(c.start_time * 1000);
+    if (!c.start_time_unix_secs) return false;
+    const d = new Date(c.start_time_unix_secs * 1000);
     return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
   }).length;
 
@@ -248,7 +251,7 @@ export default async function AssistantPage() {
                 {conversations.map((conv) => (
                   <tr key={conv.conversation_id} className="hover:bg-slate-50 transition-colors">
                     <td className="px-6 py-4 text-[var(--foreground)]">
-                      {formatDate(conv.start_time)}
+                      {formatDate(conv.start_time_unix_secs)}
                     </td>
                     <td className="px-6 py-4 text-[var(--foreground)]">
                       {formatDuration(conv.call_duration_secs)}
@@ -258,15 +261,13 @@ export default async function AssistantPage() {
                       <StatusBadge status={conv.status} />
                     </td>
                     <td className="px-6 py-4 text-center">
-                      <a
-                        href={`https://elevenlabs.io/app/conversational-ai/${AGENT_ID}/conversations/${conv.conversation_id}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <Link
+                        href={`/admin/assistant/${conv.conversation_id}`}
                         className="inline-flex items-center justify-center w-8 h-8 rounded-lg text-slate-400 hover:text-[var(--primary)] hover:bg-blue-50 transition-colors"
-                        title="Виж в ElevenLabs"
+                        title="Виж транскрипт"
                       >
-                        <ExternalLink size={16} />
-                      </a>
+                        <Eye size={16} />
+                      </Link>
                     </td>
                   </tr>
                 ))}
