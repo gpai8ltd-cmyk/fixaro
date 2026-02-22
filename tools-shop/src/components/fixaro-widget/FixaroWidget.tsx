@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { ChatPanel } from "./ChatPanel";
 
 // ─── Rate limiting ──────────────────────────────────────────────────────────
-const MAX_CONVERSATIONS_PER_DAY = 3;
+const MAX_CONVERSATIONS_PER_DAY = 5;
 const STORAGE_KEY = "fixaro-rl";
 
 interface RLState { count: number; date: string; }
