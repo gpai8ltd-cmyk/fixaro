@@ -116,7 +116,7 @@ export default async function AssistantPage() {
               API ключът не е конфигуриран
             </h2>
             <p className="text-[var(--muted)] mb-3">
-              За да се зареждат разговорите, добавете вашия ElevenLabs API ключ в{' '}
+              За да се зареждат разговорите, добавете вашия AI API ключ в{' '}
               <code className="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">.env</code>:
             </p>
             <pre className="bg-slate-900 text-green-400 rounded-lg p-4 text-sm font-mono overflow-x-auto">
@@ -124,7 +124,7 @@ export default async function AssistantPage() {
             </pre>
             <p className="text-[var(--muted)] text-sm mt-3">
               Ключът се намира в{' '}
-              <span className="font-medium">ElevenLabs Dashboard → Profile → API Keys</span>.
+              <span className="font-medium">AI Dashboard → Profile → API Keys</span>.
             </p>
           </div>
         </div>
@@ -147,7 +147,7 @@ export default async function AssistantPage() {
           <MessageSquare size={48} className="mx-auto text-slate-300 mb-3" />
           <h2 className="text-lg font-semibold text-[var(--foreground)] mb-1">Грешка при зареждане</h2>
           <p className="text-[var(--muted)]">
-            Неуспешна връзка с ElevenLabs API.{' '}
+            Неуспешна връзка с AI API.{' '}
             <span className="font-mono text-sm bg-slate-100 px-1.5 py-0.5 rounded">{result.error}</span>
           </p>
         </div>

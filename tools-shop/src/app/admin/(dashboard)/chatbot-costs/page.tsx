@@ -1,6 +1,16 @@
-import { Bot, DollarSign, Clock, MessageSquare, TrendingUp } from 'lucide-react';
+import { Bot, DollarSign, Clock, MessageSquare, TrendingUp, Zap } from 'lucide-react';
 
 const AGENT_ID = 'agent_0701khxj4n4herstwkr9dmjnhdrj';
+
+// ElevenLabs plan pricing: USD per credit (monthly_price / monthly_credits)
+const TIER_PRICE_PER_CREDIT: Record<string, number> = {
+  free:     0,
+  starter:  5    / 30_000,    // $0.000167
+  creator:  22   / 100_000,   // $0.00022
+  pro:      99   / 500_000,   // $0.000198
+  scale:    330  / 2_000_000, // $0.000165
+  business: 1320 / 11_000_000,
+};
 
 const BG_MONTHS = [
   'Яну', 'Фев', 'Мар', 'Апр', 'Май', 'Юни',
@@ -41,17 +51,37 @@ interface ConvDetail {
   output_tokens: number;
 }
 
-async function fetchCostData(): Promise<{ conversations: ConvDetail[] } | { error: string }> {
+interface SubscriptionInfo {
+  tier: string;
+  character_count: number;
+  character_limit: number;
+  next_character_count_reset_unix: number;
+}
+
+async function fetchCostData(): Promise<{
+  conversations: ConvDetail[];
+  subscription: SubscriptionInfo | null;
+} | { error: string }> {
   const apiKey = process.env.ELEVENLABS_API_KEY;
   if (!apiKey) return { error: 'NO_KEY' };
 
   try {
-    const listRes = await fetch(
-      `https://api.elevenlabs.io/v1/convai/conversations?agent_id=${AGENT_ID}&page_size=100`,
-      { headers: { 'xi-api-key': apiKey }, next: { revalidate: 120 } }
-    );
+    // Fetch conversations and subscription in parallel
+    const [listRes, subRes] = await Promise.all([
+      fetch(
+        `https://api.elevenlabs.io/v1/convai/conversations?agent_id=${AGENT_ID}&page_size=100`,
+        { headers: { 'xi-api-key': apiKey }, next: { revalidate: 120 } }
+      ),
+      fetch(
+        `https://api.elevenlabs.io/v1/user/subscription`,
+        { headers: { 'xi-api-key': apiKey }, next: { revalidate: 120 } }
+      ),
+    ]);
+
     if (!listRes.ok) return { error: `LIST_${listRes.status}` };
     const { conversations: list }: { conversations: ConvSummary[] } = await listRes.json();
+
+    const subscription: SubscriptionInfo | null = subRes.ok ? await subRes.json() : null;
 
     // Fetch details in parallel (batch to avoid rate limits)
     const BATCH = 10;
@@ -86,7 +116,10 @@ async function fetchCostData(): Promise<{ conversations: ConvDetail[] } | { erro
       details.push(...results.filter(Boolean) as ConvDetail[]);
     }
 
-    return { conversations: details.sort((a, b) => b.start_time_unix_secs - a.start_time_unix_secs) };
+    return {
+      conversations: details.sort((a, b) => b.start_time_unix_secs - a.start_time_unix_secs),
+      subscription,
+    };
   } catch {
     return { error: 'FETCH_FAILED' };
   }
@@ -109,33 +142,63 @@ export default async function ChatbotCostsPage() {
     );
   }
 
-  const { conversations } = result;
+  const { conversations, subscription } = result;
   const now = new Date();
+
+  // Price per EL credit based on plan
+  const tier = subscription?.tier ?? 'creator';
+  const pricePerCredit = TIER_PRICE_PER_CREDIT[tier] ?? TIER_PRICE_PER_CREDIT.creator;
 
   // Totals
   const totalLlmUsd = conversations.reduce((s, c) => s + c.llm_usd, 0);
   const totalDuration = conversations.reduce((s, c) => s + c.call_duration_secs, 0);
   const totalLlmCredits = conversations.reduce((s, c) => s + c.llm_credits, 0);
   const totalCallCredits = conversations.reduce((s, c) => s + c.call_credits, 0);
+  const totalElCredits = totalLlmCredits + totalCallCredits;
+  const totalElUsd = totalElCredits * pricePerCredit;
+  const totalUsd = totalLlmUsd + totalElUsd;
 
   // This month
   const thisMonth = conversations.filter((c) => {
     const d = new Date(c.start_time_unix_secs * 1000);
     return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
   });
-  const thisMonthUsd = thisMonth.reduce((s, c) => s + c.llm_usd, 0);
+  const thisMonthLlmUsd = thisMonth.reduce((s, c) => s + c.llm_usd, 0);
+  const thisMonthCredits = thisMonth.reduce((s, c) => s + c.llm_credits + c.call_credits, 0);
+  const thisMonthElUsd = thisMonthCredits * pricePerCredit;
+  const thisMonthTotal = thisMonthLlmUsd + thisMonthElUsd;
 
-  const avgUsd = conversations.length > 0 ? totalLlmUsd / conversations.length : 0;
+  const avgUsd = conversations.length > 0 ? totalUsd / conversations.length : 0;
+
+  // Plan reset date
+  const resetDate = subscription?.next_character_count_reset_unix
+    ? new Date(subscription.next_character_count_reset_unix * 1000)
+    : null;
 
   return (
     <div>
       {/* Header */}
-      <div className="mb-6 flex items-center gap-3">
-        <DollarSign size={28} className="text-[var(--primary)]" />
-        <div>
-          <h1 className="text-2xl font-bold text-[var(--foreground)]">Разходи — AI Чатбот</h1>
-          <p className="text-[var(--muted)]">ElevenLabs кредити и LLM разходи по разговор</p>
+      <div className="mb-6 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <DollarSign size={28} className="text-[var(--primary)]" />
+          <div>
+            <h1 className="text-2xl font-bold text-[var(--foreground)]">Разходи — AI Чатбот</h1>
+            <p className="text-[var(--muted)]">AI кредити и LLM разходи по разговор</p>
+          </div>
         </div>
+        {/* Plan badge */}
+        {subscription && (
+          <div className="flex items-center gap-2 bg-purple-50 border border-purple-200 rounded-lg px-4 py-2">
+            <Zap size={16} className="text-purple-600" />
+            <div className="text-right">
+              <p className="text-sm font-semibold text-purple-700 capitalize">{tier} план</p>
+              <p className="text-xs text-purple-500">
+                {subscription.character_count.toLocaleString()} / {subscription.character_limit.toLocaleString()} кр.
+                {resetDate && ` · Reset ${resetDate.getDate()} ${BG_MONTHS[resetDate.getMonth()]}`}
+              </p>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Summary cards */}
@@ -145,21 +208,25 @@ export default async function ChatbotCostsPage() {
             <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
               <DollarSign className="text-green-600" size={20} />
             </div>
-            <p className="text-sm text-[var(--muted)]">Обща цена (LLM)</p>
+            <p className="text-sm text-[var(--muted)]">Обща цена (всичко)</p>
           </div>
-          <p className="text-3xl font-bold text-green-700">${totalLlmUsd.toFixed(3)}</p>
-          <p className="text-xs text-[var(--muted)] mt-1">Този месец: ${thisMonthUsd.toFixed(3)}</p>
+          <p className="text-3xl font-bold text-green-700">${totalUsd.toFixed(3)}</p>
+          <p className="text-xs text-[var(--muted)] mt-1">
+            Този месец: ${thisMonthTotal.toFixed(3)}
+          </p>
         </div>
 
         <div className="card p-5">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-              <DollarSign className="text-green-600" size={20} />
+            <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+              <Zap className="text-purple-600" size={20} />
             </div>
-            <p className="text-sm text-[var(--muted)]">EL абонамент кредити</p>
+            <p className="text-sm text-[var(--muted)]">AI кредити → USD</p>
           </div>
-          <p className="text-2xl font-bold text-[var(--foreground)]">{totalLlmCredits + totalCallCredits}</p>
-          <p className="text-xs text-[var(--muted)] mt-1">GPT-4o: {totalLlmCredits} + Глас: {totalCallCredits}</p>
+          <p className="text-2xl font-bold text-[var(--foreground)]">${totalElUsd.toFixed(3)}</p>
+          <p className="text-xs text-[var(--muted)] mt-1">
+            {totalElCredits.toLocaleString()} кр. × ${pricePerCredit.toFixed(6)}
+          </p>
         </div>
 
         <div className="card p-5">
@@ -170,18 +237,20 @@ export default async function ChatbotCostsPage() {
             <p className="text-sm text-[var(--muted)]">Разговори общо</p>
           </div>
           <p className="text-2xl font-bold text-[var(--foreground)]">{conversations.length}</p>
-          <p className="text-xs text-[var(--muted)] mt-1">Този месец: {thisMonth.length} · {formatDuration(totalDuration)} общо</p>
+          <p className="text-xs text-[var(--muted)] mt-1">
+            Този месец: {thisMonth.length} · {formatDuration(totalDuration)} общо
+          </p>
         </div>
 
         <div className="card p-5">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-              <TrendingUp className="text-purple-600" size={20} />
+            <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+              <TrendingUp className="text-orange-600" size={20} />
             </div>
             <p className="text-sm text-[var(--muted)]">Средна цена / разговор</p>
           </div>
           <p className="text-2xl font-bold text-[var(--foreground)]">${avgUsd.toFixed(4)}</p>
-          <p className="text-xs text-[var(--muted)] mt-1">само LLM (GPT-4o)</p>
+          <p className="text-xs text-[var(--muted)] mt-1">EL + LLM (GPT-4o)</p>
         </div>
       </div>
 
@@ -202,52 +271,56 @@ export default async function ChatbotCostsPage() {
                 <tr className="border-b border-slate-100 bg-slate-50">
                   <th className="text-left px-6 py-3 font-medium text-[var(--muted)]">Дата</th>
                   <th className="text-left px-6 py-3 font-medium text-[var(--muted)]">Продължителност</th>
-                  <th className="text-right px-6 py-3 font-medium text-[var(--muted)]">EL кредити</th>
-                  <th className="text-right px-6 py-3 font-medium text-[var(--muted)]">LLM крeдити</th>
-                  <th className="text-right px-6 py-3 font-medium text-[var(--muted)]">Разговор кр.</th>
+                  <th className="text-right px-6 py-3 font-medium text-[var(--muted)]">AI кредити</th>
+                  <th className="text-right px-6 py-3 font-medium text-[var(--muted)]">EL → $</th>
                   <th className="text-right px-6 py-3 font-medium text-[var(--muted)]">GPT-4o $</th>
+                  <th className="text-right px-6 py-3 font-medium text-[var(--muted)]">Общо $</th>
                   <th className="text-right px-6 py-3 font-medium text-[var(--muted)]">Токени (in/out)</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-50">
-                {conversations.map((conv) => (
-                  <tr key={conv.conversation_id} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-6 py-3 text-[var(--foreground)]">
-                      {formatDate(conv.start_time_unix_secs)}
-                    </td>
-                    <td className="px-6 py-3 text-[var(--foreground)]">
-                      <div className="flex items-center gap-1.5">
-                        <Clock size={13} className="text-slate-400" />
-                        {formatDuration(conv.call_duration_secs)}
-                      </div>
-                    </td>
-                    <td className="px-6 py-3 text-right font-medium text-[var(--foreground)]">
-                      {conv.el_credits}
-                    </td>
-                    <td className="px-6 py-3 text-right text-[var(--primary)]">
-                      {conv.llm_credits}
-                    </td>
-                    <td className="px-6 py-3 text-right text-orange-600">
-                      {conv.call_credits}
-                    </td>
-                    <td className="px-6 py-3 text-right text-green-700 font-medium">
-                      ${conv.llm_usd.toFixed(4)}
-                    </td>
-                    <td className="px-6 py-3 text-right text-slate-500 text-xs">
-                      {conv.input_tokens.toLocaleString()} / {conv.output_tokens.toLocaleString()}
-                    </td>
-                  </tr>
-                ))}
+                {conversations.map((conv) => {
+                  const elUsd = (conv.llm_credits + conv.call_credits) * pricePerCredit;
+                  const rowTotal = conv.llm_usd + elUsd;
+                  return (
+                    <tr key={conv.conversation_id} className="hover:bg-slate-50 transition-colors">
+                      <td className="px-6 py-3 text-[var(--foreground)]">
+                        {formatDate(conv.start_time_unix_secs)}
+                      </td>
+                      <td className="px-6 py-3 text-[var(--foreground)]">
+                        <div className="flex items-center gap-1.5">
+                          <Clock size={13} className="text-slate-400" />
+                          {formatDuration(conv.call_duration_secs)}
+                        </div>
+                      </td>
+                      <td className="px-6 py-3 text-right text-[var(--muted)]">
+                        {(conv.llm_credits + conv.call_credits).toLocaleString()}
+                      </td>
+                      <td className="px-6 py-3 text-right text-purple-700">
+                        ${elUsd.toFixed(4)}
+                      </td>
+                      <td className="px-6 py-3 text-right text-blue-700">
+                        ${conv.llm_usd.toFixed(4)}
+                      </td>
+                      <td className="px-6 py-3 text-right text-green-700 font-semibold">
+                        ${rowTotal.toFixed(4)}
+                      </td>
+                      <td className="px-6 py-3 text-right text-slate-500 text-xs">
+                        {conv.input_tokens.toLocaleString()} / {conv.output_tokens.toLocaleString()}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
               {/* Totals row */}
               <tfoot>
                 <tr className="border-t-2 border-slate-200 bg-slate-50 font-semibold">
                   <td className="px-6 py-3 text-[var(--foreground)]">Общо ({conversations.length} разг.)</td>
                   <td className="px-6 py-3 text-[var(--muted)]">{formatDuration(totalDuration)}</td>
-                  <td className="px-6 py-3 text-right text-[var(--foreground)]">{(totalLlmCredits + totalCallCredits).toLocaleString()}</td>
-                  <td className="px-6 py-3 text-right text-[var(--primary)]">{totalLlmCredits.toLocaleString()}</td>
-                  <td className="px-6 py-3 text-right text-orange-600">{totalCallCredits.toLocaleString()}</td>
-                  <td className="px-6 py-3 text-right text-green-700">${totalLlmUsd.toFixed(3)}</td>
+                  <td className="px-6 py-3 text-right text-[var(--muted)]">{totalElCredits.toLocaleString()}</td>
+                  <td className="px-6 py-3 text-right text-purple-700">${totalElUsd.toFixed(3)}</td>
+                  <td className="px-6 py-3 text-right text-blue-700">${totalLlmUsd.toFixed(3)}</td>
+                  <td className="px-6 py-3 text-right text-green-700">${totalUsd.toFixed(3)}</td>
                   <td className="px-6 py-3 text-right text-slate-500 text-xs">—</td>
                 </tr>
               </tfoot>

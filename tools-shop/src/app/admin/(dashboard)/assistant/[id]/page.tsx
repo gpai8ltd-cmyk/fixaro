@@ -101,7 +101,7 @@ export default async function TranscriptPage({
             Грешка при зареждане
           </h2>
           <p className="text-[var(--muted)]">
-            Неуспешна връзка с ElevenLabs API.{' '}
+            Неуспешна връзка с AI API.{' '}
             <span className="font-mono text-sm bg-slate-100 px-1.5 py-0.5 rounded">
               {result.error}
             </span>
@@ -208,7 +208,7 @@ export default async function TranscriptPage({
           rel="noopener noreferrer"
           className="text-xs text-[var(--muted)] hover:text-[var(--primary)] transition-colors"
         >
-          Виж в ElevenLabs &rarr;
+          Пълен запис &rarr;
         </a>
       </div>
     </div>
