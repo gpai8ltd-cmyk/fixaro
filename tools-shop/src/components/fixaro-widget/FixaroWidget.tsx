@@ -1,9 +1,37 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { MessageCircle, X } from "lucide-react";
+import { MessageCircle, X, Clock } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ChatPanel } from "./ChatPanel";
+
+// ─── Rate limiting ──────────────────────────────────────────────────────────
+const MAX_CONVERSATIONS_PER_DAY = 3;
+const STORAGE_KEY = "fixaro-rl";
+
+interface RLState { count: number; date: string; }
+
+function getTodayStr() {
+  return new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
+}
+
+function getRLState(): RLState {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const s: RLState = JSON.parse(raw);
+      if (s.date === getTodayStr()) return s;
+    }
+  } catch { /* ignore */ }
+  return { count: 0, date: getTodayStr() };
+}
+
+function incrementRL(): RLState {
+  const s = { ...getRLState(), count: getRLState().count + 1 };
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch { /* ignore */ }
+  return s;
+}
+// ────────────────────────────────────────────────────────────────────────────
 
 const CATEGORY_LABELS: Record<string, string> = {
   "elektro-instrumenti": "Електроинструменти",
@@ -45,6 +73,7 @@ function TeaserBubble({ onDismiss }: { onDismiss: () => void }) {
 export function FixaroWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [showTeaser, setShowTeaser] = useState(false);
+  const [isLimited, setIsLimited] = useState(false);
   const teaserDismissed = useRef(false);
 
   const pathname = usePathname();
@@ -82,10 +111,51 @@ export function FixaroWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.96 }}
             transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            className="w-[375px] h-[540px] rounded-2xl shadow-2xl border border-slate-200/60 overflow-hidden"
+            className="w-[375px] rounded-2xl shadow-2xl border border-slate-200/60 overflow-hidden"
             style={{ maxHeight: "calc(100vh - 96px)" }}
           >
-            <ChatPanel onClose={() => setIsOpen(false)} categoryContext={categoryContext} />
+            {isLimited ? (
+              <div className="bg-white rounded-2xl overflow-hidden">
+                {/* Header */}
+                <div className="flex items-center gap-3 px-4 py-3" style={{ backgroundColor: "#1e293b" }}>
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-lg flex-shrink-0" style={{ backgroundColor: "#84cc16" }}>
+                    🔧
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-white text-sm">Fixaro Асистент</p>
+                    <p className="text-xs text-slate-400">Онлайн поддръжка</p>
+                  </div>
+                  <button onClick={() => setIsOpen(false)} className="text-slate-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-white/10" aria-label="Затвори">
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+                {/* Limit message */}
+                <div className="flex flex-col items-center justify-center gap-4 px-6 py-10 text-center">
+                  <div className="w-14 h-14 rounded-full bg-amber-100 flex items-center justify-center">
+                    <Clock className="w-7 h-7 text-amber-500" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-slate-800 mb-1">Дневен лимит достигнат</p>
+                    <p className="text-sm text-slate-500 leading-relaxed">
+                      Можете да водите до {MAX_CONVERSATIONS_PER_DAY} разговора на ден.<br />
+                      Елате отново утре или се свържете с нас директно.
+                    </p>
+                  </div>
+                  <a
+                    href="/contact"
+                    className="text-sm font-medium px-5 py-2 rounded-xl text-white transition-opacity hover:opacity-90"
+                    style={{ backgroundColor: "#84cc16" }}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Свържете се с нас
+                  </a>
+                </div>
+              </div>
+            ) : (
+              <div className="h-[540px]">
+                <ChatPanel onClose={() => setIsOpen(false)} categoryContext={categoryContext} />
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
@@ -101,6 +171,17 @@ export function FixaroWidget() {
         <motion.button
           onClick={() => {
             const opening = !isOpen;
+            if (opening) {
+              const rl = getRLState();
+              if (rl.count >= MAX_CONVERSATIONS_PER_DAY) {
+                setIsLimited(true);
+                setIsOpen(true);
+                dismissTeaser();
+                return;
+              }
+              incrementRL();
+              setIsLimited(false);
+            }
             setIsOpen(prev => !prev);
             if (opening) dismissTeaser();
           }}
