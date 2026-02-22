@@ -6,8 +6,6 @@ import { ChatMessage } from "./ChatMessage";
 import { VoiceIndicator } from "./VoiceIndicator";
 import type { ChatPanelProps, WidgetMessage } from "./widget.types";
 
-const AGENT_ID = "agent_0701khxj4n4herstwkr9dmjnhdrj";
-
 const BG = {
   agentName: "Fixaro Асистент",
   tagline: "Онлайн поддръжка",
@@ -53,20 +51,21 @@ export function ChatPanel({ onClose, categoryContext }: ChatPanelProps) {
     }, []),
   });
 
-  const startSession = useCallback(() => {
-    conversation
-      .startSession({
-        agentId: AGENT_ID,
+  const startSession = useCallback(async () => {
+    try {
+      const res = await fetch("/api/elevenlabs/signed-url");
+      if (!res.ok) throw new Error(`signed-url ${res.status}`);
+      const { signedUrl } = await res.json();
+      await conversation.startSession({
+        signedUrl,
         connectionType: "websocket",
-        overrides: {
-          conversation: { textOnly: true },
-        },
-      })
-      .catch(err => {
-        console.error("Fixaro widget: startSession failed:", err);
-        setError(BG.connectionError);
-        setConnectionFailed(true);
+        overrides: { conversation: { textOnly: true } },
       });
+    } catch (err) {
+      console.error("Fixaro widget: startSession failed:", err);
+      setError(BG.connectionError);
+      setConnectionFailed(true);
+    }
   }, [conversation]);
 
   // Auto-connect when panel mounts (panel only renders when isOpen=true in FixaroWidget)
