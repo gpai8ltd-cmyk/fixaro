@@ -15,7 +15,8 @@ import {
   LogOut,
   Menu,
   X,
-  Bot
+  Bot,
+  DollarSign
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -27,6 +28,7 @@ const menuItems = [
   { name: 'Клиенти', href: '/admin/customers', icon: Users },
   { name: 'Статистики', href: '/admin/stats', icon: BarChart3 },
   { name: 'AI Асистент', href: '/admin/assistant', icon: Bot },
+  { name: 'Chatbot разходи', href: '/admin/chatbot-costs', icon: DollarSign },
   { name: 'Промоции', href: '/admin/promotions', icon: Tag },
 ];
 
