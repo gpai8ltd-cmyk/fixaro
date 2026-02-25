@@ -11,6 +11,7 @@ const inter = Inter({
   variable: "--font-inter",
   display: "swap",
   preload: false,
+  fallback: ["system-ui", "sans-serif"],
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fixaro.bg';
