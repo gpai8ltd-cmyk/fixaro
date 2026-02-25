@@ -236,61 +236,49 @@ export default function Header() {
                   id="categories-menu"
                   role="menu"
                   aria-labelledby="categories-button"
-                  className={`absolute top-full left-0 pt-2 transition-all duration-200 ${
+                  className={`absolute top-full left-1/2 -translate-x-1/2 pt-2 transition-all duration-200 ${
                     categoriesOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
                   }`}
                   onMouseLeave={() => setCategoriesOpen(false)}
                 >
-                  <div className="bg-[var(--card)] border border-[var(--border)] rounded-lg shadow-lg py-2 min-w-[280px]">
-                    {categories.map((category) => (
-                      <div key={category.slug}>
+                  <div className="bg-[var(--card)] border border-[var(--border)] rounded-xl shadow-xl p-3 w-[480px]">
+                    <div className="grid grid-cols-2 gap-1">
+                      {categories.map((category) => (
                         <Link
+                          key={category.slug}
                           href={`/products?category=${category.slug}`}
                           role="menuitem"
-                          className="flex items-center gap-3 px-4 py-2 text-[var(--foreground)] hover:bg-[var(--card-hover)] hover:text-[var(--primary)] transition-colors"
+                          className="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-[var(--foreground)] hover:bg-[var(--primary)] hover:text-white transition-all duration-150"
                           onClick={() => setCategoriesOpen(false)}
                         >
-                          {category.image && (
-                            <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-[var(--card-hover)]">
+                          {category.image ? (
+                            <div className="w-8 h-8 rounded-md overflow-hidden flex-shrink-0 bg-[var(--card-hover)] group-hover:bg-white/20">
                               <Image
                                 src={category.image}
                                 alt={category.nameBg}
-                                width={40}
-                                height={40}
+                                width={32}
+                                height={32}
                                 className="w-full h-full object-cover"
                               />
                             </div>
+                          ) : (
+                            <div className="w-8 h-8 rounded-md flex-shrink-0 bg-[var(--card-hover)] group-hover:bg-white/20 flex items-center justify-center">
+                              <Wrench size={14} className="text-[var(--muted)] group-hover:text-white" />
+                            </div>
                           )}
-                          <span className="font-medium">{category.nameBg}</span>
+                          <span className="text-sm font-medium truncate">{category.nameBg}</span>
                         </Link>
-                        {category.children && category.children.length > 0 && (
-                          <div className="ml-3 border-l-2 border-[var(--border)]">
-                            {category.children.map((child) => (
-                              <Link
-                                key={child.slug}
-                                href={`/products?category=${child.slug}`}
-                                role="menuitem"
-                                className="flex items-center gap-3 px-4 py-1.5 text-sm text-[var(--muted)] hover:bg-[var(--card-hover)] hover:text-[var(--primary)] transition-colors"
-                                onClick={() => setCategoriesOpen(false)}
-                              >
-                                {child.image && (
-                                  <div className="w-8 h-8 rounded-lg overflow-hidden flex-shrink-0 bg-[var(--card-hover)]">
-                                    <Image
-                                      src={child.image}
-                                      alt={child.nameBg}
-                                      width={32}
-                                      height={32}
-                                      className="w-full h-full object-cover"
-                                    />
-                                  </div>
-                                )}
-                                {child.nameBg}
-                              </Link>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ))}
+                      ))}
+                    </div>
+                    <div className="mt-2 pt-2 border-t border-[var(--border)]">
+                      <Link
+                        href="/products"
+                        className="flex items-center justify-center gap-2 py-2 text-sm text-[var(--primary)] hover:text-[var(--primary-dark)] font-medium transition-colors"
+                        onClick={() => setCategoriesOpen(false)}
+                      >
+                        Виж всички продукти →
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
