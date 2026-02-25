@@ -1,4 +1,4 @@
-import { Bot, DollarSign, Clock, MessageSquare, TrendingUp } from 'lucide-react';
+import { Bot, DollarSign, Clock, MessageSquare, TrendingUp, Zap } from 'lucide-react';
 
 const AGENT_ID = 'agent_0701khxj4n4herstwkr9dmjnhdrj';
 
