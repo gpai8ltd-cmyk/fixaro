@@ -1,5 +1,7 @@
 import { Bot, DollarSign, Clock, MessageSquare, TrendingUp, Zap } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 const AGENT_ID = 'agent_0701khxj4n4herstwkr9dmjnhdrj';
 
 // ElevenLabs plan pricing: USD per credit (monthly_price / monthly_credits)
