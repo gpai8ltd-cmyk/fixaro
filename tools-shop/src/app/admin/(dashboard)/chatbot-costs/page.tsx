@@ -1,4 +1,4 @@
-import { Bot, DollarSign, Clock, MessageSquare, TrendingUp, Zap } from 'lucide-react';
+import { Bot, DollarSign, Clock, MessageSquare, TrendingUp } from 'lucide-react';
 
 const AGENT_ID = 'agent_0701khxj4n4herstwkr9dmjnhdrj';
 
@@ -186,20 +186,7 @@ export default async function ChatbotCostsPage() {
             <p className="text-[var(--muted)]">AI кредити и LLM разходи по разговор</p>
           </div>
         </div>
-        {/* Plan badge */}
-        {subscription && (
-          <div className="flex items-center gap-2 bg-purple-50 border border-purple-200 rounded-lg px-4 py-2">
-            <Zap size={16} className="text-purple-600" />
-            <div className="text-right">
-              <p className="text-sm font-semibold text-purple-700 capitalize">{tier} план</p>
-              <p className="text-xs text-purple-500">
-                {subscription.character_count.toLocaleString()} / {subscription.character_limit.toLocaleString()} кр.
-                {resetDate && ` · Reset ${resetDate.getDate()} ${BG_MONTHS[resetDate.getMonth()]}`}
-              </p>
-            </div>
-          </div>
-        )}
-      </div>
+        </div>
 
       {/* Summary cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
