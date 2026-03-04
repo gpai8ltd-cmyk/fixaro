@@ -479,7 +479,7 @@ export default function Header() {
               </button>
             </div>
 
-            <nav className="p-4" aria-label="Мобилна навигация">
+            <nav className="p-4 overflow-y-auto h-[calc(100%-80px-88px)]" aria-label="Мобилна навигация">
               <Link
                 href="/products"
                 className="block py-3 text-lg font-medium text-[var(--foreground)] hover:text-[var(--primary)] border-b border-[var(--border)]"

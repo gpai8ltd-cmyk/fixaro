@@ -126,7 +126,7 @@ export async function sendOrderNotification(order: OrderEmailData) {
             </tr>
             <tr>
               <td style="padding: 5px 0; color: #6b7280;">Доставка:</td>
-              <td style="padding: 5px 0; text-align: right;">${order.deliveryFee === 0 ? 'Безплатна' : order.deliveryFee.toFixed(2) + ' лв.'}</td>
+              <td style="padding: 5px 0; text-align: right;">${order.deliveryFee.toFixed(2)} лв.</td>
             </tr>
             <tr style="font-size: 20px; font-weight: bold;">
               <td style="padding: 15px 0 5px 0; border-top: 2px solid #e5e7eb;">ОБЩО:</td>
@@ -249,7 +249,7 @@ export async function sendOrderConfirmationToCustomer(order: OrderEmailData) {
             </tr>
             <tr>
               <td style="padding: 5px 0; color: #6b7280;">Доставка:</td>
-              <td style="padding: 5px 0; text-align: right;">${order.deliveryFee === 0 ? 'Безплатна' : order.deliveryFee.toFixed(2) + ' лв.'}</td>
+              <td style="padding: 5px 0; text-align: right;">${order.deliveryFee.toFixed(2)} лв.</td>
             </tr>
             <tr style="font-size: 20px; font-weight: bold;">
               <td style="padding: 15px 0 5px 0; border-top: 2px solid #e5e7eb;">ОБЩО:</td>
