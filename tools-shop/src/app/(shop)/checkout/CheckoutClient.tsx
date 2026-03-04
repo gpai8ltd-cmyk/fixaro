@@ -43,7 +43,7 @@ export default function CheckoutClient() {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const deliveryFee = total >= 100 ? 0 : 6.99;
+  const deliveryFee = total >= 391.17 ? 0 : 13.69;
   const finalTotal = total + deliveryFee;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -531,14 +531,16 @@ export default function CheckoutClient() {
                 <div className="flex justify-between">
                   <dt className="text-slate-500">Доставка</dt>
                   <dd>
-                    {deliveryFee === 0 ? (
-                      <span className="text-green-600">Безплатна</span>
-                    ) : (
-                      <div className="text-right">
-                        <div>{deliveryFee.toFixed(2)} лв.</div>
-                        <div className="text-sm font-medium text-slate-600">{toEur(deliveryFee)} €</div>
-                      </div>
-                    )}
+                    <div className="text-right">
+                      {deliveryFee === 0 ? (
+                        <span className="text-green-600">Безплатна</span>
+                      ) : (
+                        <>
+                          <div>{deliveryFee.toFixed(2)} лв.</div>
+                          <div className="text-sm font-medium text-slate-600">{toEur(deliveryFee)} €</div>
+                        </>
+                      )}
+                    </div>
                   </dd>
                 </div>
 

@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
 
     // Calculate totals
     const subtotal = data.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    const deliveryFee = subtotal >= 100 ? 0 : 6.99;
+    const deliveryFee = subtotal >= 391.17 ? 0 : 13.69;
     const total = subtotal + deliveryFee;
 
     // Generate order number: ORD-YYYYMMDD-XXX
