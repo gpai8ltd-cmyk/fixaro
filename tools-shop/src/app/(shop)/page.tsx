@@ -22,6 +22,7 @@ import StatsBar from '@/components/StatsBar';
 import WhyUsSection from '@/components/WhyUsSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import BrandPartners from '@/components/BrandPartners';
+import { FAQJsonLd } from '@/components/JsonLd';
 import { prisma } from '@/lib/prisma';
 
 // Icons map for categories
@@ -408,6 +409,36 @@ export default async function HomePage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section — SEO rich content */}
+      <FAQJsonLd />
+      <section className="py-12 md:py-16 bg-slate-50" aria-labelledby="faq-heading">
+        <div className="container-custom">
+          <h2 id="faq-heading" className="text-2xl md:text-3xl font-bold text-slate-800 text-center mb-8">
+            Често задавани въпроси
+          </h2>
+          <div className="max-w-3xl mx-auto space-y-4">
+            {[
+              { q: 'Какви начини на плащане предлагате?', a: 'Предлагаме плащане с наложен платеж при доставка. Плащате на куриера при получаване на пратката.' },
+              { q: 'Колко е доставката и кога е безплатна?', a: 'Доставката е 7 лв с Еконт или Спиди. При поръчка над 200 лв доставката е безплатна. Доставяме до адрес или офис на куриер в цяла България.' },
+              { q: 'Каква гаранция имат инструментите?', a: 'Всички инструменти от Fixaro идват с 2 години гаранция. При дефект можете да върнете продукта за ремонт или замяна.' },
+              { q: 'За колко дни получавам поръчката?', a: 'Поръчките се обработват в рамките на 1 работен ден. Доставката с Еконт или Спиди е 1-2 работни дни до всяка точка в България.' },
+              { q: 'Мога ли да върна продукт?', a: 'Да, имате право на връщане до 14 дни от получаването. Продуктът трябва да е в оригиналната си опаковка и неизползван.' },
+              { q: 'Продавате ли професионални инструменти?', a: 'Да, предлагаме както професионални електроинструменти и ръчни инструменти за майстори и строители, така и инструменти за домашна употреба на достъпни цени.' },
+            ].map((item, i) => (
+              <details key={i} className="group bg-white rounded-xl shadow-sm border border-slate-200">
+                <summary className="flex items-center justify-between p-5 cursor-pointer font-medium text-slate-800 hover:text-[var(--primary)] transition-colors">
+                  {item.q}
+                  <ChevronRight size={18} className="text-slate-400 group-open:rotate-90 transition-transform" />
+                </summary>
+                <p className="px-5 pb-5 text-slate-600 leading-relaxed">
+                  {item.a}
+                </p>
+              </details>
+            ))}
           </div>
         </div>
       </section>

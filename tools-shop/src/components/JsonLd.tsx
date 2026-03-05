@@ -156,6 +156,70 @@ export function ProductJsonLd({
   );
 }
 
+export function FAQJsonLd() {
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Какви начини на плащане предлагате?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Предлагаме плащане с наложен платеж при доставка. Плащате на куриера при получаване на пратката.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Колко е доставката и кога е безплатна?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Доставката е 7 лв с Еконт или Спиди. При поръчка над 200 лв доставката е безплатна. Доставяме до адрес или офис на куриер в цяла България.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Каква гаранция имат инструментите?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Всички инструменти от Fixaro идват с 2 години гаранция. При дефект можете да върнете продукта за ремонт или замяна.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'За колко дни получавам поръчката?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Поръчките се обработват в рамките на 1 работен ден. Доставката с Еконт или Спиди е 1-2 работни дни до всяка точка в България.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Мога ли да върна продукт?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Да, имате право на връщане до 14 дни от получаването. Продуктът трябва да е в оригиналната си опаковка и неизползван. Свържете се с нас за организиране на връщането.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Продавате ли професионални инструменти?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Да, предлагаме както професионални електроинструменти и ръчни инструменти за майстори и строители, така и инструменти за домашна употреба на достъпни цени.',
+        },
+      },
+    ],
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+    />
+  );
+}
+
 interface BreadcrumbItem {
   name: string;
   url: string;

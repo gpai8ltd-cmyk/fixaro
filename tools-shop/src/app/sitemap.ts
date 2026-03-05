@@ -82,7 +82,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   try {
     const products = await prisma.product.findMany({
-      where: { stock: { gt: 0 } },
+      where: { isActive: true },
       select: {
         slug: true,
         updatedAt: true,

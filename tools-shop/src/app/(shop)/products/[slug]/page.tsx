@@ -153,24 +153,34 @@ export async function generateMetadata({ params }: PageProps) {
   }
 
   return {
-    title: `${product.nameBg} - купи онлайн | Fixaro`,
+    title: `${product.nameBg} - купи онлайн на добра цена | Fixaro`,
     description,
     keywords: [
       product.nameBg,
       `купи ${product.nameBg}`,
       `${product.nameBg} цена`,
       `${product.nameBg} онлайн`,
+      `${product.nameBg} промоция`,
+      `${product.nameBg} с доставка`,
+      `${product.nameBg} евтино`,
       categoryName,
       `${categoryName} онлайн`,
       `купи ${categoryName}`,
+      `${categoryName} с доставка България`,
       'инструменти онлайн',
+      'инструменти с наложен платеж',
+      'инструменти с гаранция',
       'Fixaro',
     ],
+    alternates: {
+      canonical: `/products/${slug}`,
+    },
     openGraph: {
-      title: `${product.nameBg} | Fixaro`,
+      title: `${product.nameBg} - купи онлайн | Fixaro`,
       description,
       url: `${siteUrl}/products/${slug}`,
-      images: images[0] ? [{ url: images[0], alt: product.nameBg }] : [],
+      type: 'website',
+      images: images[0] ? [{ url: images[0], alt: product.nameBg, width: 800, height: 600 }] : [],
     },
   };
 }
