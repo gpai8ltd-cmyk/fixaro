@@ -13,6 +13,16 @@ function getResendClient(): Resend | null {
 const SHOP_EMAIL = 'fixaroshop@gmail.com';
 const FROM_EMAIL = 'Fixaro <noreply@fixaro.bg>';
 
+function escapeHtml(str: string | null | undefined): string {
+  if (!str) return '';
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 interface OrderItem {
   productName: string;
   productPrice: number;
@@ -41,7 +51,7 @@ export async function sendOrderNotification(order: OrderEmailData) {
     .map(
       (item) => `
       <tr>
-        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">${item.productName}</td>
+        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">${escapeHtml(item.productName)}</td>
         <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; text-align: center;">${item.quantity}</td>
         <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; text-align: right;">${item.productPrice.toFixed(2)} лв.</td>
         <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; text-align: right;">${item.subtotal.toFixed(2)} лв.</td>
@@ -68,38 +78,38 @@ export async function sendOrderNotification(order: OrderEmailData) {
         <table style="width: 100%; border-collapse: collapse;">
           <tr>
             <td style="padding: 8px 0; color: #6b7280; width: 140px;">Име:</td>
-            <td style="padding: 8px 0; font-weight: 600;">${order.customerName}</td>
+            <td style="padding: 8px 0; font-weight: 600;">${escapeHtml(order.customerName)}</td>
           </tr>
           <tr>
             <td style="padding: 8px 0; color: #6b7280;">Телефон:</td>
             <td style="padding: 8px 0; font-weight: 600;">
-              <a href="tel:${order.customerPhone}" style="color: #f97316; text-decoration: none;">${order.customerPhone}</a>
+              <a href="tel:${escapeHtml(order.customerPhone)}" style="color: #f97316; text-decoration: none;">${escapeHtml(order.customerPhone)}</a>
             </td>
           </tr>
           ${order.customerEmail ? `
           <tr>
             <td style="padding: 8px 0; color: #6b7280;">Имейл:</td>
-            <td style="padding: 8px 0;">${order.customerEmail}</td>
+            <td style="padding: 8px 0;">${escapeHtml(order.customerEmail)}</td>
           </tr>
           ` : ''}
           <tr>
             <td style="padding: 8px 0; color: #6b7280;">Град:</td>
-            <td style="padding: 8px 0;">${order.deliveryCity}</td>
+            <td style="padding: 8px 0;">${escapeHtml(order.deliveryCity)}</td>
           </tr>
           <tr>
             <td style="padding: 8px 0; color: #6b7280;">Адрес/Офис:</td>
-            <td style="padding: 8px 0;">${order.deliveryAddress}</td>
+            <td style="padding: 8px 0;">${escapeHtml(order.deliveryAddress)}</td>
           </tr>
           <tr>
             <td style="padding: 8px 0; color: #6b7280;">Куриер:</td>
-            <td style="padding: 8px 0; font-weight: 600;">${order.courier}</td>
+            <td style="padding: 8px 0; font-weight: 600;">${escapeHtml(order.courier)}</td>
           </tr>
         </table>
 
         ${order.notes ? `
         <div style="margin-top: 15px; padding: 12px; background: #fef3c7; border-radius: 8px; border-left: 4px solid #f59e0b;">
           <strong style="color: #92400e;">Бележка:</strong>
-          <p style="margin: 5px 0 0 0; color: #78350f;">${order.notes}</p>
+          <p style="margin: 5px 0 0 0; color: #78350f;">${escapeHtml(order.notes)}</p>
         </div>
         ` : ''}
 
@@ -180,7 +190,7 @@ export async function sendOrderConfirmationToCustomer(order: OrderEmailData) {
     .map(
       (item) => `
       <tr>
-        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">${item.productName}</td>
+        <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">${escapeHtml(item.productName)}</td>
         <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; text-align: center;">${item.quantity}</td>
         <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; text-align: right;">${item.productPrice.toFixed(2)} лв.</td>
         <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; text-align: right;">${item.subtotal.toFixed(2)} лв.</td>
@@ -203,22 +213,22 @@ export async function sendOrderConfirmationToCustomer(order: OrderEmailData) {
       </div>
 
       <div style="background: #f9fafb; padding: 30px; border: 1px solid #e5e7eb; border-top: none;">
-        <p style="font-size: 16px; margin: 0 0 20px 0;">Здравейте, <strong>${order.customerName}</strong>!</p>
+        <p style="font-size: 16px; margin: 0 0 20px 0;">Здравейте, <strong>${escapeHtml(order.customerName)}</strong>!</p>
         <p style="margin: 0 0 25px 0;">Получихме вашата поръчка и тя ще бъде обработена възможно най-скоро. Ще ви уведомим, когато бъде изпратена.</p>
 
         <h2 style="color: #1f2937; margin: 0 0 20px 0; font-size: 18px; border-bottom: 2px solid #f97316; padding-bottom: 10px;">Детайли на доставката</h2>
         <table style="width: 100%; border-collapse: collapse;">
           <tr>
             <td style="padding: 8px 0; color: #6b7280; width: 140px;">Град:</td>
-            <td style="padding: 8px 0;">${order.deliveryCity}</td>
+            <td style="padding: 8px 0;">${escapeHtml(order.deliveryCity)}</td>
           </tr>
           <tr>
             <td style="padding: 8px 0; color: #6b7280;">Адрес/Офис:</td>
-            <td style="padding: 8px 0;">${order.deliveryAddress}</td>
+            <td style="padding: 8px 0;">${escapeHtml(order.deliveryAddress)}</td>
           </tr>
           <tr>
             <td style="padding: 8px 0; color: #6b7280;">Куриер:</td>
-            <td style="padding: 8px 0; font-weight: 600;">${order.courier}</td>
+            <td style="padding: 8px 0; font-weight: 600;">${escapeHtml(order.courier)}</td>
           </tr>
           <tr>
             <td style="padding: 8px 0; color: #6b7280;">Плащане:</td>
@@ -351,8 +361,8 @@ export async function sendOrderStatusUpdate(data: StatusUpdateEmailData) {
   const trackingHtml = data.status === 'shipped' && data.trackingNumber ? `
     <div style="margin-top: 20px; padding: 20px; background: #fef3c7; border-radius: 8px; border-left: 4px solid #f59e0b;">
       <p style="margin: 0 0 10px 0; font-weight: 600; color: #92400e;">Номер на товарителница:</p>
-      <p style="margin: 0; font-size: 20px; font-weight: bold; color: #78350f; font-family: monospace;">${data.trackingNumber}</p>
-      ${data.courier ? `<p style="margin: 10px 0 0 0; color: #92400e;">Куриер: <strong>${data.courier}</strong></p>` : ''}
+      <p style="margin: 0; font-size: 20px; font-weight: bold; color: #78350f; font-family: monospace;">${escapeHtml(data.trackingNumber)}</p>
+      ${data.courier ? `<p style="margin: 10px 0 0 0; color: #92400e;">Куриер: <strong>${escapeHtml(data.courier)}</strong></p>` : ''}
     </div>
   ` : '';
 
@@ -370,7 +380,7 @@ export async function sendOrderStatusUpdate(data: StatusUpdateEmailData) {
       </div>
 
       <div style="background: #f9fafb; padding: 30px; border: 1px solid #e5e7eb; border-top: none;">
-        <p style="font-size: 16px; margin: 0 0 20px 0;">Здравейте, <strong>${data.customerName}</strong>!</p>
+        <p style="font-size: 16px; margin: 0 0 20px 0;">Здравейте, <strong>${escapeHtml(data.customerName)}</strong>!</p>
 
         <div style="padding: 25px; background: ${config.bgColor}; border-radius: 12px; text-align: center; margin-bottom: 20px;">
           <span style="font-size: 48px;">${config.icon}</span>

@@ -49,6 +49,7 @@ export default function ProductCard({
     addItem({
       id,
       name,
+      slug,
       price,
       oldPrice: oldPrice || undefined,
       image,

@@ -22,7 +22,14 @@ export async function GET(request: NextRequest) {
       where.isFeatured = true;
     }
 
-    if (active !== 'all' && active !== 'false') {
+    // Only admins can see inactive products
+    if (active === 'all' || active === 'false') {
+      const session = await getSession();
+      if (!session) {
+        where.isActive = true; // Unauthenticated: only active
+      }
+      // Authenticated admin: no filter (show all)
+    } else {
       where.isActive = true;
     }
 

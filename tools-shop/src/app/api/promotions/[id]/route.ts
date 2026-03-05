@@ -6,6 +6,12 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  // SECURITY: Admin-only — exposes promo code details
+  const session = await getSession();
+  if (!session) {
+    return NextResponse.json({ error: 'Неоторизиран достъп' }, { status: 401 });
+  }
+
   try {
     const { id } = await params;
 
@@ -47,13 +53,21 @@ export async function PUT(
       }
     }
 
+    // Validate discountPercent range
+    if (body.discountPercent !== undefined) {
+      const dp = Number(body.discountPercent);
+      if (!Number.isInteger(dp) || dp < 1 || dp > 100) {
+        return NextResponse.json({ error: 'Процентът трябва да е между 1 и 100' }, { status: 400 });
+      }
+    }
+
     const updated = await prisma.promotion.update({
       where: { id },
       data: {
         code: body.code ? body.code.toUpperCase() : undefined,
-        discountPercent: body.discountPercent !== undefined ? parseInt(body.discountPercent) : undefined,
-        discountAmount: body.discountAmount !== undefined ? (body.discountAmount ? parseFloat(body.discountAmount) : null) : undefined,
-        minOrderAmount: body.minOrderAmount !== undefined ? (body.minOrderAmount ? parseFloat(body.minOrderAmount) : null) : undefined,
+        discountPercent: body.discountPercent !== undefined ? Number(body.discountPercent) : undefined,
+        discountAmount: body.discountAmount !== undefined ? (body.discountAmount ? Number(body.discountAmount) : null) : undefined,
+        minOrderAmount: body.minOrderAmount !== undefined ? (body.minOrderAmount ? Number(body.minOrderAmount) : null) : undefined,
         maxUses: body.maxUses !== undefined ? (body.maxUses ? parseInt(body.maxUses) : null) : undefined,
         validUntil: body.validUntil !== undefined ? (body.validUntil ? new Date(body.validUntil) : null) : undefined,
         active: body.active !== undefined ? body.active : undefined,

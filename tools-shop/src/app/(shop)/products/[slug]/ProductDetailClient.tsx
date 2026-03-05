@@ -80,6 +80,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Props)
       addItem({
         id: product.id,
         name: product.name,
+        slug: product.slug,
         price: product.price,
         oldPrice: product.oldPrice || undefined,
         image: product.images[0],

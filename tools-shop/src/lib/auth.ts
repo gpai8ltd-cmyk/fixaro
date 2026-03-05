@@ -17,16 +17,6 @@ const getJwtSecret = () => {
   return new TextEncoder().encode(secret || 'dev-only-secret-not-for-production');
 };
 
-// Lazy initialization to avoid issues during build
-let _jwtSecret: Uint8Array | null = null;
-const getSecret = () => {
-  if (!_jwtSecret) {
-    _jwtSecret = getJwtSecret();
-  }
-  return _jwtSecret;
-};
-
-// For backwards compatibility
 const JWT_SECRET = getJwtSecret();
 
 export interface AdminSession {

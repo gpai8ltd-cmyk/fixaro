@@ -7,6 +7,12 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  // SECURITY: Admin-only — order details contain customer PII
+  const session = await getSession();
+  if (!session) {
+    return NextResponse.json({ error: 'Неоторизиран достъп' }, { status: 401 });
+  }
+
   try {
     const { id } = await params;
 
@@ -51,7 +57,11 @@ export async function PUT(
 
     const updateData: Record<string, unknown> = {};
 
+    const VALID_STATUSES = ['PENDING', 'CONFIRMED', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED', 'RETURNED'];
     if (body.status) {
+      if (!VALID_STATUSES.includes(body.status)) {
+        return NextResponse.json({ error: 'Невалиден статус' }, { status: 400 });
+      }
       updateData.status = body.status;
       if (body.status === 'DELIVERED') {
         updateData.completedAt = new Date();

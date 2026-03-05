@@ -20,7 +20,7 @@ export default function CartPage() {
   const { items, removeItem, updateQuantity, subtotal, clearCart } = useCart();
   const total = subtotal();
 
-  const deliveryFee = total >= 100 ? 0 : 6.99;
+  const deliveryFee = total >= 391.17 ? 0 : 13.69;
   const finalTotal = total + deliveryFee;
 
   if (items.length === 0) {
@@ -91,7 +91,7 @@ export default function CartPage() {
               {/* Details */}
               <div className="flex-1 min-w-0">
                 <Link
-                  href={`/products/${item.id}`}
+                  href={`/products/${item.slug || item.id}`}
                   className="font-medium text-slate-800 hover:text-[var(--primary)] line-clamp-2"
                 >
                   {item.name}
@@ -200,9 +200,9 @@ export default function CartPage() {
                 </span>
               </div>
 
-              {total < 100 && (
+              {total < 391.17 && (
                 <div className="p-3 bg-amber-50 text-amber-800 rounded-lg text-sm">
-                  Добавете още <strong>{(100 - total).toFixed(2)} лв.</strong> ({toEur(100 - total)} €) за безплатна доставка!
+                  Добавете още <strong>{(391.17 - total).toFixed(2)} лв.</strong> ({toEur(391.17 - total)} €) за безплатна доставка!
                 </div>
               )}
 
