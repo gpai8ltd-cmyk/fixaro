@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV === "development";
+
 const nextConfig: NextConfig = {
   turbopack: {
     root: __dirname,
@@ -42,9 +44,10 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval'", // Next.js requires these
-              "style-src 'self' 'unsafe-inline'", // Tailwind inline styles
-              "img-src 'self' https: data: blob:",
+              // unsafe-inline required by Next.js for hydration; unsafe-eval only in development
+              `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
+              "style-src 'self' 'unsafe-inline'",
+              "img-src 'self' https://*.public.blob.vercel-storage.com https: data: blob:",
               "font-src 'self' data:",
               "connect-src 'self' https: wss://api.elevenlabs.io",
               "frame-ancestors 'self'",
@@ -57,9 +60,13 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  // Image optimization
+  // Image optimization — Vercel Blob is primary; wildcard kept for legacy external images
   images: {
     remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.public.blob.vercel-storage.com",
+      },
       {
         protocol: "https",
         hostname: "**",

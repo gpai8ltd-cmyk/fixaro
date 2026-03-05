@@ -1,7 +1,14 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { getSession } from '@/lib/auth';
 
 export async function GET() {
+  // SECURITY: Admin-only — customer data contains PII (GDPR)
+  const session = await getSession();
+  if (!session) {
+    return NextResponse.json({ error: 'Неоторизиран достъп' }, { status: 401 });
+  }
+
   try {
     const customers = await prisma.customer.findMany({
       include: {
