@@ -122,15 +122,17 @@ export default async function HomePage() {
     <>
       {/* Hero Section */}
       <section className="relative min-h-[500px] md:min-h-[600px] overflow-hidden" aria-label="Промоционален банер">
-        {/* Background Image */}
+        {/* Background Video */}
         <div className="absolute inset-0">
-          <Image
-            src="https://images.unsplash.com/photo-1504148455328-c376907d081c?w=1920&h=1080&fit=crop"
-            alt="Работилница с инструменти"
-            fill
-            className="object-cover"
-            priority
-          />
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="/videos/hero.mp4" type="video/mp4" />
+          </video>
           {/* Animated gradient blobs */}
           <HeroBlobs />
           {/* Gradient Overlay */}
@@ -155,7 +157,7 @@ export default async function HomePage() {
                 Открийте широка гама от електроинструменти и ръчни инструменти
                 на достъпни цени. Бърза доставка в цяла България.
               </p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-4">
+              <div className="mt-8 hidden sm:flex flex-col sm:flex-row gap-4">
                 <Link href="/products" className="btn btn-primary btn-lg shadow-lg shadow-[var(--primary)]/30 hover:shadow-[var(--primary)]/50 transition-shadow">
                   Разгледай продуктите
                   <ArrowRight size={20} aria-hidden="true" />
