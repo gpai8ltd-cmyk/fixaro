@@ -135,25 +135,25 @@ export default async function HomePage() {
           </video>
           {/* Animated gradient blobs */}
           <HeroBlobs />
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[var(--secondary)] via-[var(--secondary)]/90 to-[var(--secondary)]/40" />
+          {/* Gradient Overlay — lighter on mobile so video is visible */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--secondary)] via-[var(--secondary)]/50 to-transparent md:bg-gradient-to-r md:from-[var(--secondary)] md:via-[var(--secondary)]/90 md:to-[var(--secondary)]/40" />
           {/* Floating tool icons */}
           <FloatingIcons />
         </div>
 
-        <div className="container-custom relative z-10">
-          <div className="py-16 md:py-24 lg:py-32">
+        <div className="container-custom relative z-10 flex items-end md:items-center min-h-[500px] md:min-h-[600px]">
+          <div className="pb-8 pt-32 md:py-24 lg:py-32">
             <div className="max-w-2xl animate-fade-in">
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[var(--primary)]/20 text-[var(--primary)] rounded-full text-sm font-medium mb-4 backdrop-blur-sm">
+              <span className="hidden md:inline-flex items-center gap-2 px-4 py-1.5 bg-[var(--primary)]/20 text-[var(--primary)] rounded-full text-sm font-medium mb-4 backdrop-blur-sm">
                 <Flame size={16} className="animate-pulse" />
                 Нови продукти всяка седмица
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
                 Качествени инструменти за{' '}
                 <span className="text-[var(--primary)]">професионалисти</span>{' '}
                 и любители
               </h1>
-              <p className="mt-6 text-lg md:text-xl text-slate-300 max-w-xl">
+              <p className="mt-3 md:mt-6 text-sm md:text-xl text-slate-300 max-w-xl">
                 Открийте широка гама от електроинструменти и ръчни инструменти
                 на достъпни цени. Бърза доставка в цяла България.
               </p>
@@ -167,8 +167,8 @@ export default async function HomePage() {
                 </Link>
               </div>
 
-              {/* Trust badges */}
-              <div className="mt-10 flex flex-wrap items-center gap-6 text-slate-400 text-sm">
+              {/* Trust badges — hidden on mobile */}
+              <div className="mt-10 hidden md:flex flex-wrap items-center gap-6 text-slate-400 text-sm">
                 <div className="flex items-center gap-2">
                   <Shield size={18} className="text-green-400" />
                   <span>2 години гаранция</span>
