@@ -179,38 +179,12 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Stats Bar */}
-      <StatsBar />
-
-      {/* Features */}
-      <section className="py-8 border-b border-[var(--border)]" aria-label="Предимства">
-        <div className="container-custom">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-            {features.map((feature, index) => (
-              <div key={index} className="flex flex-col items-center text-center gap-2 p-3">
-                <div className="w-12 h-12 bg-[var(--primary)]/10 rounded-lg flex items-center justify-center">
-                  <feature.icon className="text-[var(--primary)]" size={24} aria-hidden="true" />
-                </div>
-                <div>
-                  <h3 className="font-medium text-slate-800 text-sm md:text-base">
-                    {feature.title}
-                  </h3>
-                  <p className="text-xs md:text-sm text-slate-500">
-                    {feature.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Categories */}
-      <section className="py-12 md:py-16" aria-labelledby="categories-heading">
+      <section className="pt-4 pb-8 md:py-16" aria-labelledby="categories-heading">
         <div className="container-custom">
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center justify-between mb-4 md:mb-8">
             <div>
-              <h2 id="categories-heading" className="text-2xl md:text-3xl font-bold text-slate-800">
+              <h2 id="categories-heading" className="text-2xl md:text-3xl font-bold text-[var(--primary)]">
                 Категории
               </h2>
               <p className="text-slate-500 mt-1">
@@ -227,7 +201,7 @@ export default async function HomePage() {
           </div>
 
           {categories.length > 0 ? (
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 stagger-children">
               {categories.map((category) => {
                 const IconComponent = categoryIcons[category.slug] || Package;
                 const children = (category as any).children || [];
@@ -295,6 +269,32 @@ export default async function HomePage() {
               <p>Все още няма добавени категории</p>
             </div>
           )}
+        </div>
+      </section>
+
+      {/* Stats Bar */}
+      <StatsBar />
+
+      {/* Features */}
+      <section className="py-8 border-b border-[var(--border)]" aria-label="Предимства">
+        <div className="container-custom">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+            {features.map((feature, index) => (
+              <div key={index} className="flex flex-col items-center text-center gap-2 p-3">
+                <div className="w-12 h-12 bg-[var(--primary)]/10 rounded-lg flex items-center justify-center">
+                  <feature.icon className="text-[var(--primary)]" size={24} aria-hidden="true" />
+                </div>
+                <div>
+                  <h3 className="font-medium text-slate-800 text-sm md:text-base">
+                    {feature.title}
+                  </h3>
+                  <p className="text-xs md:text-sm text-slate-500">
+                    {feature.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

@@ -260,6 +260,15 @@ export function ChatPanel({ onClose, categoryContext }: ChatPanelProps) {
             <Send className="w-4 h-4" />
           </button>
         </div>
+        <div className="text-center mt-2 leading-none">
+          <a href="https://www.gpailtd.com" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 hover:text-lime-500 transition-colors">
+            Powered by <span className="font-semibold">GPAI</span>
+          </a>
+          <br />
+          <a href="https://www.gpailtd.com" target="_blank" rel="noopener noreferrer" className="text-[10px] text-slate-400 hover:text-lime-500 transition-colors">
+            www.gpailtd.com
+          </a>
+        </div>
       </div>
     </div>
   );
